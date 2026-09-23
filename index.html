@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0e7a5f">
-<title>اسمارٹ قرآن روٹین ٹریکر</title>
+<title>اسمارٹ قرآن روٹین ٹریکر — پارہ کنورٹر کے ساتھ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
@@ -53,6 +53,7 @@ body {
   --border: #dcebe4;
   --shadow: 0 4px 16px rgba(10, 60, 45, 0.08);
   --radius: 16px;
+  --danger: #c0392b;
 }
 
 button, input, select, textarea {
@@ -97,12 +98,7 @@ button { cursor: pointer; border: 0; background: none; }
   align-items: center;
   gap: 12px;
 }
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-}
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .logo {
   flex: 0 0 auto;
   width: 44px;
@@ -114,9 +110,7 @@ button { cursor: pointer; border: 0; background: none; }
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.32);
 }
-.brand-text {
-  min-width: 0;
-}
+.brand-text { min-width: 0; }
 .brand-text h1 {
   font-size: 16.5px;
   font-weight: 700;
@@ -168,6 +162,7 @@ button { cursor: pointer; border: 0; background: none; }
   padding: 12px 14px;
   border-bottom: 1px solid var(--border);
   background: linear-gradient(180deg, var(--card-2), transparent);
+  flex-wrap: wrap;
 }
 .card-head h2 {
   font-size: 14.5px;
@@ -175,9 +170,7 @@ button { cursor: pointer; border: 0; background: none; }
   margin: 0;
   min-width: 0;
 }
-.card-body {
-  padding: 14px;
-}
+.card-body { padding: 14px; }
 
 .pill {
   flex: 0 0 auto;
@@ -204,10 +197,7 @@ button { cursor: pointer; border: 0; background: none; }
 /* ============================================================
    FORM FIELDS
    ============================================================ */
-.field {
-  width: 100%;
-  margin-bottom: 13px;
-}
+.field { width: 100%; margin-bottom: 13px; }
 .field label {
   display: block;
   font-size: 12.5px;
@@ -291,10 +281,7 @@ button { cursor: pointer; border: 0; background: none; }
   gap: 7px;
   margin: 2px 0 14px;
 }
-.quick-days > span {
-  font-size: 11.5px;
-  color: var(--muted);
-}
+.quick-days > span { font-size: 11.5px; color: var(--muted); }
 .chip {
   font-size: 12.5px;
   padding: 6px 12px;
@@ -341,6 +328,18 @@ button { cursor: pointer; border: 0; background: none; }
   padding: 10px;
 }
 .btn.ghost:active { transform: scale(0.98); }
+.btn.mini {
+  padding: 10px 14px;
+  font-size: 13px;
+  border-radius: 11px;
+  white-space: nowrap;
+  width: auto;
+}
+.btn.mini.gold {
+  color: #4a3a06;
+  background: linear-gradient(135deg, #e0be4e, #c9a227);
+  box-shadow: 0 4px 12px rgba(201, 162, 39, 0.3);
+}
 
 /* ============================================================
    PROGRESS BARS
@@ -382,16 +381,16 @@ button { cursor: pointer; border: 0; background: none; }
 .progress-bottom b { color: var(--text); }
 
 /* ============================================================
-   STATS
+   STATS GRID
    ============================================================ */
 .stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   margin-top: 14px;
 }
 .stat {
-  padding: 8px 4px;
+  padding: 9px 6px;
   border-radius: 12px;
   background: var(--card-2);
   border: 1px solid var(--border);
@@ -400,17 +399,19 @@ button { cursor: pointer; border: 0; background: none; }
 }
 .stat b {
   display: block;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   color: var(--emerald);
-  line-height: 1.4;
+  line-height: 1.35;
 }
 .stat span {
   display: block;
   font-size: 10.5px;
   color: var(--muted);
   line-height: 1.4;
+  margin-top: 1px;
 }
+.stat.gold b { color: var(--gold); }
 
 .note {
   margin-top: 12px;
@@ -435,23 +436,26 @@ button { cursor: pointer; border: 0; background: none; }
    ============================================================ */
 .hero {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  align-items: stretch;
+  gap: 10px;
   margin-bottom: 14px;
   min-width: 0;
 }
 .hero-num {
-  flex: 0 0 92px;
-  padding: 8px 6px;
+  flex: 0 0 96px;
+  padding: 10px 6px;
   border-radius: 14px;
   color: #ffffff;
   text-align: center;
   background: linear-gradient(160deg, #0e7a5f, #0a5c47);
   box-shadow: 0 6px 16px rgba(14, 122, 95, 0.28);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .hero-num span {
   display: block;
-  font-size: 28px;
+  font-size: 27px;
   font-weight: 800;
   line-height: 1.1;
 }
@@ -461,9 +465,22 @@ button { cursor: pointer; border: 0; background: none; }
   opacity: 0.9;
   margin-top: 2px;
 }
+.hero-num .parah-eq {
+  display: block;
+  margin-top: 5px;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
 .hero-right {
   flex: 1 1 0;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .mini-top {
   display: flex;
@@ -474,15 +491,73 @@ button { cursor: pointer; border: 0; background: none; }
   color: var(--muted);
   margin-bottom: 6px;
 }
-.mini-top strong {
-  color: var(--text);
-  font-size: 13px;
-}
+.mini-top strong { color: var(--text); font-size: 13px; }
 .mini-bottom {
   margin-top: 6px;
   font-size: 11.5px;
   color: var(--muted);
   line-height: 1.6;
+}
+
+/* ============================================================
+   EXTRA READING TRACKER
+   ============================================================ */
+.extra-box {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--gold-soft);
+  border: 1.5px dashed rgba(201, 162, 39, 0.55);
+}
+.extra-box h3 {
+  font-size: 13px;
+  font-weight: 700;
+  color: #6a5410;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.extra-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+.extra-row input {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 11px;
+  border: 1.5px solid rgba(201, 162, 39, 0.5);
+  background: #ffffff;
+  font-size: 14.5px;
+  outline: none;
+  text-align: center;
+}
+.extra-row input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.2);
+}
+.extra-info {
+  margin-top: 9px;
+  font-size: 12px;
+  color: #5d4b10;
+  line-height: 1.8;
+}
+.extra-info b {
+  color: #3a2e05;
+  font-weight: 800;
+}
+.extra-badge {
+  display: inline-block;
+  margin-inline-start: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  color: #8a6c0d;
+  border: 1px solid rgba(201, 162, 39, 0.4);
 }
 
 /* ============================================================
@@ -492,6 +567,7 @@ button { cursor: pointer; border: 0; background: none; }
   display: flex;
   flex-direction: column;
   gap: 9px;
+  margin-top: 12px;
 }
 .prayer {
   display: flex;
@@ -539,10 +615,7 @@ button { cursor: pointer; border: 0; background: none; }
   transform: scale(1);
 }
 
-.prayer-info {
-  flex: 1 1 0;
-  min-width: 0;
-}
+.prayer-info { flex: 1 1 0; min-width: 0; }
 .prayer-name {
   font-size: 14px;
   font-weight: 700;
@@ -554,7 +627,7 @@ button { cursor: pointer; border: 0; background: none; }
 .prayer-range {
   font-size: 11.5px;
   color: var(--muted);
-  line-height: 1.5;
+  line-height: 1.55;
   margin-top: 1px;
   white-space: nowrap;
   overflow: hidden;
@@ -562,16 +635,31 @@ button { cursor: pointer; border: 0; background: none; }
 }
 .prayer-count {
   flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+.prayer-count .pc-pages {
   font-size: 11px;
   font-weight: 700;
   color: var(--emerald);
   background: var(--emerald-soft);
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: 999px;
   white-space: nowrap;
   transition: background 0.25s, color 0.25s;
 }
-.prayer.done .prayer-count {
+.prayer-count .pc-parah {
+  font-size: 10px;
+  font-weight: 700;
+  color: #8a6c0d;
+  background: var(--gold-soft);
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.prayer.done .prayer-count .pc-pages {
   background: var(--emerald);
   color: #ffffff;
 }
@@ -605,14 +693,19 @@ button { cursor: pointer; border: 0; background: none; }
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+@media (min-width: 480px) {
+  .stats { grid-template-columns: repeat(4, 1fr); }
+}
+
 @media (max-width: 360px) {
   body { font-size: 14px; }
-  .hero-num { flex: 0 0 78px; }
-  .hero-num span { font-size: 24px; }
-  .stat b { font-size: 16px; }
+  .hero-num { flex: 0 0 82px; }
+  .hero-num span { font-size: 23px; }
+  .stat b { font-size: 15.5px; }
   .stat span { font-size: 10px; }
   .prayer-name { font-size: 13px; }
-  .prayer-count { font-size: 10px; padding: 3px 8px; }
+  .prayer-count .pc-pages { font-size: 10px; padding: 3px 7px; }
+  .prayer-count .pc-parah { font-size: 9.5px; padding: 2px 6px; }
 }
 
 @media (min-width: 560px) {
@@ -630,7 +723,7 @@ button { cursor: pointer; border: 0; background: none; }
       <div class="logo">☪</div>
       <div class="brand-text">
         <h1>اسمارٹ قرآن روٹین ٹریکر</h1>
-        <p>روزانہ کا ہدف • پانچ نمازوں میں تقسیم • آسان ٹریکنگ</p>
+        <p>صفحات + پارہ کنورٹر • پانچ نمازوں میں تقسیم</p>
       </div>
     </div>
   </div>
@@ -719,10 +812,29 @@ button { cursor: pointer; border: 0; background: none; }
       </div>
 
       <div class="stats">
+        <div class="stat">
+          <b id="stDailyPages">0</b>
+          <span>روزانہ صفحات</span>
+        </div>
+        <div class="stat gold">
+          <b id="stDailyParah">0</b>
+          <span>روزانہ پارہ</span>
+        </div>
+        <div class="stat">
+          <b id="stDonePages">0</b>
+          <span>مکمل صفحات</span>
+        </div>
+        <div class="stat gold">
+          <b id="stDoneParah">0</b>
+          <span>مکمل پارہ</span>
+        </div>
+      </div>
+
+      <div class="stats">
         <div class="stat"><b id="stStart">1</b><span>آغاز صفحہ</span></div>
         <div class="stat"><b id="stCurrent">1</b><span>اگلا صفحہ</span></div>
         <div class="stat"><b id="stDaysLeft">30</b><span>باقی دن</span></div>
-        <div class="stat"><b id="stDaily">19</b><span>روزانہ ہدف</span></div>
+        <div class="stat gold"><b id="stRemParah">30</b><span>باقی پارے</span></div>
       </div>
 
       <div class="note" id="statusNote">—</div>
@@ -742,6 +854,7 @@ button { cursor: pointer; border: 0; background: none; }
         <div class="hero-num">
           <span id="todayTarget">0</span>
           <small>صفحات آج</small>
+          <span class="parah-eq" id="todayTargetParah">≈ 0 پارہ</span>
         </div>
         <div class="hero-right">
           <div class="mini-top">
@@ -750,6 +863,23 @@ button { cursor: pointer; border: 0; background: none; }
           </div>
           <div class="bar gold"><i id="todayBar"></i></div>
           <div class="mini-bottom" id="todayMsg">—</div>
+        </div>
+      </div>
+
+      <!-- ============ EXTRA READING TRACKER ============ -->
+      <div class="extra-box">
+        <h3>✍️ اضافی تلاوت (نمازوں کے علاوہ)</h3>
+        <div class="extra-row">
+          <input type="number" id="extraInput" min="0" max="549" inputmode="numeric"
+                 placeholder="اضافی صفحات لکھیں" value="0">
+          <button class="btn mini gold" id="extraSaveBtn" type="button">محفوظ کریں</button>
+        </div>
+        <div class="extra-info" id="extraInfo">
+          آج کل مکمل: <b>0</b> صفحات
+          <span class="extra-badge">≈ 0 پارہ</span>
+        </div>
+        <div class="extra-info" style="margin-top:4px;">
+          <button class="ghost-btn" id="extraResetBtn" type="button" style="font-size:11px;">اضافی صفر کریں</button>
         </div>
       </div>
 
@@ -771,7 +901,9 @@ button { cursor: pointer; border: 0; background: none; }
      CONSTANTS
      ============================================================ */
   var TOTAL_PAGES = 549;
-  var STORAGE_KEY = "smart_quran_routine_549_v1";
+  var TOTAL_PARAS = 30;
+  var PAGES_PER_PARAH = TOTAL_PAGES / TOTAL_PARAS; /* ≈ 18.3 */
+  var STORAGE_KEY = "smart_quran_routine_549_v2";
 
   /* 16-line Madani Mushaf (549 pages) — Para start pages */
   var PARAH_STARTS = [
@@ -794,16 +926,10 @@ button { cursor: pointer; border: 0; background: none; }
   ];
 
   /* ============================================================
-     SMALL HELPERS
+     HELPERS
      ============================================================ */
   function $(id) { return document.getElementById(id); }
-
-  function clamp(v, a, b) {
-    if (v < a) return a;
-    if (v > b) return b;
-    return v;
-  }
-
+  function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
   function pad2(n) { return n < 10 ? "0" + n : "" + n; }
 
   function todayISO() {
@@ -823,16 +949,26 @@ button { cursor: pointer; border: 0; background: none; }
   }
 
   function diffDays(aISO, bISO) {
-    var A = parseISO(aISO);
-    var B = parseISO(bISO);
-    A.setHours(0, 0, 0, 0);
-    B.setHours(0, 0, 0, 0);
+    var A = parseISO(aISO); var B = parseISO(bISO);
+    A.setHours(0, 0, 0, 0); B.setHours(0, 0, 0, 0);
     return Math.round((B.getTime() - A.getTime()) / 86400000);
   }
 
   function formatDateUr(iso) {
     var d = parseISO(iso);
     return d.getDate() + " " + URDU_MONTHS[d.getMonth()] + " " + d.getFullYear();
+  }
+
+  /* Page → Parah conversion */
+  function pagesToParah(pages) {
+    if (!pages || pages <= 0) return 0;
+    return pages / PAGES_PER_PARAH;
+  }
+
+  function formatParah(p) {
+    if (p === 0) return "0";
+    if (p < 0.05) return "~0";
+    return (Math.round(p * 10) / 10).toFixed(1);
   }
 
   /* ============================================================
@@ -844,13 +980,13 @@ button { cursor: pointer; border: 0; background: none; }
     var t = todayISO();
     return {
       startDate: t,
-      mode: "days",              /* "days" | "date" */
+      mode: "days",
       totalDays: 30,
       targetDate: addDaysISO(t, 29),
-      startMode: "page1",        /* "page1" | "page" | "parah" */
+      startMode: "page1",
       startPage: 1,
       parah: 1,
-      log: {}                    /* { "YYYY-MM-DD": { prayers: [{done, from, to, count}] } } */
+      log: {} /* { "YYYY-MM-DD": { prayers: [...], extra: 0 } } */
     };
   }
 
@@ -865,13 +1001,10 @@ button { cursor: pointer; border: 0; background: none; }
       var s = defaultState();
       var k;
       for (k in def) {
-        if (def.hasOwnProperty(k) && parsed.hasOwnProperty(k)) {
-          s[k] = parsed[k];
-        }
+        if (def.hasOwnProperty(k) && parsed.hasOwnProperty(k)) s[k] = parsed[k];
       }
-      if (!s.log || typeof s.log !== "object" || Array.isArray(s.log)) {
-        s.log = {};
-      }
+      if (!s.log || typeof s.log !== "object" || Array.isArray(s.log)) s.log = {};
+
       s.startPage = clamp(parseInt(s.startPage, 10) || 1, 1, TOTAL_PAGES);
       s.parah = clamp(parseInt(s.parah, 10) || 1, 1, 30);
       s.totalDays = clamp(parseInt(s.totalDays, 10) || 30, 1, 3650);
@@ -879,6 +1012,17 @@ button { cursor: pointer; border: 0; background: none; }
       if (["page1", "page", "parah"].indexOf(s.startMode) === -1) s.startMode = "page1";
       if (!s.startDate) s.startDate = todayISO();
       if (!s.targetDate) s.targetDate = s.startDate;
+
+      /* sanitize log entries */
+      var d;
+      for (d in s.log) {
+        if (!s.log.hasOwnProperty(d)) continue;
+        var day = s.log[d];
+        if (!day || typeof day !== "object") { delete s.log[d]; continue; }
+        if (!Array.isArray(day.prayers)) day.prayers = [];
+        if (typeof day.extra !== "number" || day.extra < 0) day.extra = 0;
+      }
+
       return s;
     } catch (e) {
       return def;
@@ -888,7 +1032,7 @@ button { cursor: pointer; border: 0; background: none; }
   function save() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch (e) { /* ignore quota errors */ }
+    } catch (e) { /* ignore */ }
   }
 
   /* ============================================================
@@ -902,14 +1046,17 @@ button { cursor: pointer; border: 0; background: none; }
       if (!state.log.hasOwnProperty(d)) continue;
       if (d >= today) continue;
       var day = state.log[d];
-      if (!day || !day.prayers || !day.prayers.length) continue;
+      if (!day) continue;
       var i;
-      for (i = 0; i < day.prayers.length; i++) {
-        var p = day.prayers[i];
-        if (p && p.done && typeof p.count === "number" && p.count > 0) {
-          sum += p.count;
+      if (day.prayers && day.prayers.length) {
+        for (i = 0; i < day.prayers.length; i++) {
+          var p = day.prayers[i];
+          if (p && p.done && typeof p.count === "number" && p.count > 0) {
+            sum += p.count;
+          }
         }
       }
+      if (day.extra && day.extra > 0) sum += day.extra;
     }
     return sum;
   }
@@ -917,15 +1064,18 @@ button { cursor: pointer; border: 0; background: none; }
   function pagesDoneToday() {
     var today = todayISO();
     var day = state.log[today];
-    if (!day || !day.prayers || !day.prayers.length) return 0;
+    if (!day) return 0;
     var sum = 0;
     var i;
-    for (i = 0; i < day.prayers.length; i++) {
-      var p = day.prayers[i];
-      if (p && p.done && typeof p.count === "number" && p.count > 0) {
-        sum += p.count;
+    if (day.prayers && day.prayers.length) {
+      for (i = 0; i < day.prayers.length; i++) {
+        var p = day.prayers[i];
+        if (p && p.done && typeof p.count === "number" && p.count > 0) {
+          sum += p.count;
+        }
       }
     }
+    if (day.extra && day.extra > 0) sum += day.extra;
     return sum;
   }
 
@@ -950,7 +1100,7 @@ button { cursor: pointer; border: 0; background: none; }
       ? Math.ceil(remainingAtDayStart / remainingDays)
       : 0;
 
-    /* --- split evenly across the 5 prayers, sequentially --- */
+    /* Even split across 5 prayers, keeping total exactly matched */
     var base = Math.floor(dailyTarget / 5);
     var rem = dailyTarget % 5;
     var cursor = dayStartPage;
@@ -969,7 +1119,8 @@ button { cursor: pointer; border: 0; background: none; }
         icon: PRAYERS[i].icon,
         from: from,
         to: to,
-        count: cnt
+        count: cnt,
+        parahEq: pagesToParah(cnt)
       });
     }
 
@@ -987,22 +1138,27 @@ button { cursor: pointer; border: 0; background: none; }
       daysLeft: daysLeftDisplay,
       overdue: overdue,
       dailyTarget: dailyTarget,
+      dailyTargetParah: pagesToParah(dailyTarget),
       items: items,
       currentPage: startPage + totalDone,
-      dayStartPage: dayStartPage
+      dayStartPage: dayStartPage,
+      totalToReadParah: pagesToParah(totalToRead),
+      totalDoneParah: pagesToParah(totalDone),
+      remainingParah: pagesToParah(Math.max(0, totalToRead - totalDone))
     };
   }
 
   /* ============================================================
-     LOG SYNC (never overwrites a completed prayer)
+     LOG SYNC
      ============================================================ */
   function syncToday(plan) {
     var today = todayISO();
     var day = state.log[today];
     if (!day || typeof day !== "object") {
-      day = state.log[today] = { prayers: [] };
+      day = state.log[today] = { prayers: [], extra: 0 };
     }
     if (!day.prayers || !day.prayers.length) day.prayers = [];
+    if (typeof day.extra !== "number" || day.extra < 0) day.extra = 0;
 
     var i;
     for (i = 0; i < 5; i++) {
@@ -1033,6 +1189,7 @@ button { cursor: pointer; border: 0; background: none; }
           if (day.prayers[i] && day.prayers[i].done) { any = true; break; }
         }
       }
+      if (day && day.extra && day.extra > 0) any = true;
       if (!any) delete state.log[d];
     }
   }
@@ -1047,6 +1204,7 @@ button { cursor: pointer; border: 0; background: none; }
     save();
     renderOverview(plan);
     renderToday(plan);
+    renderExtra(plan);
     renderPrayers(plan);
   }
 
@@ -1064,17 +1222,22 @@ button { cursor: pointer; border: 0; background: none; }
     $("ovLeft").textContent = plan.remainingPages;
     $("ovTotalLabel").textContent = plan.totalToRead;
 
+    $("stDailyPages").textContent = plan.dailyTarget;
+    $("stDailyParah").textContent = "≈ " + formatParah(plan.dailyTargetParah);
+    $("stDonePages").textContent = plan.totalDone;
+    $("stDoneParah").textContent = "≈ " + formatParah(plan.totalDoneParah);
     $("stStart").textContent = plan.startPage;
     $("stCurrent").textContent = plan.remainingPages > 0 ? plan.currentPage : "—";
     $("stDaysLeft").textContent = plan.overdue ? "0" : plan.daysLeft;
-    $("stDaily").textContent = plan.dailyTarget;
+    $("stRemParah").textContent = "≈ " + formatParah(plan.remainingParah);
 
     var note = "";
     if (plan.remainingPages === 0) {
       note = "🎉 ماشاءاللہ! آپ نے پورا قرآنِ کریم مکمل کر لیا ہے۔ اللہ قبول فرمائے۔";
     } else if (plan.overdue) {
       note = "⚠️ ہدف کی تاریخ گزر چکی ہے۔ باقی " + plan.remainingPages +
-             " صفحات جلد مکمل کریں — روزانہ ہدف خودکار طور پر بڑھا دیا گیا ہے۔";
+             " صفحات (≈ " + formatParah(plan.remainingParah) +
+             " پارے) جلد مکمل کریں — روزانہ ہدف خودکار بڑھا دیا گیا ہے۔";
     } else {
       var elapsed = diffDays(state.startDate, todayISO()) + 1;
       if (elapsed < 1) elapsed = 1;
@@ -1095,12 +1258,15 @@ button { cursor: pointer; border: 0; background: none; }
     $("statusNote").textContent = note;
     $("targetInfo").textContent =
       "ہدف کی تاریخ: " + formatDateUr(state.targetDate) +
-      "  •  کل " + state.totalDays + " دن";
+      "  •  کل " + state.totalDays + " دن  •  " +
+      "مکمل: " + plan.totalDone + "/" + plan.totalToRead + " صفحات  •  " +
+      "≈ " + formatParah(plan.totalDoneParah) + "/" + formatParah(plan.totalToReadParah) + " پارے";
   }
 
   function renderToday(plan) {
     $("todayDate").textContent = formatDateUr(todayISO());
     $("todayTarget").textContent = plan.dailyTarget;
+    $("todayTargetParah").textContent = "≈ " + formatParah(plan.dailyTargetParah) + " پارہ";
 
     var done = plan.doneToday;
     var pct;
@@ -1116,14 +1282,32 @@ button { cursor: pointer; border: 0; background: none; }
     $("todayTotal").textContent = plan.dailyTarget;
 
     var msg;
+    var doneParahTxt = formatParah(pagesToParah(done));
     if (plan.dailyTarget === 0) {
       msg = "🎉 پورا قرآن مکمل — کوئی باقی صفحہ نہیں";
     } else if (done >= plan.dailyTarget) {
-      msg = "✅ آج کا ہدف مکمل — اللہ قبول فرمائے";
+      msg = "✅ آج کا ہدف مکمل — کل " + done + " صفحات (≈ " +
+            doneParahTxt + " پارہ) — اللہ قبول فرمائے";
     } else {
-      msg = "ابھی " + (plan.dailyTarget - done) + " صفحات باقی ہیں";
+      msg = "ابھی " + (plan.dailyTarget - done) + " صفحات باقی • " +
+            "آج کل " + done + " صفحات (≈ " + doneParahTxt + " پارہ) مکمل";
     }
     $("todayMsg").textContent = msg;
+  }
+
+  function renderExtra(plan) {
+    var today = todayISO();
+    var day = state.log[today] || { prayers: [], extra: 0 };
+    var extra = day.extra || 0;
+
+    var doneToday = plan.doneToday;
+    var doneParahTxt = formatParah(pagesToParah(doneToday));
+
+    $("extraInput").value = extra;
+
+    $("extraInfo").innerHTML =
+      "آج کل مکمل: <b>" + doneToday + "</b> صفحات" +
+      '<span class="extra-badge">≈ ' + doneParahTxt + " پارہ</span>";
   }
 
   function renderPrayers(plan) {
@@ -1142,7 +1326,10 @@ button { cursor: pointer; border: 0; background: none; }
         ? "صفحہ " + it.from + " تا " + it.to
         : "ہدف مکمل — پڑھائی ختم";
 
-      var countTxt = it.count > 0 ? it.count + " صفحات" : "—";
+      var pagesTxt = it.count > 0 ? it.count + " صفحات" : "—";
+      var parahTxt = it.count > 0
+        ? "≈ " + formatParah(it.parahEq) + " پارہ"
+        : "—";
 
       html += '<div class="prayer' +
               (done ? " done" : "") +
@@ -1158,7 +1345,10 @@ button { cursor: pointer; border: 0; background: none; }
       html +=     '<div class="prayer-name">' + it.icon + " " + it.name + "</div>";
       html +=     '<div class="prayer-range">' + rangeTxt + "</div>";
       html +=   "</div>";
-      html +=   '<div class="prayer-count">' + countTxt + "</div>";
+      html +=   '<div class="prayer-count">';
+      html +=     '<span class="pc-pages">' + pagesTxt + "</span>";
+      html +=     '<span class="pc-parah">' + parahTxt + "</span>";
+      html +=   "</div>";
       html += "</div>";
     }
 
@@ -1189,6 +1379,38 @@ button { cursor: pointer; border: 0; background: none; }
         try { navigator.vibrate(15); } catch (e) {}
       }
     }
+  }
+
+  function saveExtra() {
+    var val = parseInt($("extraInput").value, 10);
+    if (isNaN(val) || val < 0) val = 0;
+    if (val > TOTAL_PAGES) val = TOTAL_PAGES;
+
+    var today = todayISO();
+    var day = state.log[today];
+    if (!day || typeof day !== "object") {
+      day = state.log[today] = { prayers: [], extra: 0 };
+    }
+    if (!Array.isArray(day.prayers)) day.prayers = [];
+
+    day.extra = val;
+    save();
+    render();
+
+    if (val > 0) {
+      showToast("اضافی تلاوت محفوظ: " + val + " صفحات");
+    } else {
+      showToast("اضافی تلاوت صفر کر دی گئی");
+    }
+  }
+
+  function resetExtra() {
+    var today = todayISO();
+    var day = state.log[today];
+    if (day) day.extra = 0;
+    save();
+    render();
+    showToast("اضافی تلاوت صفر ہو گئی");
   }
 
   function applySetup() {
@@ -1263,9 +1485,7 @@ button { cursor: pointer; border: 0; background: none; }
     el.textContent = msg;
     el.classList.add("show");
     if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () {
-      el.classList.remove("show");
-    }, 2000);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 2000);
   }
 
   /* ============================================================
@@ -1291,11 +1511,8 @@ button { cursor: pointer; border: 0; background: none; }
     var i;
     for (i = 0; i < segs.length; i++) {
       var b = segs[i];
-      if (b.getAttribute("data-mode") === state.mode) {
-        b.classList.add("active");
-      } else {
-        b.classList.remove("active");
-      }
+      if (b.getAttribute("data-mode") === state.mode) b.classList.add("active");
+      else b.classList.remove("active");
     }
   }
 
@@ -1311,11 +1528,8 @@ button { cursor: pointer; border: 0; background: none; }
     for (i = 0; i < chips.length; i++) {
       var c = chips[i];
       var v = parseInt(c.getAttribute("data-days"), 10);
-      if (state.mode === "days" && v === state.totalDays) {
-        c.classList.add("active");
-      } else {
-        c.classList.remove("active");
-      }
+      if (state.mode === "days" && v === state.totalDays) c.classList.add("active");
+      else c.classList.remove("active");
     }
   }
 
@@ -1377,6 +1591,12 @@ button { cursor: pointer; border: 0; background: none; }
 
     $("saveBtn").addEventListener("click", applySetup);
     $("resetBtn").addEventListener("click", resetAll);
+
+    $("extraSaveBtn").addEventListener("click", saveExtra);
+    $("extraResetBtn").addEventListener("click", resetExtra);
+    $("extraInput").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); saveExtra(); }
+    });
 
     $("prayerList").addEventListener("click", function (e) {
       var t = e.target;
