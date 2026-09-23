@@ -1,1168 +1,580 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl" data-theme="light">
+<html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#0e7a5f">
-<title>اسمارٹ قرآن روٹین و ٹریکر</title>
+<title>قرآن روٹین ٹریکر</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; }
-
-:root {
-  --bg: #eef5f1;
-  --card: #ffffff;
-  --card-2: #f6fbf8;
-  --text: #0d2a20;
-  --muted: #5f7d70;
-  --emerald: #0e7a5f;
-  --emerald-2: #0a5c47;
-  --emerald-soft: #d9f0e7;
-  --gold: #c9a227;
-  --gold-soft: #fbf1d4;
-  --border: #dcebe4;
-  --shadow: 0 6px 24px rgba(10, 60, 45, .08);
-  --radius: 18px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
-[data-theme="dark"] {
-  --bg: #06120e;
-  --card: #0e2019;
-  --card-2: #12291f;
-  --text: #e6f4ee;
-  --muted: #8fb0a2;
-  --emerald: #19a97e;
-  --emerald-2: #0e7a5f;
-  --emerald-soft: #123a2d;
-  --gold: #e0be4e;
-  --gold-soft: #2e2713;
-  --border: #1c3a2e;
-  --shadow: 0 6px 24px rgba(0, 0, 0, .45);
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+  background-color: #eef5f1;
+  font-family: 'Noto Naskh Arabic', sans-serif;
+  color: #0d2a20;
+  direction: rtl;
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: 'Noto Naskh Arabic', system-ui, sans-serif;
-  font-size: 15px;
-  line-height: 1.85;
-  color: var(--text);
-  background: var(--bg);
-  transition: background .3s, color .3s;
-  overflow-x: hidden;
+  padding-bottom: 30px;
 }
 
-button, input, select { font-family: inherit; }
-button { cursor: pointer; }
-.hidden { display: none !important; }
+button, input, select {
+  font-family: inherit;
+  outline: none;
+}
 
+/* Header */
 .app-header {
-  padding: 18px 16px 24px;
-  border-radius: 0 0 26px 26px;
-  background: linear-gradient(135deg, #0a5c47, #0e7a5f, #13906e);
+  width: 100%;
+  background: linear-gradient(135deg, #0a5c47, #0e7a5f);
   color: #fff;
-  box-shadow: 0 10px 30px rgba(10, 92, 71, .28);
+  padding: 16px 14px;
+  text-align: center;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.header-inner {
-  max-width: 640px;
+.app-header h1 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.app-header p {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 480px;
   margin: 0 auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Cards */
+.card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #dcebe4;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+.card-head {
+  padding: 12px 14px;
+  background: #f6fbf8;
+  border-bottom: 1px solid #dcebe4;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.brand { display: flex; align-items: center; gap: 12px; }
-.logo {
-  width: 46px; height: 46px; display: grid; place-items: center;
-  font-size: 24px; border-radius: 15px; background: rgba(255,255,255,.18);
-}
-.brand h1 { margin: 0; font-size: 17px; font-weight: 700; }
-.brand p { margin: 0; font-size: 11.5px; opacity: .82; }
-
-.icon-btn {
-  width: 42px; height: 42px; border-radius: 13px;
-  border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.15);
-  color: #fff; font-size: 18px; display: grid; place-items: center;
+.card-head h2 {
+  font-size: 15px;
+  color: #0e7a5f;
 }
 
-.container {
-  max-width: 640px; margin: 0 auto; padding: 14px 14px 48px;
-  display: flex; flex-direction: column; gap: 14px;
+.card-body {
+  padding: 14px;
 }
 
-.card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
+/* Form Elements */
+.field {
+  margin-bottom: 12px;
+  width: 100%;
 }
 
-.card-head {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 13px 16px; border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, var(--card-2), transparent);
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5f7d70;
+  margin-bottom: 5px;
 }
 
-.card-head h2 { margin: 0; font-size: 14.5px; font-weight: 700; }
-.card-body { padding: 16px; }
-
-.pill {
-  font-size: 11.5px; font-weight: 600; color: var(--emerald);
-  background: var(--emerald-soft); padding: 4px 11px; border-radius: 999px;
-}
-
-.ghost-btn {
-  border: 1px solid var(--border); background: transparent;
-  color: var(--muted); font-size: 12px; padding: 5px 12px; border-radius: 999px;
-}
-
-.field { margin-bottom: 14px; }
-.field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
 .field input, .field select {
-  width: 100%; padding: 12px 14px; border-radius: 13px;
-  border: 1.5px solid var(--border); background: var(--card-2);
-  color: var(--text); font-size: 15px; outline: none;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1.5px solid #dcebe4;
+  background: #f9fdfb;
+  font-size: 14px;
+  color: #0d2a20;
 }
 
-.segmented { display: flex; gap: 4px; padding: 4px; border-radius: 13px; background: var(--card-2); border: 1.5px solid var(--border); }
-.seg { flex: 1; border: 0; background: transparent; color: var(--muted); font-size: 13.5px; font-weight: 600; padding: 9px; border-radius: 10px; }
-.seg.active { background: var(--emerald); color: #fff; }
+/* Buttons */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
 
-.quick-days { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 2px 0 16px; }
-.chip { border: 1.5px solid var(--border); background: var(--card-2); color: var(--text); font-size: 12.5px; padding: 6px 13px; border-radius: 999px; }
-.chip.active { background: var(--gold-soft); border-color: var(--gold); font-weight: 700; }
+.btn-primary {
+  background: #0e7a5f;
+  color: #ffffff;
+}
 
-.btn { width: 100%; border: 0; border-radius: 14px; padding: 14px; font-size: 15px; font-weight: 700; }
-.btn.primary { color: #fff; background: linear-gradient(135deg, var(--emerald), var(--emerald-2)); }
-.btn.ghost { margin-top: 14px; background: transparent; border: 1.5px solid var(--border); color: var(--muted); }
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #dcebe4;
+  color: #5f7d70;
+  margin-top: 10px;
+}
 
-.bar { height: 12px; border-radius: 999px; background: var(--emerald-soft); overflow: hidden; }
-.bar > i { display: block; height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, #0e7a5f, #2ec79a); transition: width .5s; }
-.bar.gold { background: var(--gold-soft); }
-.bar.gold > i { background: linear-gradient(90deg, #c9a227, #f0cf6a); }
+/* Quick Chips */
+.quick-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
 
-.progress-top, .progress-bottom { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--muted); margin-bottom: 7px; }
-.progress-bottom { margin: 7px 0 0; }
+.quick-box span {
+  font-size: 12px;
+  color: #5f7d70;
+}
 
-.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
-.stat { background: var(--card-2); border: 1px solid var(--border); border-radius: 14px; padding: 10px; text-align: center; }
-.stat b { display: block; font-size: 20px; font-weight: 800; color: var(--emerald); }
-.stat span { font-size: 11.5px; color: var(--muted); }
+.chip {
+  flex: 1;
+  min-width: 60px;
+  padding: 6px 0;
+  text-align: center;
+  background: #f6fbf8;
+  border: 1px solid #dcebe4;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+}
 
-.note { margin-top: 14px; padding: 11px 14px; border-radius: 13px; font-size: 12.5px; background: var(--emerald-soft); color: var(--text); }
-.target-info { margin-top: 12px; font-size: 11.5px; color: var(--muted); text-align: center; }
+.chip.active {
+  background: #c9a227;
+  color: #fff;
+  border-color: #c9a227;
+  font-weight: bold;
+}
 
-.hero { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
-.hero-num { flex: 0 0 96px; text-align: center; padding: 10px 6px; border-radius: 16px; color: #fff; background: linear-gradient(160deg, var(--emerald), var(--emerald-2)); }
-.hero-num span { display: block; font-size: 30px; font-weight: 800; }
-.hero-num small { font-size: 10.5px; }
-.hero-right { flex: 1; }
+/* Mode Buttons */
+.segmented {
+  display: flex;
+  background: #f6fbf8;
+  border: 1px solid #dcebe4;
+  border-radius: 10px;
+  padding: 3px;
+}
 
-.prayer-list { display: flex; flex-direction: column; gap: 10px; }
-.prayer { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 15px; background: var(--card-2); border: 1.5px solid var(--border); cursor: pointer; }
-.prayer.done { background: rgba(14, 122, 95, .1); border-color: var(--emerald); }
-.check { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; border: 2px solid var(--border); background: var(--card); }
-.prayer.done .check { background: var(--emerald); border-color: var(--emerald); }
-.prayer-info { flex: 1; }
-.prayer-name { font-size: 14.5px; font-weight: 700; }
-.prayer-range { font-size: 12px; color: var(--muted); }
-.prayer-count { font-size: 11.5px; font-weight: 700; color: var(--emerald); background: var(--emerald-soft); padding: 5px 11px; border-radius: 999px; }
-.prayer.done .prayer-count { background: var(--emerald); color: #fff; }
+.seg-btn {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  color: #5f7d70;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
-@media (min-width: 560px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.seg-btn.active {
+  background: #0e7a5f;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Progress & Stats */
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #d9f0e7;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 6px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #0e7a5f;
+  transition: width 0.3s;
+}
+
+.progress-fill.gold {
+  background: #c9a227;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.stat-card {
+  background: #f6fbf8;
+  border: 1px solid #dcebe4;
+  border-radius: 10px;
+  padding: 8px;
+  text-align: center;
+}
+
+.stat-card b {
+  display: block;
+  font-size: 18px;
+  color: #0e7a5f;
+}
+
+.stat-card span {
+  font-size: 11px;
+  color: #5f7d70;
+}
+
+/* Prayer List */
+.prayer-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #f6fbf8;
+  border: 1.5px solid #dcebe4;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.prayer-item.done {
+  background: #d9f0e7;
+  border-color: #0e7a5f;
+}
+
+.prayer-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.check-box {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid #dcebe4;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.prayer-item.done .check-box {
+  background: #0e7a5f;
+  border-color: #0e7a5f;
+  color: #fff;
+}
+
+.hidden { display: none !important; }
 </style>
 </head>
 <body>
 
 <header class="app-header">
-  <div class="header-inner">
-    <div class="brand">
-      <div class="logo">☪</div>
-      <div>
-        <h1>قرآن روٹین ٹریکر</h1>
-        <p>16 سطری (549 صفحات) نسخہ کے مطابق</p>
-      </div>
-    </div>
-    <button class="icon-btn" id="themeBtn" type="button">🌙</button>
-  </div>
+  <h1>قرآن روٹین ٹریکر</h1>
+  <p>16 سطری (549 صفحات) نسخہ</p>
 </header>
 
-<main class="container">
-  <section class="card">
+<div class="container">
+
+  <!-- Setting Card -->
+  <div class="card">
     <div class="card-head">
       <h2>⚙️ روٹین کی ترتیب</h2>
-      <button class="ghost-btn" id="toggleSetup" type="button">چھپائیں</button>
     </div>
-    <div class="card-body" id="setupBody">
+    <div class="card-body">
+      
       <div class="field">
         <label for="startDate">شروع کی تاریخ</label>
         <input type="date" id="startDate">
       </div>
 
       <div class="field">
-        <label>ہدف کا تعین کیسے کریں؟</label>
+        <label>ہدف کا تعین</label>
         <div class="segmented">
-          <button type="button" class="seg active" id="btnModeDays">دنوں میں</button>
-          <button type="button" class="seg" id="btnModeDate">تاریخ سے</button>
+          <button type="button" class="seg-btn active" id="btnDays">دنوں میں</button>
+          <button type="button" class="seg-btn" id="btnDate">تاریخ سے</button>
         </div>
       </div>
 
-      <div class="field" id="daysField">
+      <div class="field" id="boxDays">
         <label for="totalDays">کل دن</label>
-        <input type="number" id="totalDays" min="1" max="3650" value="30">
+        <input type="number" id="totalDays" value="30">
       </div>
 
-      <div class="field hidden" id="dateField">
-        <label for="targetDate">ہدف مکمل کرنے کی تاریخ</label>
+      <div class="field hidden" id="boxDate">
+        <label for="targetDate">آخری تاریخ</label>
         <input type="date" id="targetDate">
       </div>
 
-      <div class="quick-days" id="quickDaysBox">
-        <span>فوری انتخاب:</span>
-        <button type="button" class="chip" data-days="30">30 دن</button>
-        <button type="button" class="chip" data-days="15">15 دن</button>
-        <button type="button" class="chip" data-days="10">10 دن</button>
-        <button type="button" class="chip" data-days="7">7 دن</button>
+      <div class="quick-box" id="quickBox">
+        <span>فوری:</span>
+        <button type="button" class="chip" data-d="30">30 دن</button>
+        <button type="button" class="chip" data-d="15">15 دن</button>
+        <button type="button" class="chip" data-d="10">10 دن</button>
+        <button type="button" class="chip active" data-d="7">7 دن</button>
       </div>
 
       <div class="field">
         <label for="startMode">تلاوت کہاں سے شروع کریں؟</label>
         <select id="startMode">
-          <option value="page1">پہلے صفحے سے (صفحہ 1)</option>
-          <option value="page">مخصوص صفحہ نمبر سے</option>
-          <option value="parah">پارہ نمبر سے</option>
+          <option value="page1">صفحہ 1 سے</option>
+          <option value="page">مخصوص صفحہ سے</option>
+          <option value="parah" selected>پارہ نمبر سے</option>
         </select>
       </div>
 
-      <div class="field hidden" id="pageField">
-        <label for="startPage">صفحہ نمبر (1 – 549)</label>
-        <input type="number" id="startPage" min="1" max="549" value="1">
+      <div class="field hidden" id="boxPage">
+        <label for="startPage">صفحہ نمبر (1-549)</label>
+        <input type="number" id="startPage" value="1">
       </div>
 
-      <div class="field hidden" id="parahField">
+      <div class="field" id="boxParah">
         <label for="parahSelect">پارہ منتخب کریں</label>
         <select id="parahSelect"></select>
       </div>
 
-      <button class="btn primary" id="saveBtn" type="button">✔ ترتیب محفوظ کریں</button>
+      <button type="button" class="btn btn-primary" id="saveBtn">✔ ترتیب محفوظ کریں</button>
     </div>
-  </section>
+  </div>
 
-  <section class="card">
+  <!-- Overall Progress Card -->
+  <div class="card">
     <div class="card-head">
       <h2>📊 مجموعی پیش رفت</h2>
-      <span class="pill" id="ovPctPill">0%</span>
+      <span style="font-size: 12px; font-weight: bold; color: #0e7a5f;" id="pctTxt">0%</span>
     </div>
     <div class="card-body">
-      <div class="progress-top">
-        <span>پورا قرآن (<span id="ovTotalLabel">549</span> صفحات)</span>
-        <strong><span id="ovPct">0%</span></strong>
+      <div class="progress-bar">
+        <div class="progress-fill" id="mainFill"></div>
       </div>
-      <div class="bar"><i id="ovBar"></i></div>
-      <div class="progress-bottom">
-        <span>پڑھے گئے: <b id="ovRead">0</b></span>
-        <span>باقی: <b id="ovLeft">549</b></span>
+      <div class="stats-grid">
+        <div class="stat-card"><b id="stPage">183</b><span>شروع صفحہ</span></div>
+        <div class="stat-card"><b id="stCurrent">183</b><span>موجودہ صفحہ</span></div>
+        <div class="stat-card"><b id="stDays">7</b><span>کل دن</span></div>
+        <div class="stat-card"><b id="stDaily">53</b><span>روزانہ صفحات</span></div>
       </div>
-      <div class="stats">
-        <div class="stat"><b id="stStart">1</b><span>آغاز صفحہ</span></div>
-        <div class="stat"><b id="stCurrent">1</b><span>اگلا صفحہ</span></div>
-        <div class="stat"><b id="stDaysLeft">30</b><span>باقی دن</span></div>
-        <div class="stat"><b id="stDaily">19</b><span>روزانہ ہدف</span></div>
-      </div>
-      <div class="target-info" id="targetInfo">—</div>
     </div>
-  </section>
+  </div>
 
-  <section class="card">
+  <!-- Today's Target Card -->
+  <div class="card">
     <div class="card-head">
       <h2>📖 آج کا ہدف</h2>
-      <span class="pill" id="todayDate">—</span>
+      <span style="font-size: 11px; color: #5f7d70;" id="todayTxt"></span>
     </div>
     <div class="card-body">
-      <div class="hero">
-        <div class="hero-num">
-          <span id="todayTarget">0</span>
-          <small>صفحات آج</small>
-        </div>
-        <div class="hero-right">
-          <div class="progress-top">
-            <span>آج کی پیش رفت</span>
-            <strong><span id="todayDone">0</span> / <span id="todayTotal">0</span></strong>
-          </div>
-          <div class="bar gold"><i id="todayBar"></i></div>
-        </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <span style="font-size: 13px;">آج کی پیش رفت: <b id="todayDone">0</b> / <b id="todayTotal">0</b></span>
       </div>
-      <div class="prayer-list" id="prayerList"></div>
-      <button class="btn ghost" id="resetBtn" type="button">🔄 سب کچھ ری سیٹ کریں</button>
+      <div class="progress-bar">
+        <div class="progress-fill gold" id="todayFill"></div>
+      </div>
+
+      <div id="prayerList" style="margin-top: 12px;"></div>
+
+      <button type="button" class="btn btn-ghost" id="resetBtn">🔄 ڈیٹا ری سیٹ کریں</button>
     </div>
-  </section>
-</main>
+  </div>
+
+</div>
 
 <script>
 (function () {
-  'use strict';
-
-  var STORAGE_KEY = 'smart_quran_v3';
+  var KEY = 'quran_app_v4';
   var TOTAL_PAGES = 549;
 
   var PRAYERS = [
-    { key: 'fajr', name: 'فجر', icon: '🌅' },
-    { key: 'dhuhr', name: 'ظہر', icon: '☀️' },
-    { key: 'asr', name: 'عصر', icon: '🌤️' },
-    { key: 'maghrib', name: 'مغرب', icon: '🌇' },
-    { key: 'isha', name: 'عشاء', icon: '🌙' }
+    { name: 'فجر', icon: '🌅' },
+    { name: 'ظہر', icon: '☀️' },
+    { name: 'عصر', icon: '🌤️' },
+    { name: 'مغرب', icon: '🌇' },
+    { name: 'عشاء', icon: '🌙' }
   ];
 
-  var PARAH_START = [
+  var PARAH_PAGES = [
     1, 19, 37, 55, 73, 91, 109, 127, 145, 163,
     183, 201, 219, 237, 255, 273, 291, 309, 327, 345,
     363, 381, 399, 417, 435, 453, 471, 489, 507, 525
   ];
 
-  var URDU_MONTHS = ['جنوری','فروری','مارچ','اپریل','مئی','جون','جولائی','اگست','ستمبر','اکتوبر','نومبر','دسمبر'];
-
   function $(id) { return document.getElementById(id); }
-  function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
-  function toISO(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
-  function todayISO() { return toISO(new Date()); }
-  function parseISO(s) { var p = String(s).split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); }
-  function addDays(iso, n) { var d = parseISO(iso); d.setDate(d.getDate() + n); return toISO(d); }
-  function diffDays(a, b) { var A = parseISO(a), B = parseISO(b); return Math.round((B - A) / 86400000); }
-  function formatDateUr(iso) { var d = parseISO(iso); return d.getDate() + ' ' + URDU_MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
+  function toISO(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
 
   var state = {
-    startDate: todayISO(),
+    startDate: toISO(new Date()),
     mode: 'days',
-    totalDays: 30,
-    targetDate: addDays(todayISO(), 29),
+    totalDays: 7,
     startMode: 'parah',
     startPage: 183,
     parah: 11,
-    log: {},
-    theme: 'light'
+    log: {}
   };
 
-  function loadState() {
+  function load() {
     try {
-      var raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) state = Object.assign(state, JSON.parse(raw));
-    } catch (e) {}
+      var d = localStorage.getItem(KEY);
+      if (d) state = Object.assign(state, JSON.parse(d));
+    } catch(e) {}
   }
 
   function save() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    localStorage.setItem(KEY, JSON.stringify(state));
   }
 
-  function computePagesRead() {
-    var total = 0;
-    Object.keys(state.log).forEach(function (date) {
-      var day = state.log[date];
-      if (day && day.prayers) {
-        day.prayers.forEach(function (p) {
-          if (p && p.done) total += p.count;
-        });
-      }
-    });
-    return total;
-  }
-
-  function getPlan() {
-    var today = todayISO();
-    var startPage = clamp(state.startPage, 1, TOTAL_PAGES);
-    var totalToRead = TOTAL_PAGES - startPage + 1;
-    var pagesRead = Math.min(computePagesRead(), totalToRead);
-    
-    var dayLog = state.log[today] || { prayers: [] };
-    var readToday = 0;
-    if (dayLog.prayers) {
-      dayLog.prayers.forEach(function (p) { if (p && p.done) readToday += p.count; });
+  function initParah() {
+    var s = $('parahSelect');
+    var h = '';
+    for(var i=1; i<=30; i++){
+      h += '<option value="'+i+'">پارہ '+i+' (صفحہ '+PARAH_PAGES[i-1]+')</option>';
     }
-
-    var readBeforeToday = Math.max(0, pagesRead - readToday);
-    var dayStartPage = Math.min(TOTAL_PAGES, startPage + readBeforeToday);
-    var remainingAtDayStart = Math.max(0, TOTAL_PAGES - dayStartPage + 1);
-
-    var rawDaysLeft = diffDays(today, state.targetDate) + 1;
-    var remainingDays = Math.max(1, rawDaysLeft);
-
-    var dailyTarget = remainingAtDayStart > 0 ? Math.ceil(remainingAtDayStart / remainingDays) : 0;
-
-    var base = Math.floor(dailyTarget / 5);
-    var rem = dailyTarget % 5;
-    var cursor = dayStartPage;
-
-    var items = PRAYERS.map(function (pr, i) {
-      var count = base + (i < rem ? 1 : 0);
-      var from = Math.min(TOTAL_PAGES, cursor);
-      var to = count > 0 ? Math.min(TOTAL_PAGES, cursor + count - 1) : cursor;
-      if (cursor <= TOTAL_PAGES) cursor += count;
-      else count = 0;
-
-      return { key: pr.key, name: pr.name, icon: pr.icon, from: from, to: to, count: count };
-    });
-
-    return {
-      startPage: startPage, totalToRead: totalToRead, pagesRead: pagesRead,
-      remainingPages: Math.max(0, totalToRead - pagesRead),
-      daysLeftDisplay: Math.max(0, rawDaysLeft), dailyTarget: dailyTarget,
-      items: items, currentPage: Math.min(TOTAL_PAGES, startPage + pagesRead)
-    };
-  }
-
-  function syncToday(plan) {
-    var today = todayISO();
-    if (!state.log[today]) state.log[today] = { prayers: [] };
-    var prayers = state.log[today].prayers;
-
-    for (var i = 0; i < 5; i++) {
-      var it = plan.items[i];
-      if (!prayers[i] || !prayers[i].done) {
-        prayers[i] = { done: false, from: it.from, to: it.to, count: it.count };
-      }
-    }
+    s.innerHTML = h;
   }
 
   function render() {
-    var plan = getPlan();
-    syncToday(plan);
-
-    var pct = plan.totalToRead > 0 ? Math.round((plan.pagesRead / plan.totalToRead) * 100) : 0;
-    $('ovBar').style.width = pct + '%';
-    $('ovPct').textContent = pct + '%';
-    $('ovPctPill').textContent = pct + '%';
-    $('ovRead').textContent = plan.pagesRead;
-    $('ovLeft').textContent = plan.remainingPages;
-    $('ovTotalLabel').textContent = plan.totalToRead;
-
-    $('stStart').textContent = plan.startPage;
-    $('stCurrent').textContent = plan.remainingPages > 0 ? plan.currentPage : '—';
-    $('stDaysLeft').textContent = plan.daysLeftDisplay;
-    $('stDaily').textContent = plan.dailyTarget;
-
-    $('todayDate').textContent = formatDateUr(todayISO());
-    $('todayTarget').textContent = plan.dailyTarget;
-
-    var dayLog = state.log[todayISO()] || { prayers: [] };
-    var doneToday = 0;
-    dayLog.prayers.forEach(function (p) { if (p && p.done) doneToday += p.count; });
-
-    var todayPct = plan.dailyTarget > 0 ? Math.min(100, Math.round((doneToday / plan.dailyTarget) * 100)) : 0;
-    $('todayBar').style.width = todayPct + '%';
-    $('todayDone').textContent = doneToday;
-    $('todayTotal').textContent = plan.dailyTarget;
-
-    $('prayerList').innerHTML = plan.items.map(function (it, i) {
-      var entry = dayLog.prayers[i] || {};
-      var done = !!entry.done;
-      return '<div class="prayer' + (done ? ' done' : '') + '" onclick="togglePrayer(' + i + ')">' +
-        '<div class="check">' + (done ? '✔' : '') + '</div>' +
-        '<div class="prayer-info">' +
-          '<div class="prayer-name">' + it.icon + ' ' + it.name + '</div>' +
-          '<div class="prayer-range">صفحہ ' + it.from + ' تا ' + it.to + '</div>' +
-        '</div>' +
-        '<div class="prayer-count">' + it.count + ' صفحات</div>' +
-      '</div>';
-    }).join('');
-
-    $('targetInfo').textContent = 'ہدف: ' + formatDateUr(state.targetDate) + ' • کل ' + state.totalDays + ' دن';
-  }
-
-  window.togglePrayer = function (idx) {
-    var today = todayISO();
-    var p = state.log[today].prayers[idx];
-    if (p) {
-      p.done = !p.done;
-      save();
-      render();
-    }
-  };
-
-  function buildParahOptions() {
-    var sel = $('parahSelect');
-    var html = '';
-    for (var i = 1; i <= 30; i++) {
-      html += '<option value="' + i + '">پارہ ' + i + ' (صفحہ ' + PARAH_START[i - 1] + ')</option>';
-    }
-    sel.innerHTML = html;
-  }
-
-  function init() {
-    loadState();
-    buildParahOptions();
-
     $('startDate').value = state.startDate;
     $('totalDays').value = state.totalDays;
-    $('targetDate').value = state.targetDate;
     $('startMode').value = state.startMode;
-    $('startPage').value = state.startPage;
     $('parahSelect').value = state.parah;
 
-    // Toggle Mode (Days / Date)
-    $('btnModeDays').addEventListener('click', function () {
-      state.mode = 'days';
-      this.classList.add('active');
-      $('btnModeDate').classList.remove('active');
-      $('daysField').classList.remove('hidden');
-      $('dateField').classList.add('hidden');
+    // Calc
+    var startP = state.startPage;
+    var remPages = TOTAL_PAGES - startP + 1;
+    var daily = Math.ceil(remPages / state.totalDays);
+
+    $('stPage').textContent = startP;
+    $('stDays').textContent = state.totalDays;
+    $('stDaily').textContent = daily;
+
+    var todayKey = toISO(new Date());
+    var todayLog = state.log[todayKey] || [false, false, false, false, false];
+
+    // Build Prayer Targets
+    var base = Math.floor(daily / 5);
+    var rem = daily % 5;
+    var cur = startP;
+
+    var doneCount = 0;
+    var listHtml = '';
+
+    PRAYERS.forEach(function(p, i) {
+      var cnt = base + (i < rem ? 1 : 0);
+      var from = cur;
+      var to = cnt > 0 ? (cur + cnt - 1) : cur;
+      cur += cnt;
+
+      var isDone = !!todayLog[i];
+      if (isDone) doneCount += cnt;
+
+      listHtml += '<div class="prayer-item '+(isDone?'done':'')+'" onclick="togglePrayer('+i+')">' +
+        '<div class="prayer-right">' +
+          '<div class="check-box">'+(isDone?'✔':'')+'</div>' +
+          '<div><b>'+p.icon+' '+p.name+'</b> <span style="font-size:11px; color:#5f7d70;">(صفحہ '+from+' تا '+to+')</span></div>' +
+        '</div>' +
+        '<div style="font-size:12px; font-weight:bold; color:#0e7a5f;">'+cnt+' صفحات</div>' +
+      '</div>';
     });
 
-    $('btnModeDate').addEventListener('click', function () {
-      state.mode = 'date';
-      this.classList.add('active');
-      $('btnModeDays').classList.remove('active');
-      $('daysField').classList.add('hidden');
-      $('dateField').classList.remove('hidden');
-    });
+    $('prayerList').innerHTML = listHtml;
+    $('todayDone').textContent = doneCount;
+    $('todayTotal').textContent = daily;
+    $('todayFill').style.width = Math.min(100, Math.round((doneCount / daily) * 100)) + '%';
+  }
 
-    // Quick Days Click Event Fix
-    var chips = $('quickDaysBox').querySelectorAll('.chip');
-    chips.forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        chips.forEach(function(c){ c.classList.remove('active'); });
-        this.classList.add('active');
-        var d = this.getAttribute('data-days');
-        $('totalDays').value = d;
-      });
-    });
-
-    // Start Mode Change
-    $('startMode').addEventListener('change', function () {
-      state.startMode = this.value;
-      $('pageField').classList.toggle('hidden', this.value !== 'page');
-      $('parahField').classList.toggle('hidden', this.value !== 'parah');
-    });
-
-    // Initial Trigger for Select Fields Display
-    $('startMode').dispatchEvent(new Event('change'));
-
-    // Save Button
-    $('saveBtn').addEventListener('click', function () {
-      state.startDate = $('startDate').value || todayISO();
-
-      if (state.mode === 'days') {
-        state.totalDays = parseInt($('totalDays').value, 10) || 30;
-        state.targetDate = addDays(state.startDate, state.totalDays - 1);
-      } else {
-        state.targetDate = $('targetDate').value || state.startDate;
-        state.totalDays = Math.max(1, diffDays(state.startDate, state.targetDate) + 1);
-      }
-
-      state.startMode = $('startMode').value;
-      if (state.startMode === 'page1') {
-        state.startPage = 1;
-      } else if (state.startMode === 'page') {
-        state.startPage = clamp(parseInt($('startPage').value, 10) || 1, 1, TOTAL_PAGES);
-      } else {
-        state.parah = clamp(parseInt($('parahSelect').value, 10) || 1, 1, 30);
-        state.startPage = PARAH_START[state.parah - 1];
-      }
-
-      save();
-      render();
-      alert('ترتیب کامیابی سے محفوظ ہو گئی ہے!');
-    });
-
-    $('resetBtn').addEventListener('click', function () {
-      if (confirm('کیا آپ سب کچھ ری سیٹ کرنا چاہتے ہیں؟')) {
-        localStorage.removeItem(STORAGE_KEY);
-        location.reload();
-      }
-    });
-
+  window.togglePrayer = function(idx) {
+    var todayKey = toISO(new Date());
+    if(!state.log[todayKey]) state.log[todayKey] = [false, false, false, false, false];
+    state.log[todayKey][idx] = !state.log[todayKey][idx];
+    save();
     render();
-  }
+  };
 
-  init();
-})();
-</script>
-</body>
-</html>
-te() {
-    var t = todayISO();
-    var prefersDark = false;
-    try {
-      prefersDark = window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
-    } catch (e) { prefersDark = false; }
-
-    return {
-      startDate: t,
-      mode: 'days',              /* 'days' | 'date' */
-      totalDays: 30,
-      targetDate: addDays(t, 29),
-      startMode: 'page1',        /* 'page1' | 'page' | 'parah' */
-      startPage: 1,
-      parah: 1,
-      log: {},                   /* { 'YYYY-MM-DD': { prayers: [ {done,from,to,count} x5 ] } } */
-      theme: prefersDark ? 'dark' : 'light'
+  function bindEvents() {
+    $('btnDays').onclick = function() {
+      state.mode = 'days';
+      $('btnDays').classList.add('active');
+      $('btnDate').classList.remove('active');
+      $('boxDays').classList.remove('hidden');
+      $('boxDate').classList.add('hidden');
     };
-  }
 
-  var state = null;
+    $('btnDate').onclick = function() {
+      state.mode = 'date';
+      $('btnDate').classList.add('active');
+      $('btnDays').classList.remove('active');
+      $('boxDate').classList.remove('hidden');
+      $('boxDays').classList.add('hidden');
+    };
 
-  function loadState() {
-    var def = defaultState();
-    try {
-      var raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return def;
-      var parsed = JSON.parse(raw);
-      if (!parsed || typeof parsed !== 'object') return def;
-
-      var s = Object.assign({}, def, parsed);
-      if (!s.log || typeof s.log !== 'object' || Array.isArray(s.log)) s.log = {};
-      if (!Array.isArray(PARAH_START)) s.parah = 1;
-      s.startPage = clamp(parseInt(s.startPage, 10) || 1, 1, TOTAL_PAGES);
-      s.parah = clamp(parseInt(s.parah, 10) || 1, 1, 30);
-      s.totalDays = clamp(parseInt(s.totalDays, 10) || 30, 1, 3650);
-      if (s.theme !== 'dark' && s.theme !== 'light') s.theme = 'light';
-      if (s.mode !== 'days' && s.mode !== 'date') s.mode = 'days';
-      if (['page1', 'page', 'parah'].indexOf(s.startMode) === -1) s.startMode = 'page1';
-      return s;
-    } catch (e) {
-      return def;
-    }
-  }
-
-  function save() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch (e) {
-      /* storage full or disabled — silently ignore */
-    }
-  }
-
-  /* ============================================================
-     PROGRESS CALCULATIONS
-     ============================================================ */
-  function computePagesRead() {
-    var total = 0;
-    Object.keys(state.log).forEach(function (date) {
-      var day = state.log[date];
-      if (!day || !Array.isArray(day.prayers)) return;
-      day.prayers.forEach(function (p) {
-        if (p && p.done && typeof p.count === 'number' && p.count > 0) {
-          total += p.count;
-        }
-      });
-    });
-    return total;
-  }
-
-  function getTodayDoneCount() {
-    var day = state.log[todayISO()];
-    if (!day || !Array.isArray(day.prayers)) return 0;
-    var t = 0;
-    day.prayers.forEach(function (p) {
-      if (p && p.done && typeof p.count === 'number' && p.count > 0) t += p.count;
-    });
-    return t;
-  }
-
-  /**
-   * Builds the full plan for today.
-   * IMPORTANT: pages completed TODAY are excluded from the daily-target math,
-   * so today's plan stays stable while the user checks prayers off one by one.
-   */
-  function getPlan() {
-    var today = todayISO();
-    var startPage = clamp(state.startPage, 1, TOTAL_PAGES);
-    var totalToRead = TOTAL_PAGES - startPage + 1;
-
-    var pagesReadRaw = computePagesRead();
-    var pagesRead = Math.min(pagesReadRaw, totalToRead);
-
-    var readToday = getTodayDoneCount();
-    var readBeforeToday = Math.max(0, Math.min(pagesRead, pagesRead - readToday));
-
-    var dayStartPage = Math.min(TOTAL_PAGES, startPage + readBeforeToday);
-    var remainingAtDayStart = Math.max(0, TOTAL_PAGES - dayStartPage + 1);
-
-    var rawDaysLeft = diffDays(today, state.targetDate) + 1;
-    var daysLeftDisplay = Math.max(0, rawDaysLeft);
-    var overdue = rawDaysLeft < 1;
-    var remainingDays = Math.max(1, rawDaysLeft);
-
-    var dailyTarget = remainingAtDayStart > 0
-      ? Math.ceil(remainingAtDayStart / remainingDays)
-      : 0;
-
-    /* --- even split across the 5 prayers --- */
-    var base = Math.floor(dailyTarget / 5);
-    var rem = dailyTarget % 5;
-    var cursor = dayStartPage;
-
-    var items = PRAYERS.map(function (pr, i) {
-      var count = base + (i < rem ? 1 : 0);
-      var from = cursor;
-      var to = count > 0 ? Math.min(TOTAL_PAGES, cursor + count - 1) : cursor - 1;
-      cursor += count;
-      return {
-        key: pr.key,
-        name: pr.name,
-        icon: pr.icon,
-        from: from,
-        to: to,
-        count: count
+    var chips = $('quickBox').querySelectorAll('.chip');
+    chips.forEach(function(c) {
+      c.onclick = function() {
+        chips.forEach(function(x){x.classList.remove('active');});
+        this.classList.add('active');
+        $('totalDays').value = this.getAttribute('data-d');
       };
     });
 
-    return {
-      startPage: startPage,
-      totalToRead: totalToRead,
-      pagesRead: pagesRead,
-      remainingPages: Math.max(0, totalToRead - pagesRead),
-      remainingDays: remainingDays,
-      daysLeftDisplay: daysLeftDisplay,
-      dailyTarget: dailyTarget,
-      items: items,
-      overdue: overdue,
-      currentPage: Math.min(TOTAL_PAGES, startPage + pagesRead),
-      dayStartPage: dayStartPage,
-      readToday: readToday
+    $('startMode').onchange = function() {
+      $('boxPage').classList.toggle('hidden', this.value !== 'page');
+      $('boxParah').classList.toggle('hidden', this.value !== 'parah');
+    };
+
+    $('saveBtn').onclick = function() {
+      state.startDate = $('startDate').value || toISO(new Date());
+      state.totalDays = parseInt($('totalDays').value, 10) || 7;
+      state.startMode = $('startMode').value;
+
+      if(state.startMode === 'page1') state.startPage = 1;
+      else if(state.startMode === 'page') state.startPage = parseInt($('startPage').value, 10) || 1;
+      else {
+        state.parah = parseInt($('parahSelect').value, 10) || 1;
+        state.startPage = PARAH_PAGES[state.parah - 1];
+      }
+
+      save();
+      render();
+      alert('ترتیب درست طریقے سے محفوظ کر لی گئی ہے!');
+    };
+
+    $('resetBtn').onclick = function() {
+      if(confirm('ری سیٹ کریں؟')) {
+        localStorage.removeItem(KEY);
+        location.reload();
+      }
     };
   }
 
-  /* ============================================================
-     LOG SYNC  (keeps today's entry consistent with current plan)
-     ============================================================ */
-  function syncToday(plan) {
-    var today = todayISO();
-    var day = state.log[today];
-    var changed = false;
-
-    if (!day || typeof day !== 'object') {
-      day = state.log[today] = { prayers: [] };
-      changed = true;
-    }
-    if (!Array.isArray(day.prayers)) {
-      day.prayers = [];
-      changed = true;
-    }
-
-    for (var i = 0; i < 5; i++) {
-      var it = plan.items[i];
-      var prev = day.prayers[i];
-
-      if (prev && prev.done) continue; /* never touch completed entries */
-
-      if (!prev ||
-          prev.count !== it.count ||
-          prev.from !== it.from ||
-          prev.to !== it.to) {
-        day.prayers[i] = { done: false, from: it.from, to: it.to, count: it.count };
-        changed = true;
-      }
-    }
-
-    if (day.prayers.length > 5) {
-      day.prayers.length = 5;
-      changed = true;
-    }
-
-    if (changed) save();
-  }
-
-  function pruneLog() {
-    var today = todayISO();
-    Object.keys(state.log).forEach(function (d) {
-      if (d === today) return;
-      var day = state.log[d];
-      var any = day && Array.isArray(day.prayers) &&
-        day.prayers.some(function (p) { return p && p.done; });
-      if (!any) delete state.log[d];
-    });
-  }
-
-  /* ============================================================
-     RENDERING
-     ============================================================ */
-  function render() {
-    var plan = getPlan();
-    syncToday(plan);
-    pruneLog();
-
-    renderOverview(plan);
-    renderToday(plan);
-    renderPrayers(plan);
-  }
-
-  function renderOverview(plan) {
-    var pct = plan.totalToRead > 0
-      ? Math.min(100, (plan.pagesRead / plan.totalToRead) * 100)
-      : 0;
-    var pctRounded = Math.round(pct);
-
-    $('ovBar').style.width = pct + '%';
-    $('ovPct').textContent = pctRounded + '%';
-    $('ovPctPill').textContent = pctRounded + '%';
-    $('ovRead').textContent = plan.pagesRead;
-    $('ovLeft').textContent = plan.remainingPages;
-    $('ovTotalLabel').textContent = plan.totalToRead;
-
-    $('stStart').textContent = plan.startPage;
-    $('stCurrent').textContent = plan.remainingPages > 0 ? plan.currentPage : '—';
-    $('stDaysLeft').textContent = plan.overdue ? '0' : plan.daysLeftDisplay;
-    $('stDaily').textContent = plan.dailyTarget;
-
-    /* --- status note --- */
-    var note = '';
-    if (plan.remainingPages === 0) {
-      note = '🎉 ماشاءاللہ! آپ نے پورا قرآنِ کریم مکمل کر لیا ہے۔ اللہ قبول فرمائے۔';
-    } else if (plan.overdue) {
-      note = '⚠️ ہدف کی تاریخ گزر چکی ہے۔ باقی ' + plan.remainingPages +
-             ' صفحات کو جلد مکمل کریں — روزانہ ہدف خودکار طور پر بڑھا دیا گیا ہے۔';
-    } else {
-      var elapsed = Math.max(0, diffDays(state.startDate, todayISO()) + 1);
-      var totalDays = Math.max(1, state.totalDays);
-      var expected = Math.min(
-        plan.totalToRead,
-        Math.ceil((plan.totalToRead * Math.min(elapsed, totalDays)) / totalDays)
-      );
-      var diff = plan.pagesRead - expected;
-
-      if (diff < -1) {
-        note = '📌 آپ شیڈول سے ' + Math.abs(diff) +
-               ' صفحات پیچھے ہیں — روزانہ ہدف خودکار طور پر بڑھا دیا گیا ہے۔';
-      } else if (diff > 1) {
-        note = '🌟 ماشاءاللہ! آپ شیڈول سے ' + diff + ' صفحات آگے ہیں۔ اسی رفتار سے جاری رکھیں۔';
-      } else {
-        note = '✅ آپ شیڈول کے عین مطابق چل رہے ہیں۔ اللہ آسانی فرمائے۔';
-      }
-    }
-    $('statusNote').textContent = note;
-
-    $('targetInfo').textContent =
-      'ہدف کی تاریخ: ' + formatDateUr(state.targetDate) +
-      '  •  کل ' + state.totalDays + ' دن';
-  }
-
-  function renderToday(plan) {
-    $('todayDate').textContent = formatDateUr(todayISO());
-    $('todayTarget').textContent = plan.dailyTarget;
-
-    var done = getTodayDoneCount();
-    var pct = plan.dailyTarget > 0
-      ? Math.min(100, (done / plan.dailyTarget) * 100)
-      : (done > 0 ? 100 : 0);
-
-    $('todayBar').style.width = pct + '%';
-    $('todayDone').textContent = done;
-    $('todayTotal').textContent = plan.dailyTarget;
-
-    var msg;
-    if (plan.dailyTarget === 0) {
-      msg = '🎉 پورا قرآن مکمل — کوئی باقی صفحہ نہیں';
-    } else if (done >= plan.dailyTarget) {
-      msg = '✅ آج کا ہدف مکمل — اللہ قبول فرمائے';
-    } else {
-      msg = 'ابھی ' + (plan.dailyTarget - done) + ' صفحات باقی ہیں';
-    }
-    $('todayMsg').textContent = msg;
-  }
-
-  function renderPrayers(plan) {
-    var today = todayISO();
-    var day = state.log[today] || { prayers: [] };
-    var list = $('prayerList');
-
-    var html = plan.items.map(function (it, i) {
-      var entry = day.prayers[i] || {};
-      var done = !!entry.done;
-      var locked = it.count === 0;
-
-      var rangeTxt = it.count > 0
-        ? 'صفحہ ' + it.from + ' تا ' + it.to
-        : 'ہدف مکمل — پڑھائی ختم';
-
-      var countTxt = it.count > 0 ? it.count + ' صفحات' : '—';
-
-      return '' +
-        '<div class="prayer' + (done ? ' done' : '') + (locked ? ' locked' : '') + '" data-idx="' + i + '">' +
-          '<button class="check" type="button" role="checkbox" aria-checked="' + done + '" ' +
-            'aria-label="' + it.name + ' مکمل کریں" tabindex="-1">' +
-            '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">' +
-              '<path d="M20 6L9 17l-5-5" fill="none" stroke="#ffffff" stroke-width="3" ' +
-                'stroke-linecap="round" stroke-linejoin="round"/>' +
-            '</svg>' +
-          '</button>' +
-          '<div class="prayer-info">' +
-            '<div class="prayer-name"><span>' + it.icon + '</span><span>' + it.name + '</span></div>' +
-            '<div class="prayer-range">' + rangeTxt + '</div>' +
-          '</div>' +
-          '<div class="prayer-count">' + countTxt + '</div>' +
-        '</div>';
-    }).join('');
-
-    list.innerHTML = html;
-  }
-
-  /* ============================================================
-     TOAST
-     ============================================================ */
-  var toastTimer = null;
-  function toast(msg) {
-    var el = $('toast');
-    el.textContent = msg;
-    el.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () {
-      el.classList.remove('show');
-    }, 2200);
-  }
-
-  /* ============================================================
-     THEME
-     ============================================================ */
-  function applyTheme() {
-    document.documentElement.setAttribute('data-theme', state.theme);
-    $('themeBtn').textContent = state.theme === 'dark' ? '☀️' : '🌙';
-    var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) {
-      meta.setAttribute('content', state.theme === 'dark' ? '#06120e' : '#0e7a5f');
-    }
-  }
-
-  /* ============================================================
-     SETUP UI
-     ============================================================ */
-  function buildParahOptions() {
-    var sel = $('parahSelect');
-    var html = '';
-    for (var i = 1; i <= 30; i++) {
-      html += '<option value="' + i + '">پارہ ' + i +
-              ' (صفحہ ' + PARAH_START[i - 1] + ')</option>';
-    }
-    sel.innerHTML = html;
-  }
-
-  function updateModeUI() {
-    var isDays = state.mode === 'days';
-    $('daysField').classList.toggle('hidden', !isDays);
-    $('dateField').classList.toggle('hidden', isDays);
-
-    Array.prototype.forEach.call($('modeSeg').children, function (btn) {
-      btn.classList.toggle('active', btn.dataset.mode === state.mode);
-    });
-  }
-
-  function updateStartFields() {
-    var mode = $('startMode').value;
-    $('pageField').classList.toggle('hidden', mode !== 'page');
-    $('parahField').classList.toggle('hidden', mode !== 'parah');
-  }
-
-  function updateChips() {
-    Array.prototype.forEach.call(document.querySelectorAll('.chip'), function (c) {
-      var v = parseInt(c.dataset.days, 10);
-      c.classList.toggle('active', state.mode === 'days' && v === state.totalDays);
-    });
-  }
-
-  function fillSetupInputs() {
-    $('startDate').value = state.startDate;
-    $('totalDays').value = state.totalDays;
-    $('targetDate').value = state.targetDate;
-    $('startMode').value = state.startMode;
-    $('startPage').value = state.startPage;
-    $('parahSelect').value = String(state.parah);
-
-    updateModeUI();
-    updateStartFields();
-    updateChips();
-  }
-
-  /* ============================================================
-     ACTIONS
-     ============================================================ */
-  function applySetup() {
-    var startDate = $('startDate').value || todayISO();
-    var totalDays = parseInt($('totalDays').value, 10);
-    var targetDate = $('targetDate').value;
-    var mode = state.mode;
-
-    if (mode === 'days') {
-      if (!totalDays || totalDays < 1) totalDays = 1;
-      if (totalDays > 3650) totalDays = 3650;
-      targetDate = addDays(startDate, totalDays - 1);
-    } else {
-      if (!targetDate) targetDate = startDate;
-      if (diffDays(startDate, targetDate) < 0) targetDate = startDate;
-      totalDays = diffDays(startDate, targetDate) + 1;
-    }
-
-    /* --- start point --- */
-    var sm = $('startMode').value;
-    var startPage = 1;
-    var parah = 1;
-
-    if (sm === 'page1') {
-      startPage = 1;
-    } else if (sm === 'page') {
-      startPage = clamp(parseInt($('startPage').value, 10) || 1, 1, TOTAL_PAGES);
-    } else {
-      parah = clamp(parseInt($('parahSelect').value, 10) || 1, 1, 30);
-      startPage = PARAH_START[parah - 1];
-    }
-
-    var startChanged = (startPage !== state.startPage);
-
-    state.startDate = startDate;
-    state.mode = mode;
-    state.totalDays = totalDays;
-    state.targetDate = targetDate;
-    state.startMode = sm;
-    state.startPage = startPage;
-    state.parah = parah;
-
-    if (startChanged) {
-      state.log = {}; /* page numbering changed → reset progress */
-    }
-
-    save();
-    fillSetupInputs();
-    render();
-
-    if (startChanged) {
-      toast('ترتیب محفوظ ہو گئی — پیش رفت ری سیٹ ہو گئی');
-    } else {
-      toast('ترتیب محفوظ ہو گئی ✔');
-    }
-  }
-
-  function togglePrayer(idx) {
-    var today = todayISO();
-    var day = state.log[today];
-    if (!day || !Array.isArray(day.prayers)) return;
-
-    var entry = day.prayers[idx];
-    if (!entry) return;
-
-    if (!entry.done && (!entry.count || entry.count <= 0)) {
-      toast('یہ ہدف پہلے ہی مکمل ہے');
-      return;
-    }
-
-    entry.done = !entry.done;
-    save();
-    render();
-
-    if (entry.done) {
-      toast('ماشاءاللہ! ' + PRAYERS[idx].name + ' مکمل 🌿');
-      if (navigator.vibrate) { try { navigator.vibrate(18); } catch (e) {} }
-    }
-  }
-
-  function resetAll() {
-    if (!confirm('کیا آپ واقعی ساری پیش رفت اور ترتیب ری سیٹ کرنا چاہتے ہیں؟')) return;
-
-    var t = todayISO();
-    state.log = {};
-    state.startDate = t;
-    state.mode = 'days';
-    state.totalDays = 30;
-    state.targetDate = addDays(t, 29);
-    state.startMode = 'page1';
-    state.startPage = 1;
-    state.parah = 1;
-
-    save();
-    fillSetupInputs();
-    render();
-    toast('سب کچھ ری سیٹ ہو گیا');
-  }
-
-  /* ============================================================
-     EVENT BINDINGS
-     ============================================================ */
-  function bindEvents() {
-    /* --- theme --- */
-    $('themeBtn').addEventListener('click', function () {
-      state.theme = state.theme === 'dark' ? 'light' : 'dark';
-      applyTheme();
-      save();
-    });
-
-    /* --- collapsible setup --- */
-    $('toggleSetup').addEventListener('click', function () {
-      var body = $('setupBody');
-      var hidden = body.classList.toggle('hidden');
-      this.textContent = hidden ? 'دکھائیں' : 'چھپائیں';
-    });
-
-    /* --- mode segmented control --- */
-    $('modeSeg').addEventListener('click', function (e) {
-      var btn = e.target.closest ? e.target.closest('.seg') : null;
-      if (!btn) return;
-      state.mode = btn.dataset.mode;
-      updateModeUI();
-      updateChips();
-    });
-
-    /* --- start point select --- */
-    $('startMode').addEventListener('change', updateStartFields);
-
-    /* --- quick day chips --- */
-    Array.prototype.forEach.call(document.querySelectorAll('.chip'), function (chip) {
-      chip.addEventListener('click', function () {
-        var d = parseInt(chip.dataset.days, 10);
-        state.mode = 'days';
-        $('totalDays').value = d;
-        updateModeUI();
-        updateChips();
-      });
-    });
-
-    /* --- save --- */
-    $('saveBtn').addEventListener('click', applySetup);
-
-    /* --- prayer checkboxes (event delegation) --- */
-    $('prayerList').addEventListener('click', function (e) {
-      var row = e.target.closest ? e.target.closest('.prayer') : null;
-      if (!row) return;
-      togglePrayer(parseInt(row.dataset.idx, 10));
-    });
-
-    /* --- reset --- */
-    $('resetBtn').addEventListener('click', resetAll);
-
-    /* --- keep daily counters fresh if the app stays open past midnight --- */
-    var lastDay = todayISO();
-    setInterval(function () {
-      var now = todayISO();
-      if (now !== lastDay) {
-        lastDay = now;
-        render();
-      }
-    }, 60000);
-
-    /* --- refresh on focus / visibility --- */
-    document.addEventListener('visibilitychange', function () {
-      if (!document.hidden) render();
-    });
-    window.addEventListener('focus', function () { render(); });
-  }
-
-  /* ============================================================
-     INIT
-     ============================================================ */
-  function init() {
-    state = loadState();
-    applyTheme();
-    buildParahOptions();
-    fillSetupInputs();
-    bindEvents();
-    render();
-
-    /* sanity: make sure today's entry exists right away */
-    save();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  load();
+  initParah();
+  bindEvents();
+  render();
 })();
 </script>
 </body>
