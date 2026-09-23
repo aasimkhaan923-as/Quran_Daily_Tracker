@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0e7a5f">
-<title>اسمارٹ قرآن روٹین ٹریکر — VIP</title>
+<title>اسمارٹ قرآن روٹین ٹریکر — VIP v5.5</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
@@ -44,8 +44,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Naskh Arabic','Seg
   --border:rgba(25,169,126,.16);--border-strong:rgba(25,169,126,.28);
   --shadow:0 6px 24px rgba(0,0,0,.4);--shadow-sm:0 2px 8px rgba(0,0,0,.3);
 }
-
-/* ===== SKIN: GOLD ===== */
 [data-skin="gold"]{
   --emerald:#b8860b;--emerald-dark:#7a5a08;--emerald-soft:rgba(184,134,11,.15);--emerald-tint:rgba(184,134,11,.06);
   --header-a:#7a5a08;--header-b:#b8860b;--header-c:#d4a017;
@@ -60,8 +58,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Naskh Arabic','Seg
   --border:rgba(224,190,78,.2);--border-strong:rgba(224,190,78,.35);
   --bg:#12100a;--bg-2:#1c1810;--card:rgba(35,28,12,.7);--card-2:rgba(28,22,10,.5);
 }
-
-/* ===== SKIN: NIGHT (OLED) ===== */
 [data-skin="night"]{
   --bg:#000;--bg-2:#0a0a0a;
   --card:rgba(18,18,18,.72);--card-solid:#0d0d0d;--card-2:rgba(15,15,15,.6);
@@ -72,8 +68,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Naskh Arabic','Seg
   --gold:#e0be4e;--gold-soft:rgba(224,190,78,.2);--gold-deep:#f0cf6a;
   --border:rgba(25,169,126,.18);--border-strong:rgba(25,169,126,.32);
 }
-
-/* ===== SKIN: RAMADAN ===== */
 [data-skin="ramadan"]{
   --emerald:#6a2a8a;--emerald-dark:#4a1c63;--emerald-soft:rgba(106,42,138,.15);--emerald-tint:rgba(106,42,138,.06);
   --header-a:#2d0f45;--header-b:#4a1c63;--header-c:#6a2a8a;
@@ -88,8 +82,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Naskh Arabic','Seg
   --border:rgba(160,109,196,.2);--border-strong:rgba(160,109,196,.35);
   --bg:#0e0518;--bg-2:#1a0628;--card:rgba(35,15,50,.7);--card-2:rgba(28,10,40,.5);
 }
-
-/* ===== SKIN: KAABA ===== */
 [data-skin="kaaba"]{
   --emerald:#8b6f47;--emerald-dark:#5c4730;--emerald-soft:rgba(139,111,71,.15);--emerald-tint:rgba(139,111,71,.06);
   --header-a:#3d2f1e;--header-b:#5c4730;--header-c:#8b6f47;
@@ -104,7 +96,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Naskh Arabic','Seg
   --border:rgba(201,165,111,.22);--border-strong:rgba(201,165,111,.35);
   --bg:#0f0a04;--bg-2:#1a1408;--card:rgba(40,30,18,.7);--card-2:rgba(30,22,12,.5);
 }
-
 body::before{
   content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
@@ -112,24 +103,15 @@ body::before{
     radial-gradient(700px 400px at -10% 100%,var(--gold-soft),transparent 60%);
   transition:opacity .4s;
 }
-
 button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden;-webkit-user-select:none;user-select:none}
 .hidden{display:none !important}
-
-/* RIPPLE */
 .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rip .55s ease-out;pointer-events:none}
 [data-theme="dark"] .ripple{background:rgba(255,255,255,.35)}
 @keyframes rip{to{transform:scale(3.5);opacity:0}}
 
-/* ============================================================
-   APP SHELL
-   ============================================================ */
 .app-shell{display:flex;flex-direction:column;height:100vh;height:100dvh;width:100%;overflow:hidden;position:relative}
 
-/* ============================================================
-   HEADER
-   ============================================================ */
 .app-header{
   flex:0 0 auto;width:100%;padding:10px 14px 12px;color:#fff;
   background:linear-gradient(135deg,var(--header-a),var(--header-b),var(--header-c));
@@ -156,33 +138,21 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .icon-btn{width:36px;height:36px;display:grid;place-items:center;font-size:16px;border-radius:11px;color:#fff;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);transition:transform .18s,background .2s}
 .icon-btn:active{transform:scale(.9);background:rgba(255,255,255,.3)}
 
-/* ============================================================
-   CONTENT
-   ============================================================ */
 .app-content{flex:1 1 auto;width:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:12px;padding-bottom:16px;scrollbar-width:thin;scroll-behavior:smooth}
 .app-content::-webkit-scrollbar{width:4px}
 .app-content::-webkit-scrollbar-thumb{background:var(--emerald-soft);border-radius:999px}
 .content-inner{width:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
 
-/* ============================================================
-   TAB PANELS
-   ============================================================ */
 .tab-panel{display:none;width:100%}
 .tab-panel.active{display:block;animation:tabIn .36s cubic-bezier(.16,1,.3,1)}
 @keyframes tabIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
 
-/* ============================================================
-   CARD
-   ============================================================ */
 .card{width:100%;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);transition:background .4s,border-color .4s,box-shadow .3s}
 .card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,var(--card-2),transparent);flex-wrap:wrap}
 .card-head h2{font-size:14px;font-weight:700;margin:0;min-width:0;color:var(--text-strong)}
 .card-body{padding:13px}
 .pill{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--emerald);background:var(--emerald-soft);padding:3px 10px;border-radius:999px;white-space:nowrap;border:1px solid var(--border)}
 
-/* ============================================================
-   STREAK BANNER
-   ============================================================ */
 .streak-banner{
   position:relative;width:100%;padding:16px 18px;border-radius:20px;
   background:linear-gradient(135deg,var(--header-a),var(--header-b),var(--header-c));
@@ -206,9 +176,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .streak-next .nx-lbl{font-size:10px;opacity:.88;margin-top:2px;line-height:1.3}
 .streak-next .nx-cnt{font-size:10.5px;font-weight:700;margin-top:2px}
 
-/* ============================================================
-   HERO
-   ============================================================ */
 .date-pill-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
 .date-pill{font-size:12px;font-weight:600;color:var(--emerald);background:var(--emerald-soft);padding:5px 12px;border-radius:999px;white-space:nowrap;border:1px solid var(--border)}
 .section-title{font-size:13.5px;font-weight:700;color:var(--text-strong);display:flex;align-items:center;gap:6px}
@@ -223,9 +190,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .mini-top strong{color:var(--text);font-size:13px}
 .mini-bottom{margin-top:6px;font-size:11.5px;color:var(--muted);line-height:1.6}
 
-/* ============================================================
-   EXTRA
-   ============================================================ */
 .extra-box{margin-bottom:12px;padding:13px;border-radius:16px;background:linear-gradient(180deg,rgba(255,249,226,.85),var(--gold-soft));border:1.5px dashed rgba(201,162,39,.6);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur)}
 [data-theme="dark"] .extra-box{background:linear-gradient(180deg,rgba(224,190,78,.08),var(--gold-soft))}
 .extra-box h3{font-size:13px;font-weight:700;color:var(--gold-deep);margin:0 0 9px;display:flex;align-items:center;gap:6px}
@@ -236,9 +200,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .extra-info b{color:var(--gold-deep);font-weight:800;font-size:14px}
 .extra-badge{display:inline-block;margin-inline-start:4px;padding:3px 10px;border-radius:999px;background:var(--card-solid);font-size:11.5px;font-weight:700;color:var(--gold-deep);border:1px solid rgba(201,162,39,.5)}
 
-/* ============================================================
-   BUTTONS
-   ============================================================ */
 .btn{display:block;width:100%;padding:13px 14px;border-radius:13px;font-size:15px;font-weight:700;transition:transform .15s,box-shadow .2s,opacity .2s;position:relative;overflow:hidden}
 .btn:active{transform:scale(.98)}
 .btn.primary{color:#fff;background:linear-gradient(135deg,var(--emerald),var(--emerald-dark));box-shadow:0 6px 18px var(--emerald-soft)}
@@ -248,9 +209,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .btn.mini.gold{color:#fff;background:linear-gradient(135deg,#e0be4e,#c9a227);box-shadow:0 4px 12px rgba(201,162,39,.42)}
 .btn.mini.outline{background:transparent;border:1.5px solid var(--border-strong);color:var(--text)}
 
-/* ============================================================
-   BARS
-   ============================================================ */
 .bar{width:100%;height:11px;border-radius:999px;background:var(--emerald-soft);overflow:hidden;position:relative}
 .bar>i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--emerald-dark),var(--emerald));transition:width .9s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
 .bar>i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shim 2.2s infinite}
@@ -263,9 +221,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .progress-bottom{margin-top:6px}
 .progress-bottom b{color:var(--text);font-weight:700}
 
-/* ============================================================
-   STATS
-   ============================================================ */
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
 .stat{padding:10px 6px;border-radius:13px;background:var(--card-2);border:1px solid var(--border);text-align:center;min-width:0;transition:transform .2s,background .3s;backdrop-filter:blur(6px)}
 .stat:active{transform:scale(.97)}
@@ -276,9 +231,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .note{margin-top:12px;padding:11px 13px;border-radius:13px;font-size:12.5px;line-height:1.85;background:var(--emerald-tint);border:1px dashed var(--border-strong);color:var(--text);backdrop-filter:blur(6px)}
 .target-info{margin-top:10px;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.7}
 
-/* ============================================================
-   PRAYER
-   ============================================================ */
 .prayer-list{display:flex;flex-direction:column;gap:9px}
 .prayer{display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border-radius:15px;background:var(--card);border:1.5px solid var(--border);cursor:pointer;user-select:none;transition:background .3s,border-color .3s,transform .18s,box-shadow .25s;min-width:0;box-shadow:var(--shadow-sm);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur)}
 .prayer:active{transform:scale(.98)}
@@ -296,9 +248,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .prayer-count .pc-parah{font-size:10px;font-weight:700;color:var(--gold-deep);background:var(--gold-soft);padding:2px 8px;border-radius:999px;white-space:nowrap;border:1px solid rgba(201,162,39,.35)}
 .prayer.done .prayer-count .pc-pages{background:var(--emerald);color:#fff;border-color:var(--emerald)}
 
-/* ============================================================
-   BADGES
-   ============================================================ */
 .badges-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px}
 .badge{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:14px;background:var(--card-2);border:1.5px solid var(--border);text-align:center;transition:transform .2s,box-shadow .25s,background .3s;cursor:pointer}
 .badge:active{transform:scale(.95)}
@@ -310,9 +259,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .badge .bd-req{font-size:9.5px;color:var(--muted);line-height:1.2}
 .badge.locked .bd-name{color:var(--muted)}
 
-/* ============================================================
-   AUDIO PLAYER
-   ============================================================ */
 .audio-hero{width:100%;padding:18px 16px;border-radius:20px;background:linear-gradient(135deg,var(--header-a),var(--header-b),var(--header-c));color:#fff;position:relative;overflow:hidden;box-shadow:0 10px 28px var(--header-shadow);text-align:center;margin-bottom:12px}
 .audio-hero::before{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:
   radial-gradient(circle at 15% 30%,rgba(255,255,255,.3) 0 2px,transparent 3px),
@@ -338,9 +284,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .surah-item .si-num{flex:0 0 28px;height:28px;border-radius:9px;background:var(--emerald-soft);color:var(--emerald);display:grid;place-items:center;font-size:11px;font-weight:700;border:1px solid var(--border)}
 .surah-item.active .si-num{background:var(--emerald);color:#fff}
 
-/* ============================================================
-   THEME PICKER
-   ============================================================ */
 .theme-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 .theme-swatch{display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 4px;border-radius:13px;background:var(--card-2);border:1.5px solid var(--border);cursor:pointer;transition:transform .2s,border-color .25s,box-shadow .25s}
 .theme-swatch:active{transform:scale(.94)}
@@ -353,9 +296,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .sw-ramadan{background:linear-gradient(135deg,#a06dc4,#4a1c63)}
 .sw-kaaba{background:linear-gradient(135deg,#c9a56f,#5c4730)}
 
-/* ============================================================
-   SETTINGS ROWS
-   ============================================================ */
 .setting-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--border)}
 .setting-row:last-child{border-bottom:0;padding-bottom:0}
 .setting-row:first-child{padding-top:0}
@@ -367,9 +307,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .switch.on{background:var(--emerald)}
 .switch.on::after{transform:translateX(-20px)}
 
-/* ============================================================
-   FIELDS
-   ============================================================ */
 .field{width:100%;margin-bottom:12px}
 .field label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:6px}
 .field input,.field select{display:block;width:100%;max-width:100%;padding:11px 13px;border-radius:12px;border:1.5px solid var(--border-strong);background:var(--card-2);color:var(--text);font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s,background .2s;-webkit-appearance:none;appearance:none;backdrop-filter:blur(8px)}
@@ -377,31 +314,19 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235f7d70' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 13px center;padding-left:36px}
 .hint{display:block;margin-top:5px;font-size:11.5px;color:var(--muted)}
 
-/* ============================================================
-   SEGMENTS
-   ============================================================ */
 .segmented{display:flex;width:100%;gap:4px;padding:4px;border-radius:12px;background:var(--card-2);border:1.5px solid var(--border-strong)}
 .seg{flex:1 1 0;min-width:0;padding:9px 6px;border-radius:9px;font-size:13.5px;font-weight:600;color:var(--muted);background:transparent;transition:background .25s,color .25s,transform .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .seg:active{transform:scale(.96)}
 .seg.active{color:#fff;background:linear-gradient(135deg,var(--emerald),var(--emerald-dark));box-shadow:0 3px 10px var(--emerald-soft)}
 
-/* ============================================================
-   CHIPS
-   ============================================================ */
 .quick-days{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:2px 0 13px}
 .quick-days>span{font-size:11.5px;color:var(--muted)}
 .chip{font-size:12.5px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--border-strong);background:var(--card-2);color:var(--text);transition:transform .15s,background .25s,border-color .25s,box-shadow .25s}
 .chip:active{transform:scale(.94)}
 .chip.active{font-weight:700;background:var(--gold-soft);border-color:var(--gold);box-shadow:0 3px 10px var(--gold-soft)}
 
-/* ============================================================
-   CHART
-   ============================================================ */
 .chart-wrap{width:100%;height:200px;padding:8px 4px 4px;position:relative}
 
-/* ============================================================
-   BOTTOM NAV (4 tabs)
-   ============================================================ */
 .bottom-nav{flex:0 0 auto;width:100%;display:flex;background:rgba(255,255,255,.82);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border-top:1px solid var(--border);box-shadow:0 -6px 24px rgba(10,60,45,.08);padding-bottom:env(safe-area-inset-bottom);z-index:10;transition:background .4s}
 [data-theme="dark"] .bottom-nav{background:rgba(14,32,25,.82)}
 .nav-inner{width:100%;max-width:640px;margin:0 auto;display:flex;align-items:stretch;height:var(--nav-h)}
@@ -413,16 +338,10 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .nav-btn::after{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%) scaleX(0);width:40px;height:3px;border-radius:0 0 4px 4px;background:linear-gradient(90deg,var(--emerald-dark),var(--emerald));transition:transform .32s cubic-bezier(.34,1.56,.64,1);transform-origin:center}
 .nav-btn.active::after{transform:translateX(-50%) scaleX(1)}
 
-/* ============================================================
-   TOAST
-   ============================================================ */
 .toast{position:fixed;bottom:calc(var(--nav-h) + 20px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,20px);z-index:999;max-width:88vw;padding:11px 20px;border-radius:999px;background:rgba(13,42,32,.95);backdrop-filter:blur(10px);color:#fff;font-size:13px;text-align:center;opacity:0;pointer-events:none;box-shadow:0 12px 32px rgba(0,0,0,.32);transition:opacity .3s,transform .3s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 [data-theme="dark"] .toast{background:rgba(30,60,48,.95)}
 
-/* ============================================================
-   KHATM CELEBRATION MODAL
-   ============================================================ */
 .khatm-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}
 .khatm-modal.show{display:flex;animation:fadeIn .35s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -440,14 +359,9 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .khatm-actions .btn{background:rgba(255,255,255,.22);color:#fff;border:1px solid rgba(255,255,255,.32);box-shadow:none;backdrop-filter:blur(6px)}
 .khatm-actions .btn.gold{background:linear-gradient(135deg,#e0be4e,#c9a227);border-color:transparent;color:#fff}
 .khatm-close{position:absolute;top:12px;left:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;font-size:18px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.3)}
-
-/* Confetti */
 .confetti{position:absolute;top:-20px;width:10px;height:14px;opacity:.9;pointer-events:none;animation:fall linear forwards}
 @keyframes fall{0%{transform:translateY(-20px) rotate(0);opacity:1}100%{transform:translateY(90vh) rotate(720deg);opacity:0}}
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
 @media (min-width:480px){.stats{grid-template-columns:repeat(4,1fr)}.badges-grid{grid-template-columns:repeat(5,1fr)}}
 @media (max-width:360px){
   body{font-size:14px}
@@ -468,13 +382,12 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 
 <div class="app-shell">
 
-  <!-- ============ HEADER ============ -->
   <header class="app-header">
     <div class="header-inner">
       <div class="logo">☪</div>
       <div class="brand-text">
         <h1>قرآن روٹین ٹریکر</h1>
-        <p id="headerSub">VIP ایڈیشن • 549 صفحات</p>
+        <p id="headerSub">ورژن 5.5 • VIP ایڈیشن • 549 صفحات</p>
       </div>
       <div class="header-actions">
         <div class="streak-pill" id="headerStreak" title="اسٹریک">
@@ -485,7 +398,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     </div>
   </header>
 
-  <!-- ============ CONTENT ============ -->
   <main class="app-content" id="appContent">
     <div class="content-inner">
 
@@ -805,7 +717,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     </div>
   </main>
 
-  <!-- ============ BOTTOM NAV ============ -->
   <nav class="bottom-nav">
     <div class="nav-inner">
       <button type="button" class="nav-btn active" data-tab="today">
@@ -825,7 +736,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 
 </div>
 
-<!-- ============ KHATM MODAL ============ -->
 <div class="khatm-modal" id="khatmModal">
   <div class="khatm-inner">
     <button class="khatm-close" id="khatmClose" type="button" aria-label="بند">✕</button>
@@ -856,18 +766,18 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
   "use strict";
 
   /* ============================================================
-     CONSTANTS
+     CONSTANTS — VERSION 5.5
      ============================================================ */
   var TOTAL_PAGES = 549, TOTAL_PARAS = 30;
   var PAGES_PER_PARAH = TOTAL_PAGES / TOTAL_PARAS;
-  var STORAGE_KEY = "smart_quran_routine_v7";
-  var ACTIVE_TAB_KEY = "smart_quran_tab_v7";
-  var THEME_KEY = "smart_quran_theme_v7";
-  var SKIN_KEY = "smart_quran_skin_v7";
-  var REMINDER_KEY = "smart_quran_reminder_v7";
-  var KHATM_KEY = "smart_quran_khatm_v7";
-  var USERNAME_KEY = "smart_quran_username_v7";
-  var AUDIO_KEY = "smart_quran_audio_v7";
+  var STORAGE_KEY = "smart_quran_routine_v5_5";
+  var ACTIVE_TAB_KEY = "smart_quran_tab_v5_5";
+  var THEME_KEY = "smart_quran_theme_v5_5";
+  var SKIN_KEY = "smart_quran_skin_v5_5";
+  var REMINDER_KEY = "smart_quran_reminder_v5_5";
+  var KHATM_KEY = "smart_quran_khatm_v5_5";
+  var USERNAME_KEY = "smart_quran_username_v5_5";
+  var AUDIO_KEY = "smart_quran_audio_v5_5";
 
   var PARAH_STARTS = [
     1,19,37,55,73,91,109,127,145,163,
@@ -888,11 +798,15 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 
   var SURAHS = ["الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
 
+  /* ============================================================
+     RECITERS — v5.5 UPDATE
+     محمد ایوب نے محمود خلیل الحصری کی جگہ لی ہے
+     ============================================================ */
   var RECITERS = [
     { id:"ar.alafasy", name:"مشاری راشد العفاسی" },
     { id:"ar.abdulbasitmurattal", name:"عبدالباسط عبدالصمد" },
     { id:"ar.abdurrahmaansudais", name:"عبدالرحمن السدیس" },
-    { id:"ar.husary", name:"محمود خلیل الحصری" }
+    { id:"ar.muhammadayyoub", name:"محمد ایوب" }
   ];
 
   var BADGES = [
@@ -906,9 +820,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     { id:"khatm", icon:"📖", name:"پہلا ختم", req:"پورا قرآن", check: function(c){ return c.plan.totalDone >= c.plan.totalToRead && c.plan.totalToRead > 0; } }
   ];
 
-  /* ============================================================
-     HELPERS
-     ============================================================ */
   function $(id){ return document.getElementById(id); }
   function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
   function pad2(n){ return n<10?"0"+n:""+n; }
@@ -926,9 +837,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
   function pagesToParah(p){ return (!p||p<=0)?0:p/PAGES_PER_PARAH; }
   function formatParah(p){ if(!p||p<=0) return "0"; if(p<0.05) return "~0"; return (Math.round(p*10)/10).toFixed(1); }
 
-  /* ============================================================
-     THEME + SKIN
-     ============================================================ */
   var currentTheme = "light";
   var currentSkin = "emerald";
 
@@ -945,9 +853,7 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     if(["emerald","gold","night","ramadan","kaaba"].indexOf(s)===-1) s="emerald";
     currentSkin = s;
     document.documentElement.setAttribute("data-skin",s);
-    if(s==="night"){
-      applyTheme("dark");
-    }
+    if(s==="night"){ applyTheme("dark"); }
     try{ localStorage.setItem(SKIN_KEY,s); }catch(e){}
     var swatches=document.querySelectorAll(".theme-swatch");
     for(var i=0;i<swatches.length;i++){
@@ -967,9 +873,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     applySkin(savedS||"emerald");
   }
 
-  /* ============================================================
-     STATE
-     ============================================================ */
   var state=null, weeklyChart=null;
 
   function defaultState(){
@@ -1011,9 +914,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
   }
   function save(){ try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); }catch(e){} }
 
-  /* ============================================================
-     PROGRESS CALC
-     ============================================================ */
   function pagesForDate(iso){
     var day=state.log[iso]; if(!day) return 0;
     var sum=0,i;
@@ -1122,9 +1022,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     }
   }
 
-  /* ============================================================
-     RENDER
-     ============================================================ */
   function render(){
     var plan=getPlan();
     syncToday(plan);
@@ -1373,9 +1270,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     updateWeeklyNote(data);
   }
 
-  /* ============================================================
-     AUDIO + HAPTIC
-     ============================================================ */
   var audioCtx=null;
   function playChime(){
     try{
@@ -1400,9 +1294,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
   function fbSuccess(){ playChime(); haptic([12,40,18]); }
   function fbTap(){ haptic(8); }
 
-  /* ============================================================
-     ACTIONS
-     ============================================================ */
   function togglePrayer(idx){
     var today=todayISO();
     var day=state.log[today];
@@ -1465,9 +1356,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     save(); fillSetupInputs(); render(); showToast("سب کچھ ری سیٹ ہو گیا");
   }
 
-  /* ============================================================
-     TOAST
-     ============================================================ */
   var toastTimer=null;
   function showToast(msg){
     var el=$("toast"); if(!el) return;
@@ -1476,9 +1364,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     toastTimer=setTimeout(function(){ el.classList.remove("show"); },2400);
   }
 
-  /* ============================================================
-     TABS
-     ============================================================ */
   function switchTab(tab){
     var panels=document.querySelectorAll(".tab-panel"), i;
     for(i=0;i<panels.length;i++) panels[i].classList.toggle("active",panels[i].id==="panel-"+tab);
@@ -1495,9 +1380,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     switchTab(t);
   }
 
-  /* ============================================================
-     SETUP UI
-     ============================================================ */
   function buildParahOptions(){
     var sel=$("parahSelect"), html="", i;
     for(i=0;i<30;i++) html+='<option value="'+(i+1)+'">پارہ '+(i+1)+' (صفحہ '+PARAH_STARTS[i]+')</option>';
@@ -1535,9 +1417,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     updateModeUI(); updateStartFields(); updateChips();
   }
 
-  /* ============================================================
-     REMINDER
-     ============================================================ */
   var reminder={enabled:false,time:"08:00"}, reminderTimer=null;
   function loadReminder(){
     try{ var raw=localStorage.getItem(REMINDER_KEY); if(!raw) return; var p=JSON.parse(raw);
@@ -1600,12 +1479,9 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     }
   }
 
-  /* ============================================================
-     EXPORT / IMPORT
-     ============================================================ */
   function exportData(){
     try{
-      var payload={app:"Smart Quran Routine Tracker",version:7,exportedAt:new Date().toISOString(),state:state,reminder:reminder,skin:currentSkin,theme:currentTheme};
+      var payload={app:"Smart Quran Routine Tracker",version:"5.5",exportedAt:new Date().toISOString(),state:state,reminder:reminder,skin:currentSkin,theme:currentTheme};
       var blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
       var url=URL.createObjectURL(blob), a=document.createElement("a");
       a.href=url; a.download="quran-tracker-backup-"+todayISO()+".json";
@@ -1655,9 +1531,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     reader.readAsText(file);
   }
 
-  /* ============================================================
-     AUDIO PLAYER
-     ============================================================ */
   var audioEl=$("audioEl"), currentSurah=1, currentReciterIndex=0;
   function loadAudioPrefs(){
     try{
@@ -1774,15 +1647,11 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
       $("audioPlayBtn").textContent="▶";
     });
 
-    /* init labels */
     var r=RECITERS[currentReciterIndex];
     $("audioSurahName").textContent="سورۃ "+SURAHS[currentSurah-1];
     $("audioReciterName").textContent=r.name;
   }
 
-  /* ============================================================
-     KHATM CELEBRATION + CERTIFICATE
-     ============================================================ */
   function spawnConfetti(container){
     var colors=["#0e7a5f","#c9a227","#e0be4e","#19a97e","#f0cf6a","#ffffff"];
     for(var i=0;i<70;i++){
@@ -1833,12 +1702,10 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     canvas.width=W; canvas.height=H;
     var ctx=canvas.getContext("2d");
 
-    /* background gradient */
     var g=ctx.createLinearGradient(0,0,W,H);
     g.addColorStop(0,"#0a5c47"); g.addColorStop(0.5,"#0e7a5f"); g.addColorStop(1,"#13906e");
     ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
 
-    /* subtle pattern - dots */
     ctx.globalAlpha=0.08;
     ctx.fillStyle="#ffffff";
     for(var y=40;y<H;y+=60){
@@ -1848,50 +1715,41 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     }
     ctx.globalAlpha=1;
 
-    /* gold border */
     ctx.strokeStyle="#c9a227"; ctx.lineWidth=8;
     ctx.strokeRect(30,30,W-60,H-60);
     ctx.strokeStyle="#e0be4e"; ctx.lineWidth=2;
     ctx.strokeRect(50,50,W-100,H-100);
 
-    /* corner ornaments */
     ctx.fillStyle="#e0be4e";
     var corners=[[50,50],[W-50,50],[50,H-50],[W-50,H-50]];
     corners.forEach(function(c){
       ctx.beginPath(); ctx.arc(c[0],c[1],10,0,Math.PI*2); ctx.fill();
     });
 
-    /* Bismillah */
     ctx.fillStyle="#ffffff";
     ctx.textAlign="center";
     ctx.font="bold 42px 'Amiri', 'Noto Naskh Arabic', serif";
     ctx.fillText("﷽",W/2,180);
 
-    /* Title */
     ctx.fillStyle="#e0be4e";
     ctx.font="bold 56px 'Amiri', 'Noto Naskh Arabic', serif";
     ctx.fillText("شہادتِ ختمِ قرآن",W/2,280);
 
-    /* Subtitle */
     ctx.fillStyle="#ffffff";
     ctx.font="22px 'Noto Naskh Arabic', sans-serif";
     ctx.fillText("Certificate of Quran Completion",W/2,325);
 
-    /* "This certifies that" */
     ctx.fillStyle="rgba(255,255,255,0.85)";
     ctx.font="24px 'Noto Naskh Arabic', sans-serif";
     ctx.fillText("یہ سند دی جاتی ہے",W/2,420);
 
-    /* Name */
     ctx.fillStyle="#ffffff";
     ctx.font="bold 60px 'Amiri', 'Noto Naskh Arabic', serif";
     ctx.fillText(name||"____",W/2,510);
 
-    /* underline */
     ctx.strokeStyle="#e0be4e"; ctx.lineWidth=3;
     ctx.beginPath(); ctx.moveTo(200,535); ctx.lineTo(W-200,535); ctx.stroke();
 
-    /* Completion text */
     ctx.fillStyle="rgba(255,255,255,0.95)";
     ctx.font="26px 'Noto Naskh Arabic', sans-serif";
     ctx.fillText("نے پورا قرآنِ کریم مکمل کیا",W/2,600);
@@ -1900,7 +1758,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     ctx.font="20px 'Noto Naskh Arabic', sans-serif";
     ctx.fillText("اللہ تعالیٰ اس کلامِ پاک کی تلاوت کو قبول فرمائے",W/2,645);
 
-    /* Stats boxes */
     var boxes=[
       {x:130,lbl:"دن",val:plan.elapsed},
       {x:W/2,lbl:"صفحات",val:plan.totalDone},
@@ -1920,14 +1777,12 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
       ctx.fillText(b.lbl,b.x,815);
     });
 
-    /* Dua */
     ctx.fillStyle="rgba(255,255,255,0.9)";
     ctx.font="italic 22px 'Amiri', serif";
     ctx.fillText("اللَّهُمَّ ارْحَمْنِي بِالْقُرْآنِ",W/2,910);
     ctx.font="italic 20px 'Amiri', serif";
     ctx.fillText("وَاجْعَلْهُ لِي إِمَامًا وَنُورًا وَهُدًى وَرَحْمَةً",W/2,945);
 
-    /* Date */
     var d=new Date();
     ctx.fillStyle="rgba(255,255,255,0.85)";
     ctx.font="20px 'Noto Naskh Arabic', sans-serif";
@@ -1936,12 +1791,10 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     ctx.fillStyle="rgba(255,255,255,0.65)";
     ctx.fillText(hijriDate(d),W/2,1050);
 
-    /* Footer */
     ctx.fillStyle="rgba(224,190,78,0.9)";
     ctx.font="18px 'Noto Naskh Arabic', sans-serif";
-    ctx.fillText("اسمارٹ قرآن روٹین ٹریکر",W/2,1160);
+    ctx.fillText("اسمارٹ قرآن روٹین ٹریکر • v5.5",W/2,1160);
 
-    /* Download */
     try{
       var dataURL=canvas.toDataURL("image/png");
       var a=document.createElement("a");
@@ -1979,9 +1832,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     }
   }
 
-  /* ============================================================
-     RIPPLE
-     ============================================================ */
   function attachRipple(el){
     if(!el) return;
     el.addEventListener("click",function(e){
@@ -1999,9 +1849,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     });
   }
 
-  /* ============================================================
-     EVENTS
-     ============================================================ */
   function bindEvents(){
     $("themeBtn").addEventListener("click",function(){
       applyTheme(currentTheme==="dark"?"light":"dark");
@@ -2114,9 +1961,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     window.addEventListener("resize",function(){ if(weeklyChart) weeklyChart.resize(); });
   }
 
-  /* ============================================================
-     INIT
-     ============================================================ */
   function init(){
     initThemeAndSkin();
     state=loadState();
