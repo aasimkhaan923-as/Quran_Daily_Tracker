@@ -7,9 +7,12 @@
 <title>اسمارٹ قرآن روٹین ٹریکر</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-/* ============ RESET ============ */
+/* ============================================================
+   RESET
+   ============================================================ */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -31,24 +34,76 @@ body {
   line-height: 1.7;
   direction: rtl;
   text-align: right;
+  transition: background 0.4s, color 0.4s;
 }
 
+/* ============================================================
+   THEME VARIABLES
+   ============================================================ */
 :root {
   --bg: #eef5f1;
-  --card: #ffffff;
-  --card-2: #f5faf7;
+  --bg-2: #dfeee6;
+  --card: rgba(255, 255, 255, 0.72);
+  --card-solid: #ffffff;
+  --card-2: rgba(245, 250, 247, 0.6);
   --text: #0d2a20;
+  --text-strong: #061611;
   --muted: #5f7d70;
   --emerald: #0e7a5f;
   --emerald-dark: #0a5c47;
-  --emerald-soft: #d9f0e7;
+  --emerald-soft: rgba(14, 122, 95, 0.14);
+  --emerald-tint: rgba(14, 122, 95, 0.06);
   --gold: #c9a227;
-  --gold-soft: #fbf1d4;
+  --gold-soft: rgba(201, 162, 39, 0.18);
   --gold-deep: #8a6c0d;
-  --border: #dcebe4;
-  --shadow: 0 4px 16px rgba(10, 60, 45, 0.08);
-  --radius: 16px;
-  --nav-h: 62px;
+  --border: rgba(14, 122, 95, 0.14);
+  --border-strong: rgba(14, 122, 95, 0.24);
+  --shadow: 0 6px 24px rgba(10, 60, 45, 0.08);
+  --shadow-sm: 0 2px 8px rgba(10, 60, 45, 0.05);
+  --blur: blur(18px) saturate(1.5);
+  --radius: 18px;
+  --radius-sm: 14px;
+  --nav-h: 64px;
+  --danger: #c0392b;
+}
+
+[data-theme="dark"] {
+  --bg: #06120e;
+  --bg-2: #0a1c16;
+  --card: rgba(18, 41, 31, 0.68);
+  --card-solid: #0e2019;
+  --card-2: rgba(14, 32, 25, 0.5);
+  --text: #e2f2eb;
+  --text-strong: #f4fbf8;
+  --muted: #8fb0a2;
+  --emerald: #19a97e;
+  --emerald-dark: #0e7a5f;
+  --emerald-soft: rgba(25, 169, 126, 0.2);
+  --emerald-tint: rgba(25, 169, 126, 0.08);
+  --gold: #e0be4e;
+  --gold-soft: rgba(224, 190, 78, 0.18);
+  --gold-deep: #f0cf6a;
+  --border: rgba(25, 169, 126, 0.16);
+  --border-strong: rgba(25, 169, 126, 0.28);
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 500px at 100% -10%, rgba(14, 122, 95, 0.14), transparent 60%),
+    radial-gradient(700px 400px at -10% 100%, rgba(201, 162, 39, 0.12), transparent 60%);
+  transition: opacity 0.4s;
+}
+[data-theme="dark"] body::before {
+  background:
+    radial-gradient(900px 500px at 100% -10%, rgba(25, 169, 126, 0.16), transparent 60%),
+    radial-gradient(700px 400px at -10% 100%, rgba(224, 190, 78, 0.1), transparent 60%);
 }
 
 button, input, select, textarea {
@@ -56,33 +111,62 @@ button, input, select, textarea {
   font-size: inherit;
   color: inherit;
 }
-button { cursor: pointer; border: 0; background: none; }
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+  position: relative;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+}
 .hidden { display: none !important; }
 
-/* ============ APP SHELL ============ */
+/* ============================================================
+   RIPPLE
+   ============================================================ */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(0);
+  animation: rippleAnim 0.55s ease-out;
+  pointer-events: none;
+}
+[data-theme="dark"] .ripple { background: rgba(255, 255, 255, 0.35); }
+@keyframes rippleAnim {
+  to { transform: scale(3.5); opacity: 0; }
+}
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
 .app-shell {
   display: flex;
   flex-direction: column;
   height: 100vh;
   height: 100dvh;
   width: 100%;
-  max-width: 100%;
   overflow: hidden;
   position: relative;
 }
 
-/* ============ HEADER ============ */
+/* ============================================================
+   HEADER (glassmorphism)
+   ============================================================ */
 .app-header {
   flex: 0 0 auto;
   width: 100%;
-  padding: 12px 14px 14px;
+  padding: 10px 14px 12px;
   color: #ffffff;
-  background: linear-gradient(135deg, #0a5c47 0%, #0e7a5f 55%, #13906e 100%);
-  box-shadow: 0 4px 18px rgba(10, 92, 71, 0.22);
+  background: linear-gradient(135deg, rgba(10, 92, 71, 0.96) 0%, rgba(14, 122, 95, 0.94) 55%, rgba(19, 144, 110, 0.94) 100%);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  box-shadow: 0 6px 22px rgba(10, 92, 71, 0.28);
   position: relative;
   overflow: hidden;
   z-index: 5;
-  padding-top: calc(12px + env(safe-area-inset-top));
+  padding-top: calc(10px + env(safe-area-inset-top));
 }
 .app-header::after {
   content: "";
@@ -91,8 +175,8 @@ button { cursor: pointer; border: 0; background: none; }
   opacity: 0.4;
   pointer-events: none;
   background-image:
-    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.18) 0 2px, transparent 3px),
-    radial-gradient(circle at 70% 65%, rgba(255,255,255,0.12) 0 2px, transparent 3px);
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.2) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 65%, rgba(255,255,255,0.14) 0 2px, transparent 3px);
   background-size: 44px 44px, 66px 66px;
 }
 .header-inner {
@@ -115,22 +199,45 @@ button { cursor: pointer; border: 0; background: none; }
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(8px);
 }
 .brand-text { min-width: 0; flex: 1 1 auto; }
 .brand-text h1 {
-  font-size: 15.5px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.3;
   margin: 0;
 }
 .brand-text p {
-  font-size: 10.5px;
-  opacity: 0.85;
-  line-height: 1.5;
+  font-size: 10px;
+  opacity: 0.88;
+  line-height: 1.4;
   margin: 1px 0 0;
 }
 
-/* ============ CONTENT AREA ============ */
+.header-actions {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 6px;
+}
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  border-radius: 11px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(8px);
+  transition: transform 0.18s, background 0.2s;
+}
+.icon-btn:active { transform: scale(0.9); background: rgba(255, 255, 255, 0.3); }
+
+/* ============================================================
+   CONTENT AREA
+   ============================================================ */
 .app-content {
   flex: 1 1 auto;
   width: 100%;
@@ -141,6 +248,7 @@ button { cursor: pointer; border: 0; background: none; }
   padding: 12px;
   padding-bottom: 16px;
   scrollbar-width: thin;
+  scroll-behavior: smooth;
 }
 .app-content::-webkit-scrollbar { width: 4px; }
 .app-content::-webkit-scrollbar-thumb {
@@ -156,21 +264,25 @@ button { cursor: pointer; border: 0; background: none; }
   gap: 12px;
 }
 
-/* ============ TAB PANELS ============ */
+/* ============================================================
+   TAB PANELS + ANIMATION
+   ============================================================ */
 .tab-panel {
   display: none;
   width: 100%;
 }
 .tab-panel.active {
   display: block;
-  animation: tabIn 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: tabIn 0.36s cubic-bezier(0.16, 1, 0.3, 1);
 }
 @keyframes tabIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* ============ CARDS ============ */
+/* ============================================================
+   GLASS CARD
+   ============================================================ */
 .card {
   width: 100%;
   background: var(--card);
@@ -178,7 +290,12 @@ button { cursor: pointer; border: 0; background: none; }
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  transition: background 0.4s, border-color 0.4s, box-shadow 0.3s, transform 0.2s;
 }
+.card:hover { box-shadow: 0 8px 28px rgba(10, 60, 45, 0.12); }
+
 .card-head {
   display: flex;
   align-items: center;
@@ -194,21 +311,25 @@ button { cursor: pointer; border: 0; background: none; }
   font-weight: 700;
   margin: 0;
   min-width: 0;
+  color: var(--text-strong);
 }
 .card-body { padding: 13px; }
 
 .pill {
   flex: 0 0 auto;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--emerald);
   background: var(--emerald-soft);
   padding: 3px 10px;
   border-radius: 999px;
   white-space: nowrap;
+  border: 1px solid var(--border);
 }
 
-/* ============ FIELDS ============ */
+/* ============================================================
+   FIELDS
+   ============================================================ */
 .field { width: 100%; margin-bottom: 12px; }
 .field label {
   display: block;
@@ -224,19 +345,21 @@ button { cursor: pointer; border: 0; background: none; }
   max-width: 100%;
   padding: 11px 13px;
   border-radius: 12px;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--border-strong);
   background: var(--card-2);
   color: var(--text);
   font-size: 15px;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
   -webkit-appearance: none;
   appearance: none;
+  backdrop-filter: blur(8px);
 }
 .field input:focus,
 .field select:focus {
   border-color: var(--emerald);
-  box-shadow: 0 0 0 4px rgba(14, 122, 95, 0.12);
+  box-shadow: 0 0 0 4px rgba(14, 122, 95, 0.15);
+  background: var(--card-solid);
 }
 .field select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235f7d70' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -251,7 +374,9 @@ button { cursor: pointer; border: 0; background: none; }
   color: var(--muted);
 }
 
-/* ============ SEGMENTS ============ */
+/* ============================================================
+   SEGMENTS
+   ============================================================ */
 .segmented {
   display: flex;
   width: 100%;
@@ -259,7 +384,7 @@ button { cursor: pointer; border: 0; background: none; }
   padding: 4px;
   border-radius: 12px;
   background: var(--card-2);
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--border-strong);
 }
 .seg {
   flex: 1 1 0;
@@ -270,18 +395,21 @@ button { cursor: pointer; border: 0; background: none; }
   font-weight: 600;
   color: var(--muted);
   background: transparent;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.25s, color 0.25s, transform 0.15s;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.seg:active { transform: scale(0.96); }
 .seg.active {
   color: #ffffff;
-  background: var(--emerald);
-  box-shadow: 0 3px 10px rgba(14, 122, 95, 0.3);
+  background: linear-gradient(135deg, #0e7a5f, #0a5c47);
+  box-shadow: 0 3px 10px rgba(14, 122, 95, 0.35);
 }
 
-/* ============ CHIPS ============ */
+/* ============================================================
+   CHIPS
+   ============================================================ */
 .quick-days {
   display: flex;
   flex-wrap: wrap;
@@ -294,19 +422,22 @@ button { cursor: pointer; border: 0; background: none; }
   font-size: 12.5px;
   padding: 6px 12px;
   border-radius: 999px;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--border-strong);
   background: var(--card-2);
   color: var(--text);
-  transition: transform 0.15s, background 0.2s, border-color 0.2s;
+  transition: transform 0.15s, background 0.25s, border-color 0.25s, box-shadow 0.25s;
 }
 .chip:active { transform: scale(0.94); }
 .chip.active {
   font-weight: 700;
   background: var(--gold-soft);
   border-color: var(--gold);
+  box-shadow: 0 3px 10px rgba(201, 162, 39, 0.25);
 }
 
-/* ============ BUTTONS ============ */
+/* ============================================================
+   BUTTONS
+   ============================================================ */
 .btn {
   display: block;
   width: 100%;
@@ -314,26 +445,33 @@ button { cursor: pointer; border: 0; background: none; }
   border-radius: 13px;
   font-size: 15px;
   font-weight: 700;
-  transition: transform 0.15s, box-shadow 0.2s;
+  transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+  position: relative;
+  overflow: hidden;
 }
+.btn:active { transform: scale(0.98); }
 .btn.primary {
   color: #ffffff;
   background: linear-gradient(135deg, #0e7a5f, #0a5c47);
-  box-shadow: 0 6px 18px rgba(14, 122, 95, 0.28);
+  box-shadow: 0 6px 18px rgba(14, 122, 95, 0.32);
 }
-.btn.primary:active {
-  transform: scale(0.98);
-  box-shadow: 0 3px 10px rgba(14, 122, 95, 0.3);
-}
+.btn.primary:active { box-shadow: 0 3px 10px rgba(14, 122, 95, 0.35); }
 .btn.ghost {
   margin-top: 10px;
   color: var(--muted);
   background: transparent;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--border-strong);
   font-size: 13.5px;
   padding: 10px;
 }
-.btn.ghost:active { transform: scale(0.98); }
+.btn.danger {
+  color: var(--danger);
+  background: rgba(192, 57, 43, 0.08);
+  border: 1.5px solid rgba(192, 57, 43, 0.3);
+  margin-top: 10px;
+  font-size: 13.5px;
+  padding: 10px;
+}
 .btn.mini {
   padding: 10px 14px;
   font-size: 13px;
@@ -344,16 +482,24 @@ button { cursor: pointer; border: 0; background: none; }
 .btn.mini.gold {
   color: #ffffff;
   background: linear-gradient(135deg, #e0be4e, #c9a227);
-  box-shadow: 0 4px 12px rgba(201, 162, 39, 0.4);
+  box-shadow: 0 4px 12px rgba(201, 162, 39, 0.42);
+}
+.btn.mini.outline {
+  background: transparent;
+  border: 1.5px solid var(--border-strong);
+  color: var(--text);
 }
 
-/* ============ BARS ============ */
+/* ============================================================
+   BARS
+   ============================================================ */
 .bar {
   width: 100%;
   height: 11px;
   border-radius: 999px;
   background: var(--emerald-soft);
   overflow: hidden;
+  position: relative;
 }
 .bar > i {
   display: block;
@@ -361,10 +507,24 @@ button { cursor: pointer; border: 0; background: none; }
   width: 0%;
   border-radius: 999px;
   background: linear-gradient(90deg, #0e7a5f, #2ec79a);
-  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+.bar > i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 2.2s infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
 }
 .bar.gold { background: var(--gold-soft); }
 .bar.gold > i { background: linear-gradient(90deg, #c9a227, #f0cf6a); }
+
 .progress-top,
 .progress-bottom {
   display: flex;
@@ -381,9 +541,11 @@ button { cursor: pointer; border: 0; background: none; }
   font-weight: 800;
 }
 .progress-bottom { margin-top: 6px; }
-.progress-bottom b { color: var(--text); }
+.progress-bottom b { color: var(--text); font-weight: 700; }
 
-/* ============ STATS ============ */
+/* ============================================================
+   STATS GRID
+   ============================================================ */
 .stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -391,13 +553,16 @@ button { cursor: pointer; border: 0; background: none; }
   margin-top: 12px;
 }
 .stat {
-  padding: 9px 6px;
-  border-radius: 12px;
+  padding: 10px 6px;
+  border-radius: 13px;
   background: var(--card-2);
   border: 1px solid var(--border);
   text-align: center;
   min-width: 0;
+  transition: transform 0.2s, background 0.3s;
+  backdrop-filter: blur(6px);
 }
+.stat:active { transform: scale(0.97); }
 .stat b {
   display: block;
   font-size: 17px;
@@ -420,13 +585,14 @@ button { cursor: pointer; border: 0; background: none; }
 
 .note {
   margin-top: 12px;
-  padding: 10px 12px;
-  border-radius: 12px;
+  padding: 11px 13px;
+  border-radius: 13px;
   font-size: 12.5px;
-  line-height: 1.8;
-  background: var(--emerald-soft);
-  border: 1px dashed rgba(14, 122, 95, 0.4);
+  line-height: 1.85;
+  background: var(--emerald-tint);
+  border: 1px dashed var(--border-strong);
   color: var(--text);
+  backdrop-filter: blur(6px);
 }
 .target-info {
   margin-top: 10px;
@@ -436,7 +602,9 @@ button { cursor: pointer; border: 0; background: none; }
   line-height: 1.7;
 }
 
-/* ============ HERO ============ */
+/* ============================================================
+   HERO
+   ============================================================ */
 .date-pill-row {
   display: flex;
   align-items: center;
@@ -452,11 +620,12 @@ button { cursor: pointer; border: 0; background: none; }
   padding: 5px 12px;
   border-radius: 999px;
   white-space: nowrap;
+  border: 1px solid var(--border);
 }
 .section-title {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
-  color: var(--text);
+  color: var(--text-strong);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -470,40 +639,53 @@ button { cursor: pointer; border: 0; background: none; }
   min-width: 0;
 }
 .hero-num {
-  flex: 0 0 100px;
+  flex: 0 0 102px;
   padding: 10px 6px;
-  border-radius: 14px;
+  border-radius: 16px;
   color: #ffffff;
   text-align: center;
   background: linear-gradient(160deg, #0e7a5f, #0a5c47);
-  box-shadow: 0 6px 16px rgba(14, 122, 95, 0.28);
+  box-shadow: 0 8px 22px rgba(14, 122, 95, 0.34);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-num::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.25), transparent 60%);
+  pointer-events: none;
 }
 .hero-num .num {
   display: block;
-  font-size: 27px;
+  font-size: 28px;
   font-weight: 800;
   line-height: 1.1;
+  position: relative;
 }
 .hero-num small {
   display: block;
   font-size: 10px;
-  opacity: 0.9;
+  opacity: 0.92;
   margin-top: 2px;
+  position: relative;
 }
 .hero-num .parah-eq {
   display: block;
   margin-top: 5px;
   font-size: 11px;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 2px 9px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.24);
   color: #ffffff;
   white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
 }
 .hero-right {
   flex: 1 1 0;
@@ -529,18 +711,25 @@ button { cursor: pointer; border: 0; background: none; }
   line-height: 1.6;
 }
 
-/* ============ EXTRA TRACKER ============ */
+/* ============================================================
+   EXTRA TRACKER
+   ============================================================ */
 .extra-box {
   margin-bottom: 12px;
-  padding: 12px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, #fff9e2, var(--gold-soft));
-  border: 1.5px dashed rgba(201, 162, 39, 0.65);
+  padding: 13px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 249, 226, 0.85), var(--gold-soft));
+  border: 1.5px dashed rgba(201, 162, 39, 0.6);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+}
+[data-theme="dark"] .extra-box {
+  background: linear-gradient(180deg, rgba(224, 190, 78, 0.08), var(--gold-soft));
 }
 .extra-box h3 {
   font-size: 13px;
   font-weight: 700;
-  color: #6a5410;
+  color: var(--gold-deep);
   margin: 0 0 9px;
   display: flex;
   align-items: center;
@@ -557,41 +746,44 @@ button { cursor: pointer; border: 0; background: none; }
   padding: 10px 12px;
   border-radius: 11px;
   border: 1.5px solid rgba(201, 162, 39, 0.55);
-  background: #ffffff;
+  background: var(--card-solid);
   font-size: 15px;
   outline: none;
   text-align: center;
   font-weight: 700;
-  color: #4a3a06;
+  color: var(--gold-deep);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 .extra-row input:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.22);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.25);
 }
 .extra-info {
   margin-top: 10px;
   font-size: 12px;
-  color: #5d4b10;
+  color: var(--gold-deep);
   line-height: 1.9;
 }
 .extra-info b {
-  color: #3a2e05;
+  color: var(--gold-deep);
   font-weight: 800;
-  font-size: 13.5px;
+  font-size: 14px;
 }
 .extra-badge {
   display: inline-block;
   margin-inline-start: 4px;
   padding: 3px 10px;
   border-radius: 999px;
-  background: #ffffff;
+  background: var(--card-solid);
   font-size: 11.5px;
   font-weight: 700;
   color: var(--gold-deep);
   border: 1px solid rgba(201, 162, 39, 0.5);
 }
 
-/* ============ PRAYER LIST ============ */
+/* ============================================================
+   PRAYER LIST
+   ============================================================ */
 .prayer-list {
   display: flex;
   flex-direction: column;
@@ -603,40 +795,48 @@ button { cursor: pointer; border: 0; background: none; }
   gap: 10px;
   width: 100%;
   padding: 11px 12px;
-  border-radius: 14px;
+  border-radius: 15px;
   background: var(--card);
   border: 1.5px solid var(--border);
   cursor: pointer;
   user-select: none;
-  transition: background 0.25s, border-color 0.25s, transform 0.15s;
+  transition: background 0.3s, border-color 0.3s, transform 0.18s, box-shadow 0.25s;
   min-width: 0;
-  box-shadow: 0 2px 8px rgba(10, 60, 45, 0.05);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
 }
-.prayer:active { transform: scale(0.985); }
+.prayer:active { transform: scale(0.98); }
 .prayer.done {
-  background: linear-gradient(90deg, rgba(14, 122, 95, 0.16), rgba(14, 122, 95, 0.03));
-  border-color: rgba(14, 122, 95, 0.55);
+  background: linear-gradient(90deg, rgba(14, 122, 95, 0.18), rgba(14, 122, 95, 0.03));
+  border-color: rgba(14, 122, 95, 0.5);
+  box-shadow: 0 4px 14px rgba(14, 122, 95, 0.16);
 }
-.prayer.locked { opacity: 0.68; }
+[data-theme="dark"] .prayer.done {
+  background: linear-gradient(90deg, rgba(25, 169, 126, 0.24), rgba(25, 169, 126, 0.04));
+  border-color: rgba(25, 169, 126, 0.5);
+}
+.prayer.locked { opacity: 0.65; }
 .check {
   flex: 0 0 auto;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   display: grid;
   place-items: center;
-  border-radius: 9px;
-  border: 2px solid var(--border);
+  border-radius: 10px;
+  border: 2px solid var(--border-strong);
   background: var(--card-2);
-  transition: background 0.25s, border-color 0.25s;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
 }
 .check svg {
   opacity: 0;
   transform: scale(0.4);
-  transition: opacity 0.25s, transform 0.25s;
+  transition: opacity 0.3s, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .prayer.done .check {
   background: var(--emerald);
   border-color: var(--emerald);
+  transform: scale(1.05);
 }
 .prayer.done .check svg { opacity: 1; transform: scale(1); }
 
@@ -648,6 +848,7 @@ button { cursor: pointer; border: 0; background: none; }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--text-strong);
 }
 .prayer-range {
   font-size: 11.5px;
@@ -673,7 +874,8 @@ button { cursor: pointer; border: 0; background: none; }
   padding: 3px 9px;
   border-radius: 999px;
   white-space: nowrap;
-  transition: background 0.25s, color 0.25s;
+  transition: background 0.3s, color 0.3s;
+  border: 1px solid var(--border);
 }
 .prayer-count .pc-parah {
   font-size: 10px;
@@ -683,23 +885,105 @@ button { cursor: pointer; border: 0; background: none; }
   padding: 2px 8px;
   border-radius: 999px;
   white-space: nowrap;
-  border: 1px solid rgba(201, 162, 39, 0.4);
+  border: 1px solid rgba(201, 162, 39, 0.35);
 }
 .prayer.done .prayer-count .pc-pages {
   background: var(--emerald);
   color: #ffffff;
+  border-color: var(--emerald);
 }
 
-/* ============ BOTTOM NAV ============ */
+/* ============================================================
+   CHART CONTAINER
+   ============================================================ */
+.chart-wrap {
+  width: 100%;
+  height: 200px;
+  padding: 8px 4px 4px;
+  position: relative;
+}
+
+/* ============================================================
+   REMINDER ROW
+   ============================================================ */
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+}
+.setting-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.setting-row:first-child { padding-top: 0; }
+.setting-info {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.setting-info b {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-strong);
+  line-height: 1.4;
+}
+.setting-info span {
+  display: block;
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* Toggle switch */
+.switch {
+  position: relative;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--emerald-soft);
+  border: 1px solid var(--border-strong);
+  transition: background 0.3s;
+  cursor: pointer;
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.switch.on {
+  background: var(--emerald);
+}
+.switch.on::after {
+  transform: translateX(-20px);
+}
+
+/* ============================================================
+   BOTTOM NAV
+   ============================================================ */
 .bottom-nav {
   flex: 0 0 auto;
   width: 100%;
   display: flex;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
   border-top: 1px solid var(--border);
-  box-shadow: 0 -4px 16px rgba(10, 60, 45, 0.08);
+  box-shadow: 0 -6px 24px rgba(10, 60, 45, 0.08);
   padding-bottom: env(safe-area-inset-bottom);
   z-index: 10;
+  transition: background 0.4s;
+}
+[data-theme="dark"] .bottom-nav {
+  background: rgba(14, 32, 25, 0.82);
 }
 .nav-inner {
   width: 100%;
@@ -722,12 +1006,12 @@ button { cursor: pointer; border: 0; background: none; }
   border: 0;
   padding: 6px 4px;
   position: relative;
-  transition: color 0.2s;
+  transition: color 0.25s;
 }
 .nav-btn .nav-icon {
   font-size: 19px;
   line-height: 1;
-  transition: transform 0.25s ease;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .nav-btn .nav-label {
   font-size: 10.5px;
@@ -739,7 +1023,7 @@ button { cursor: pointer; border: 0; background: none; }
   color: var(--emerald);
 }
 .nav-btn.active .nav-icon {
-  transform: translateY(-1px) scale(1.1);
+  transform: translateY(-2px) scale(1.18);
 }
 .nav-btn::after {
   content: "";
@@ -747,18 +1031,20 @@ button { cursor: pointer; border: 0; background: none; }
   top: 0;
   left: 50%;
   transform: translateX(-50%) scaleX(0);
-  width: 40px;
+  width: 44px;
   height: 3px;
   border-radius: 0 0 4px 4px;
   background: linear-gradient(90deg, #0e7a5f, #2ec79a);
-  transition: transform 0.25s ease;
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
   transform-origin: center;
 }
 .nav-btn.active::after {
   transform: translateX(-50%) scaleX(1);
 }
 
-/* ============ TOAST ============ */
+/* ============================================================
+   TOAST
+   ============================================================ */
 .toast {
   position: fixed;
   bottom: calc(var(--nav-h) + 20px + env(safe-area-inset-bottom));
@@ -766,27 +1052,31 @@ button { cursor: pointer; border: 0; background: none; }
   transform: translate(-50%, 20px);
   z-index: 999;
   max-width: 88vw;
-  padding: 10px 18px;
+  padding: 11px 20px;
   border-radius: 999px;
-  background: #0d2a20;
+  background: rgba(13, 42, 32, 0.95);
+  backdrop-filter: blur(10px);
   color: #ffffff;
   font-size: 13px;
   text-align: center;
   opacity: 0;
   pointer-events: none;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.32);
   transition: opacity 0.3s, transform 0.3s;
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
+[data-theme="dark"] .toast { background: rgba(30, 60, 48, 0.95); }
 
-/* ============ RESPONSIVE ============ */
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
 @media (min-width: 480px) {
   .stats { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 360px) {
   body { font-size: 14px; }
-  .hero-num { flex: 0 0 84px; }
-  .hero-num .num { font-size: 23px; }
+  .hero-num { flex: 0 0 86px; }
+  .hero-num .num { font-size: 24px; }
   .stat b { font-size: 15.5px; }
   .stat span { font-size: 10px; }
   .prayer-name { font-size: 13px; }
@@ -794,6 +1084,8 @@ button { cursor: pointer; border: 0; background: none; }
   .prayer-count .pc-parah { font-size: 9.5px; padding: 2px 6px; }
   .nav-btn .nav-label { font-size: 10px; }
   .nav-btn .nav-icon { font-size: 18px; }
+  .brand-text h1 { font-size: 14px; }
+  .icon-btn { width: 32px; height: 32px; font-size: 14px; }
 }
 </style>
 </head>
@@ -809,6 +1101,9 @@ button { cursor: pointer; border: 0; background: none; }
         <h1>اسمارٹ قرآن روٹین ٹریکر</h1>
         <p>549 صفحات • پارہ کنورٹر • پانچ نمازیں</p>
       </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="تھیم">🌙</button>
+      </div>
     </div>
   </header>
 
@@ -816,7 +1111,7 @@ button { cursor: pointer; border: 0; background: none; }
   <main class="app-content" id="appContent">
     <div class="content-inner">
 
-      <!-- ================= TAB 1: TODAY ================= -->
+      <!-- ========== TAB 1: TODAY ========== -->
       <section class="tab-panel active" id="panel-today">
 
         <div class="date-pill-row">
@@ -824,7 +1119,6 @@ button { cursor: pointer; border: 0; background: none; }
           <span class="date-pill" id="todayDate">—</span>
         </div>
 
-        <!-- HERO -->
         <div class="hero">
           <div class="hero-num">
             <span class="num" id="todayTarget">0</span>
@@ -841,7 +1135,6 @@ button { cursor: pointer; border: 0; background: none; }
           </div>
         </div>
 
-        <!-- EXTRA READING TRACKER -->
         <div class="extra-box">
           <h3>✍️ اضافی تلاوت (نمازوں کے علاوہ)</h3>
           <div class="extra-row">
@@ -854,19 +1147,17 @@ button { cursor: pointer; border: 0; background: none; }
             <span class="extra-badge" id="extraParahBadge">≈ 0 پارہ</span>
           </div>
           <div style="margin-top:8px;">
-            <button class="ghost-btn" id="extraResetBtn" type="button"
-                    style="font-size:11px;color:#8a6c0d;border:1px solid rgba(201,162,39,0.5);background:#ffffff;padding:5px 12px;border-radius:999px;">
+            <button class="btn mini outline" id="extraResetBtn" type="button" style="font-size:11px;color:var(--gold-deep);">
               ↺ اضافی صفر کریں
             </button>
           </div>
         </div>
 
-        <!-- PRAYER LIST -->
         <div class="prayer-list" id="prayerList"></div>
 
       </section>
 
-      <!-- ================= TAB 2: PROGRESS ================= -->
+      <!-- ========== TAB 2: PROGRESS ========== -->
       <section class="tab-panel" id="panel-progress">
 
         <div class="date-pill-row">
@@ -915,6 +1206,19 @@ button { cursor: pointer; border: 0; background: none; }
         </div>
 
         <div class="card" style="margin-top:12px;">
+          <div class="card-head">
+            <h2>📈 ہفتہ وار پیش رفت</h2>
+            <span class="pill">7 دن</span>
+          </div>
+          <div class="card-body">
+            <div class="chart-wrap">
+              <canvas id="weeklyChart"></canvas>
+            </div>
+            <div class="target-info" id="weeklyNote">—</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px;">
           <div class="card-body">
             <div class="note" id="statusNote" style="margin-top:0;">—</div>
             <div class="target-info" id="targetInfo">—</div>
@@ -923,7 +1227,7 @@ button { cursor: pointer; border: 0; background: none; }
 
       </section>
 
-      <!-- ================= TAB 3: SETTINGS ================= -->
+      <!-- ========== TAB 3: SETTINGS ========== -->
       <section class="tab-panel" id="panel-settings">
 
         <div class="date-pill-row">
@@ -985,8 +1289,58 @@ button { cursor: pointer; border: 0; background: none; }
             </div>
 
             <button class="btn primary" id="saveBtn" type="button">✔ ترتیب محفوظ کریں</button>
-            <button class="btn ghost" id="resetBtn" type="button">🔄 سب کچھ ری سیٹ کریں</button>
 
+          </div>
+        </div>
+
+        <!-- Reminder Card -->
+        <div class="card" style="margin-top:12px;">
+          <div class="card-head">
+            <h2>🔔 روزانہ یاد دہانی</h2>
+            <span class="pill" id="notifStatusPill">—</span>
+          </div>
+          <div class="card-body">
+            <div class="setting-row">
+              <div class="setting-info">
+                <b>روزانہ یاد دہانی فعال کریں</b>
+                <span>ہر روز ایک مقررہ وقت پر اطلاع ملے گی</span>
+              </div>
+              <div class="switch" id="reminderSwitch" role="switch" aria-checked="false"></div>
+            </div>
+            <div class="field" style="margin-top:12px;margin-bottom:0;">
+              <label for="reminderTime">یاد دہانی کا وقت</label>
+              <input type="time" id="reminderTime" value="08:00">
+              <small class="hint">براؤزر/ویب ویو کی اجازت درکار ہوگی</small>
+            </div>
+            <button class="btn ghost" id="testNotifBtn" type="button" style="margin-top:10px;">
+              🔔 ٹیسٹ اطلاع بھیجیں
+            </button>
+          </div>
+        </div>
+
+        <!-- Backup Card -->
+        <div class="card" style="margin-top:12px;">
+          <div class="card-head">
+            <h2>💾 ڈیٹا بیک اپ</h2>
+            <span class="pill">JSON</span>
+          </div>
+          <div class="card-body">
+            <div class="setting-info" style="margin-bottom:10px;">
+              <b>اپنی پیش رفت محفوظ رکھیں</b>
+              <span>بیک اپ فائل ڈاؤن لوڈ کریں یا پہلے سے محفوظ فائل لوڈ کریں</span>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="btn mini gold" id="exportBtn" type="button" style="flex:1;">⬇ ایکسپورٹ</button>
+              <button class="btn mini outline" id="importBtn" type="button" style="flex:1;color:var(--text);">⬆ امپورٹ</button>
+            </div>
+            <input type="file" id="importFile" accept="application/json,.json" style="display:none;">
+          </div>
+        </div>
+
+        <!-- Danger Card -->
+        <div class="card" style="margin-top:12px;">
+          <div class="card-body">
+            <button class="btn danger" id="resetBtn" type="button">🔄 سب کچھ ری سیٹ کریں</button>
           </div>
         </div>
 
@@ -1027,10 +1381,11 @@ button { cursor: pointer; border: 0; background: none; }
   var TOTAL_PAGES = 549;
   var TOTAL_PARAS = 30;
   var PAGES_PER_PARAH = TOTAL_PAGES / TOTAL_PARAS; /* 18.3 */
-  var STORAGE_KEY = "smart_quran_routine_549_v4";
-  var ACTIVE_TAB_KEY = "smart_quran_active_tab_v1";
+  var STORAGE_KEY = "smart_quran_routine_549_v5";
+  var ACTIVE_TAB_KEY = "smart_quran_active_tab_v2";
+  var THEME_KEY = "smart_quran_theme_v1";
+  var REMINDER_KEY = "smart_quran_reminder_v1";
 
-  /* 16-line Madani Mushaf — Para start pages (549 pages) */
   var PARAH_STARTS = [
     1,   19,  37,  55,  73,  91,  109, 127, 145, 163,
     181, 199, 217, 235, 253, 271, 289, 307, 325, 343,
@@ -1049,6 +1404,8 @@ button { cursor: pointer; border: 0; background: none; }
     "جنوری", "فروری", "مارچ", "اپریل", "مئی", "جون",
     "جولائی", "اگست", "ستمبر", "اکتوبر", "نومبر", "دسمبر"
   ];
+
+  var WEEKDAY_URDU = ["اتوار", "پیر", "منگل", "بدھ", "جمعرات", "جمعہ", "ہفتہ"];
 
   /* ============================================================
      HELPERS
@@ -1079,8 +1436,6 @@ button { cursor: pointer; border: 0; background: none; }
     var d = parseISO(iso);
     return d.getDate() + " " + URDU_MONTHS[d.getMonth()] + " " + d.getFullYear();
   }
-
-  /* Pages -> Parah */
   function pagesToParah(pages) {
     if (!pages || pages <= 0) return 0;
     return pages / PAGES_PER_PARAH;
@@ -1092,9 +1447,37 @@ button { cursor: pointer; border: 0; background: none; }
   }
 
   /* ============================================================
+     THEME
+     ============================================================ */
+  var currentTheme = "light";
+  function applyTheme(t) {
+    currentTheme = (t === "dark") ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    $("themeBtn").textContent = currentTheme === "dark" ? "☀️" : "🌙";
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", currentTheme === "dark" ? "#06120e" : "#0e7a5f");
+    try { localStorage.setItem(THEME_KEY, currentTheme); } catch (e) {}
+    if (weeklyChart) updateChartTheme();
+  }
+  function initTheme() {
+    var saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+    if (saved === "dark" || saved === "light") {
+      applyTheme(saved);
+      return;
+    }
+    var prefersDark = false;
+    try {
+      prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    } catch (e) { prefersDark = false; }
+    applyTheme(prefersDark ? "dark" : "light");
+  }
+
+  /* ============================================================
      STATE
      ============================================================ */
   var state = null;
+  var weeklyChart = null;
 
   function defaultState() {
     var t = todayISO();
@@ -1130,7 +1513,6 @@ button { cursor: pointer; border: 0; background: none; }
       if (["page1", "page", "parah"].indexOf(s.startMode) === -1) s.startMode = "page1";
       if (!s.startDate) s.startDate = todayISO();
       if (!s.targetDate) s.targetDate = s.startDate;
-
       var d;
       for (d in s.log) {
         if (!s.log.hasOwnProperty(d)) continue;
@@ -1140,11 +1522,8 @@ button { cursor: pointer; border: 0; background: none; }
         if (typeof day.extra !== "number" || day.extra < 0) day.extra = 0;
       }
       return s;
-    } catch (e) {
-      return def;
-    }
+    } catch (e) { return def; }
   }
-
   function save() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
   }
@@ -1172,10 +1551,23 @@ button { cursor: pointer; border: 0; background: none; }
     }
     return sum;
   }
-
   function pagesDoneToday() {
     var today = todayISO();
     var day = state.log[today];
+    if (!day) return 0;
+    var sum = 0;
+    var i;
+    if (day.prayers && day.prayers.length) {
+      for (i = 0; i < day.prayers.length; i++) {
+        var p = day.prayers[i];
+        if (p && p.done && typeof p.count === "number" && p.count > 0) sum += p.count;
+      }
+    }
+    if (day.extra && day.extra > 0) sum += day.extra;
+    return sum;
+  }
+  function pagesForDate(iso) {
+    var day = state.log[iso];
     if (!day) return 0;
     var sum = 0;
     var i;
@@ -1193,29 +1585,21 @@ button { cursor: pointer; border: 0; background: none; }
     var today = todayISO();
     var startPage = clamp(state.startPage, 1, TOTAL_PAGES);
     var totalToRead = TOTAL_PAGES - startPage + 1;
-
     var doneBefore = pagesDoneBeforeToday();
     if (doneBefore > totalToRead) doneBefore = totalToRead;
-
     var dayStartPage = startPage + doneBefore;
     var remainingAtDayStart = TOTAL_PAGES - dayStartPage + 1;
     if (remainingAtDayStart < 0) remainingAtDayStart = 0;
-
     var rawDaysLeft = diffDays(today, state.targetDate) + 1;
     var daysLeftDisplay = rawDaysLeft < 0 ? 0 : rawDaysLeft;
     var overdue = rawDaysLeft < 1;
     var remainingDays = rawDaysLeft < 1 ? 1 : rawDaysLeft;
-
-    var dailyTarget = remainingAtDayStart > 0
-      ? Math.ceil(remainingAtDayStart / remainingDays)
-      : 0;
-
+    var dailyTarget = remainingAtDayStart > 0 ? Math.ceil(remainingAtDayStart / remainingDays) : 0;
     var base = Math.floor(dailyTarget / 5);
     var rem = dailyTarget % 5;
     var cursor = dayStartPage;
     var items = [];
     var i;
-
     for (i = 0; i < 5; i++) {
       var cnt = base + (i < rem ? 1 : 0);
       var from = cursor;
@@ -1232,11 +1616,9 @@ button { cursor: pointer; border: 0; background: none; }
         parahEq: pagesToParah(cnt)
       });
     }
-
     var doneToday = pagesDoneToday();
     var totalDone = doneBefore + doneToday;
     if (totalDone > totalToRead) totalDone = totalToRead;
-
     return {
       startPage: startPage,
       totalToRead: totalToRead,
@@ -1275,7 +1657,6 @@ button { cursor: pointer; border: 0; background: none; }
     }
     if (day.prayers.length > 5) day.prayers.length = 5;
   }
-
   function pruneLog() {
     var today = todayISO();
     var d;
@@ -1307,20 +1688,19 @@ button { cursor: pointer; border: 0; background: none; }
     renderToday(plan);
     renderExtra(plan);
     renderPrayers(plan);
+    renderChart();
   }
 
   function renderOverview(plan) {
     var pct = plan.totalToRead > 0 ? (plan.totalDone / plan.totalToRead) * 100 : 0;
     if (pct > 100) pct = 100;
     var pctR = Math.round(pct);
-
     $("ovBar").style.width = pct + "%";
     $("ovPct").textContent = pctR + "%";
     $("ovPctPill").textContent = pctR + "%";
     $("ovRead").textContent = plan.totalDone;
     $("ovLeft").textContent = plan.remainingPages;
     $("ovTotalLabel").textContent = plan.totalToRead;
-
     $("stDailyPages").textContent = plan.dailyTarget;
     $("stDailyParah").textContent = "≈ " + formatParah(plan.dailyTargetParah);
     $("stDonePages").textContent = plan.totalDone;
@@ -1344,7 +1724,6 @@ button { cursor: pointer; border: 0; background: none; }
       var expected = Math.ceil((plan.totalToRead * Math.min(elapsed, totalD)) / totalD);
       if (expected > plan.totalToRead) expected = plan.totalToRead;
       var diff = plan.totalDone - expected;
-
       if (diff < -1) {
         note = "📌 آپ شیڈول سے " + Math.abs(diff) +
                " صفحات پیچھے ہیں — روزانہ ہدف خودکار بڑھا دیا گیا ہے۔";
@@ -1366,27 +1745,23 @@ button { cursor: pointer; border: 0; background: none; }
     $("todayDate").textContent = formatDateUr(todayISO());
     $("todayTarget").textContent = plan.dailyTarget;
     $("todayTargetParah").textContent = "≈ " + formatParah(plan.dailyTargetParah) + " پارہ";
-
     var done = plan.doneToday;
     var pct;
     if (plan.dailyTarget > 0) pct = (done / plan.dailyTarget) * 100;
     else pct = done > 0 ? 100 : 0;
     if (pct > 100) pct = 100;
-
     $("todayBar").style.width = pct + "%";
     $("todayDone").textContent = done;
     $("todayTotal").textContent = plan.dailyTarget;
-
     var doneParahTxt = formatParah(pagesToParah(done));
     var msg;
     if (plan.dailyTarget === 0) {
       msg = "🎉 پورا قرآن مکمل — کوئی باقی صفحہ نہیں";
     } else if (done >= plan.dailyTarget) {
-      msg = "✅ آج کا ہدف مکمل — کل " + done + " صفحات (≈ " +
-            doneParahTxt + " پارہ) — اللہ قبول فرمائے";
+      msg = "✅ آج کا ہدف مکمل — کل " + done + " صفحات (≈ " + doneParahTxt + " پارہ)";
     } else {
-      msg = "ابھی " + (plan.dailyTarget - done) + " صفحات باقی • " +
-            "آج کل " + done + " صفحات (≈ " + doneParahTxt + " پارہ)";
+      msg = "ابھی " + (plan.dailyTarget - done) + " صفحات باقی • آج کل " +
+            done + " صفحات (≈ " + doneParahTxt + " پارہ)";
     }
     $("todayMsg").textContent = msg;
   }
@@ -1395,14 +1770,11 @@ button { cursor: pointer; border: 0; background: none; }
     var today = todayISO();
     var day = state.log[today] || { prayers: [], extra: 0 };
     var extra = day.extra || 0;
-
     var doneToday = plan.doneToday;
     var doneParahTxt = formatParah(pagesToParah(doneToday));
-
     if (document.activeElement !== $("extraInput")) {
       $("extraInput").value = extra;
     }
-
     $("extraInfo").innerHTML =
       "آج کل مکمل: <b>" + doneToday + "</b> صفحات" +
       '<span class="extra-badge">≈ ' + doneParahTxt + " پارہ</span>";
@@ -1413,25 +1785,21 @@ button { cursor: pointer; border: 0; background: none; }
     var day = state.log[today] || { prayers: [] };
     var html = "";
     var i;
-
     for (i = 0; i < 5; i++) {
       var it = plan.items[i];
       var entry = day.prayers[i] || {};
       var done = !!entry.done;
       var locked = it.count === 0;
-
       var rangeTxt = it.count > 0
         ? "صفحہ " + it.from + " تا " + it.to
         : "ہدف مکمل — پڑھائی ختم";
-
       var pagesTxt = it.count > 0 ? it.count + " صفحات" : "—";
       var parahTxt = it.count > 0 ? "≈ " + formatParah(it.parahEq) + " پارہ" : "—";
-
       html += '<div class="prayer' + (done ? " done" : "") +
               (locked ? " locked" : "") +
               '" data-idx="' + i + '">';
       html +=   '<div class="check">';
-      html +=     '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">';
+      html +=     '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">';
       html +=       '<path d="M20 6L9 17l-5-5" fill="none" stroke="#ffffff" ' +
                     'stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
       html +=     "</svg>";
@@ -1450,13 +1818,200 @@ button { cursor: pointer; border: 0; background: none; }
   }
 
   /* ============================================================
+     CHART
+     ============================================================ */
+  function getWeeklyData() {
+    var arr = [];
+    var today = todayISO();
+    var i;
+    for (i = 6; i >= 0; i--) {
+      var iso = addDaysISO(today, -i);
+      var d = parseISO(iso);
+      arr.push({
+        iso: iso,
+        label: WEEKDAY_URDU[d.getDay()],
+        pages: pagesForDate(iso)
+      });
+    }
+    return arr;
+  }
+
+  function buildChart() {
+    var canvas = $("weeklyChart");
+    if (!canvas || typeof Chart === "undefined") return;
+    var data = getWeeklyData();
+    var isDark = currentTheme === "dark";
+    var textCol = isDark ? "#e2f2eb" : "#0d2a20";
+    var mutedCol = isDark ? "#8fb0a2" : "#5f7d70";
+    var gridCol = isDark ? "rgba(25, 169, 126, 0.14)" : "rgba(14, 122, 95, 0.1)";
+    var emerald = isDark ? "#19a97e" : "#0e7a5f";
+
+    var labels = data.map(function (x) { return x.label; });
+    var values = data.map(function (x) { return x.pages; });
+
+    weeklyChart = new Chart(canvas.getContext("2d"), {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [{
+          label: "صفحات",
+          data: values,
+          backgroundColor: function (ctx) {
+            var chart = ctx.chart;
+            var area = chart.chartArea;
+            if (!area) return emerald;
+            var g = chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
+            g.addColorStop(0, emerald);
+            g.addColorStop(1, isDark ? "rgba(25, 169, 126, 0.25)" : "rgba(14, 122, 95, 0.25)");
+            return g;
+          },
+          borderRadius: 8,
+          borderSkipped: false,
+          maxBarThickness: 34
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+          duration: 900,
+          easing: "easeOutQuart"
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            rtl: true,
+            textDirection: "rtl",
+            backgroundColor: isDark ? "#0e2019" : "#0d2a20",
+            titleColor: "#ffffff",
+            bodyColor: "#ffffff",
+            padding: 10,
+            cornerRadius: 10,
+            displayColors: false,
+            callbacks: {
+              label: function (ctx) {
+                var pages = ctx.parsed.y;
+                return pages + " صفحات ≈ " + formatParah(pagesToParah(pages)) + " پارہ";
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: mutedCol, font: { family: "'Noto Naskh Arabic', sans-serif", size: 11 } },
+            grid: { display: false },
+            border: { display: false }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: mutedCol,
+              font: { size: 10 },
+              precision: 0,
+              stepSize: 10
+            },
+            grid: { color: gridCol, drawBorder: false },
+            border: { display: false }
+          }
+        }
+      }
+    });
+
+    var total = values.reduce(function (a, b) { return a + b; }, 0);
+    var activeDays = values.filter(function (v) { return v > 0; }).length;
+    var avg = activeDays > 0 ? Math.round(total / activeDays) : 0;
+    $("weeklyNote").textContent =
+      "پچھلے 7 دنوں میں کل " + total + " صفحات (≈ " + formatParah(pagesToParah(total)) +
+      " پارے) • اوسط: " + avg + " صفحات/دن";
+  }
+
+  function updateChartTheme() {
+    if (!weeklyChart) { buildChart(); return; }
+    var isDark = currentTheme === "dark";
+    var mutedCol = isDark ? "#8fb0a2" : "#5f7d70";
+    var gridCol = isDark ? "rgba(25, 169, 126, 0.14)" : "rgba(14, 122, 95, 0.1)";
+    var emerald = isDark ? "#19a97e" : "#0e7a5f";
+
+    weeklyChart.options.scales.x.ticks.color = mutedCol;
+    weeklyChart.options.scales.y.ticks.color = mutedCol;
+    weeklyChart.options.scales.y.grid.color = gridCol;
+    weeklyChart.data.datasets[0].backgroundColor = function (ctx) {
+      var chart = ctx.chart;
+      var area = chart.chartArea;
+      if (!area) return emerald;
+      var g = chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
+      g.addColorStop(0, emerald);
+      g.addColorStop(1, isDark ? "rgba(25, 169, 126, 0.25)" : "rgba(14, 122, 95, 0.25)");
+      return g;
+    };
+    weeklyChart.update();
+  }
+
+  function renderChart() {
+    if (!weeklyChart) {
+      buildChart();
+      return;
+    }
+    var data = getWeeklyData();
+    weeklyChart.data.labels = data.map(function (x) { return x.label; });
+    weeklyChart.data.datasets[0].data = data.map(function (x) { return x.pages; });
+    weeklyChart.update();
+
+    var total = data.reduce(function (a, b) { return a + b.pages; }, 0);
+    var activeDays = data.filter(function (x) { return x.pages > 0; }).length;
+    var avg = activeDays > 0 ? Math.round(total / activeDays) : 0;
+    $("weeklyNote").textContent =
+      "پچھلے 7 دنوں میں کل " + total + " صفحات (≈ " + formatParah(pagesToParah(total)) +
+      " پارے) • اوسط: " + avg + " صفحات/دن";
+  }
+
+  /* ============================================================
+     SOUND + HAPTIC
+     ============================================================ */
+  var audioCtx = null;
+  function playChime() {
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      if (!audioCtx) audioCtx = new AC();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      var now = audioCtx.currentTime;
+      /* two-note pleasant chime (E5 -> A5) */
+      var notes = [{ f: 659.25, t: 0 }, { f: 880.0, t: 0.13 }];
+      notes.forEach(function (n) {
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = n.f;
+        gain.gain.setValueAtTime(0.0001, now + n.t);
+        gain.gain.exponentialRampToValueAtTime(0.16, now + n.t + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + n.t + 0.32);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now + n.t);
+        osc.stop(now + n.t + 0.34);
+      });
+    } catch (e) {}
+  }
+  function haptic(pattern) {
+    if (!navigator.vibrate) return;
+    try { navigator.vibrate(pattern || 15); } catch (e) {}
+  }
+  function feedbackSuccess() {
+    playChime();
+    haptic([12, 40, 18]);
+  }
+  function feedbackTap() {
+    haptic(8);
+  }
+
+  /* ============================================================
      ACTIONS
      ============================================================ */
   function togglePrayer(idx) {
     var today = todayISO();
     var day = state.log[today];
     if (!day || !day.prayers || !day.prayers[idx]) return;
-
     var entry = day.prayers[idx];
     if (!entry.done && (!entry.count || entry.count <= 0)) {
       showToast("یہ ہدف پہلے ہی مکمل ہے");
@@ -1465,10 +2020,11 @@ button { cursor: pointer; border: 0; background: none; }
     entry.done = !entry.done;
     save();
     render();
-
     if (entry.done) {
+      feedbackSuccess();
       showToast("ماشاءاللہ! " + PRAYERS[idx].name + " مکمل 🌿");
-      if (navigator.vibrate) { try { navigator.vibrate(15); } catch (e) {} }
+    } else {
+      feedbackTap();
     }
   }
 
@@ -1476,19 +2032,16 @@ button { cursor: pointer; border: 0; background: none; }
     var val = parseInt($("extraInput").value, 10);
     if (isNaN(val) || val < 0) val = 0;
     if (val > TOTAL_PAGES) val = TOTAL_PAGES;
-
     var today = todayISO();
     var day = state.log[today];
     if (!day || typeof day !== "object") day = state.log[today] = { prayers: [], extra: 0 };
     if (!Array.isArray(day.prayers)) day.prayers = [];
-
     day.extra = val;
     save();
     render();
-
     if (val > 0) {
-      showToast("اضافی تلاوت محفوظ: " + val + " صفحات (≈ " +
-                formatParah(pagesToParah(val)) + " پارہ)");
+      feedbackSuccess();
+      showToast("اضافی تلاوت محفوظ: " + val + " صفحات (≈ " + formatParah(pagesToParah(val)) + " پارہ)");
     } else {
       showToast("اضافی تلاوت صفر کر دی گئی");
     }
@@ -1508,7 +2061,6 @@ button { cursor: pointer; border: 0; background: none; }
     var mode = state.mode;
     var totalDays = parseInt($("totalDays").value, 10);
     var targetDate = $("targetDate").value;
-
     if (mode === "days") {
       if (!totalDays || totalDays < 1) totalDays = 1;
       if (totalDays > 3650) totalDays = 3650;
@@ -1518,11 +2070,9 @@ button { cursor: pointer; border: 0; background: none; }
       if (diffDays(startDate, targetDate) < 0) targetDate = startDate;
       totalDays = diffDays(startDate, targetDate) + 1;
     }
-
     var sm = $("startMode").value;
     var startPage = 1;
     var parah = 1;
-
     if (sm === "page1") {
       startPage = 1;
     } else if (sm === "page") {
@@ -1531,9 +2081,7 @@ button { cursor: pointer; border: 0; background: none; }
       parah = clamp(parseInt($("parahSelect").value, 10) || 1, 1, 30);
       startPage = PARAH_STARTS[parah - 1];
     }
-
     var startChanged = (startPage !== state.startPage);
-
     state.startDate = startDate;
     state.mode = mode;
     state.totalDays = totalDays;
@@ -1541,12 +2089,11 @@ button { cursor: pointer; border: 0; background: none; }
     state.startMode = sm;
     state.startPage = startPage;
     state.parah = parah;
-
     if (startChanged) state.log = {};
-
     save();
     fillSetupInputs();
     render();
+    feedbackSuccess();
     showToast(startChanged ? "ترتیب محفوظ — پیش رفت ری سیٹ" : "ترتیب محفوظ ✔");
   }
 
@@ -1572,11 +2119,11 @@ button { cursor: pointer; border: 0; background: none; }
     el.textContent = msg;
     el.classList.add("show");
     if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 2200);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 2400);
   }
 
   /* ============================================================
-     TAB SWITCHING
+     TABS
      ============================================================ */
   function switchTab(tab) {
     var panels = document.querySelectorAll(".tab-panel");
@@ -1584,19 +2131,21 @@ button { cursor: pointer; border: 0; background: none; }
     for (i = 0; i < panels.length; i++) {
       panels[i].classList.toggle("active", panels[i].id === "panel-" + tab);
     }
-
     var btns = document.querySelectorAll(".nav-btn");
     for (i = 0; i < btns.length; i++) {
       btns[i].classList.toggle("active", btns[i].getAttribute("data-tab") === tab);
     }
-
-    /* scroll content area back to top */
     var content = $("appContent");
     if (content) content.scrollTop = 0;
-
     try { localStorage.setItem(ACTIVE_TAB_KEY, tab); } catch (e) {}
+    feedbackTap();
+    if (tab === "progress") {
+      setTimeout(function () {
+        if (weeklyChart) weeklyChart.resize();
+        else buildChart();
+      }, 80);
+    }
   }
-
   function loadActiveTab() {
     var t = "today";
     try {
@@ -1619,7 +2168,6 @@ button { cursor: pointer; border: 0; background: none; }
     }
     sel.innerHTML = html;
   }
-
   function updateModeUI() {
     var isDays = state.mode === "days";
     $("daysField").className = "field" + (isDays ? "" : " hidden");
@@ -1632,13 +2180,11 @@ button { cursor: pointer; border: 0; background: none; }
       else b.classList.remove("active");
     }
   }
-
   function updateStartFields() {
     var mode = $("startMode").value;
     $("pageField").className = "field" + (mode === "page" ? "" : " hidden");
     $("parahField").className = "field" + (mode === "parah" ? "" : " hidden");
   }
-
   function updateChips() {
     var chips = document.querySelectorAll(".chip");
     var i;
@@ -1649,7 +2195,6 @@ button { cursor: pointer; border: 0; background: none; }
       else c.classList.remove("active");
     }
   }
-
   function fillSetupInputs() {
     $("startDate").value = state.startDate;
     $("totalDays").value = state.totalDays;
@@ -1663,9 +2208,247 @@ button { cursor: pointer; border: 0; background: none; }
   }
 
   /* ============================================================
+     REMINDER (Notifications)
+     ============================================================ */
+  function loadReminder() {
+    var r = { enabled: false, time: "08:00" };
+    try {
+      var raw = localStorage.getItem(REMINDER_KEY);
+      if (raw) {
+        var p = JSON.parse(raw);
+        if (p && typeof p === "object") {
+          r.enabled = !!p.enabled;
+          if (typeof p.time === "string" && /^\d{2}:\d{2}$/.test(p.time)) r.time = p.time;
+        }
+      }
+    } catch (e) {}
+    return r;
+  }
+  function saveReminder(r) {
+    try { localStorage.setItem(REMINDER_KEY, JSON.stringify(r)); } catch (e) {}
+  }
+  var reminder = { enabled: false, time: "08:00" };
+  var reminderTimer = null;
+
+  function updateReminderUI() {
+    var sw = $("reminderSwitch");
+    if (reminder.enabled) sw.classList.add("on");
+    else sw.classList.remove("on");
+    sw.setAttribute("aria-checked", reminder.enabled ? "true" : "false");
+    $("reminderTime").value = reminder.time;
+    var pill = $("notifStatusPill");
+    if (!("Notification" in window)) {
+      pill.textContent = "غیر دستیاب";
+    } else if (Notification.permission === "granted") {
+      pill.textContent = reminder.enabled ? "فعال" : "بند";
+    } else if (Notification.permission === "denied") {
+      pill.textContent = "اجازت نہیں";
+    } else {
+      pill.textContent = "اجازت درکار";
+    }
+  }
+
+  function requestNotifPermission() {
+    return new Promise(function (resolve) {
+      if (!("Notification" in window)) { resolve(false); return; }
+      if (Notification.permission === "granted") { resolve(true); return; }
+      if (Notification.permission === "denied") { resolve(false); return; }
+      try {
+        Notification.requestPermission().then(function (p) {
+          resolve(p === "granted");
+        }).catch(function () { resolve(false); });
+      } catch (e) { resolve(false); }
+    });
+  }
+
+  function sendNotification(title, body) {
+    if (!("Notification" in window)) return;
+    if (Notification.permission !== "granted") return;
+    try {
+      new Notification(title, {
+        body: body,
+        icon: "data:image/svg+xml," + encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0e7a5f"/><text x="32" y="44" font-size="36" text-anchor="middle" fill="#fff" font-family="serif">☪</text></svg>'
+        ),
+        badge: "data:image/svg+xml," + encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0e7a5f"/></svg>'
+        ),
+        dir: "rtl",
+        lang: "ur"
+      });
+    } catch (e) {}
+  }
+
+  function scheduleReminder() {
+    if (reminderTimer) { clearTimeout(reminderTimer); reminderTimer = null; }
+    if (!reminder.enabled) return;
+    var now = new Date();
+    var parts = reminder.time.split(":");
+    var target = new Date();
+    target.setHours(parseInt(parts[0], 10), parseInt(parts[1], 10), 0, 0);
+    if (target.getTime() <= now.getTime()) target.setDate(target.getDate() + 1);
+    var delay = target.getTime() - now.getTime();
+    /* cap at 24h for safety */
+    if (delay > 24 * 3600 * 1000) delay = 24 * 3600 * 1000;
+    reminderTimer = setTimeout(function () {
+      var plan = getPlan();
+      var remain = plan.remainingPages > 0 ? plan.remainingPages : 0;
+      var body = remain > 0
+        ? "آج کا ہدف: " + plan.dailyTarget + " صفحات (≈ " + formatParah(plan.dailyTargetParah) + " پارہ) • باقی: " + remain
+        : "ماشاءاللہ! قرآن مکمل ہو چکا ہے۔";
+      sendNotification("📖 قرآن روٹین یاد دہانی", body);
+      scheduleReminder();
+    }, delay);
+  }
+
+  function toggleReminder() {
+    if (!reminder.enabled) {
+      requestNotifPermission().then(function (ok) {
+        if (!ok) {
+          showToast("اطلاع کی اجازت نہیں ملی");
+          updateReminderUI();
+          return;
+        }
+        reminder.enabled = true;
+        saveReminder(reminder);
+        scheduleReminder();
+        updateReminderUI();
+        showToast("روزانہ یاد دہانی فعال ✔");
+        sendNotification("🔔 یاد دہانی فعال", "ہر روز " + reminder.time + " پر اطلاع ملے گی۔");
+      });
+    } else {
+      reminder.enabled = false;
+      saveReminder(reminder);
+      scheduleReminder();
+      updateReminderUI();
+      showToast("یاد دہانی بند کر دی");
+    }
+  }
+
+  function testNotification() {
+    requestNotifPermission().then(function (ok) {
+      if (!ok) { showToast("اطلاع کی اجازت نہیں"); return; }
+      var plan = getPlan();
+      sendNotification(
+        "📖 آزمائشی اطلاع",
+        "آج کا ہدف: " + plan.dailyTarget + " صفحات (≈ " + formatParah(plan.dailyTargetParah) + " پارہ)"
+      );
+      showToast("ٹیسٹ اطلاع بھیج دی");
+    });
+  }
+
+  /* ============================================================
+     EXPORT / IMPORT
+     ============================================================ */
+  function exportData() {
+    try {
+      var payload = {
+        app: "Smart Quran Routine Tracker",
+        version: 5,
+        exportedAt: new Date().toISOString(),
+        state: state,
+        reminder: reminder
+      };
+      var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      var name = "quran-tracker-backup-" + todayISO() + ".json";
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 800);
+      feedbackSuccess();
+      showToast("بیک اپ ڈاؤن لوڈ ہو گیا");
+    } catch (e) {
+      showToast("ایکسپورٹ ناکام رہا");
+    }
+  }
+
+  function importData(file) {
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      try {
+        var txt = String(e.target.result || "");
+        var parsed = JSON.parse(txt);
+        var incoming = parsed && parsed.state ? parsed.state : parsed;
+        if (!incoming || typeof incoming !== "object") throw new Error("bad");
+        var s = defaultState();
+        var k;
+        for (k in s) {
+          if (s.hasOwnProperty(k) && incoming.hasOwnProperty(k)) s[k] = incoming[k];
+        }
+        if (!s.log || typeof s.log !== "object" || Array.isArray(s.log)) s.log = {};
+        s.startPage = clamp(parseInt(s.startPage, 10) || 1, 1, TOTAL_PAGES);
+        s.parah = clamp(parseInt(s.parah, 10) || 1, 1, 30);
+        s.totalDays = clamp(parseInt(s.totalDays, 10) || 30, 1, 3650);
+        if (s.mode !== "days" && s.mode !== "date") s.mode = "days";
+        if (["page1", "page", "parah"].indexOf(s.startMode) === -1) s.startMode = "page1";
+        var d;
+        for (d in s.log) {
+          if (!s.log.hasOwnProperty(d)) continue;
+          var day = s.log[d];
+          if (!day || typeof day !== "object") { delete s.log[d]; continue; }
+          if (!Array.isArray(day.prayers)) day.prayers = [];
+          if (typeof day.extra !== "number" || day.extra < 0) day.extra = 0;
+        }
+        state = s;
+
+        if (parsed && parsed.reminder && typeof parsed.reminder === "object") {
+          reminder.enabled = !!parsed.reminder.enabled;
+          if (typeof parsed.reminder.time === "string" && /^\d{2}:\d{2}$/.test(parsed.reminder.time)) {
+            reminder.time = parsed.reminder.time;
+          }
+          saveReminder(reminder);
+          scheduleReminder();
+          updateReminderUI();
+        }
+
+        save();
+        fillSetupInputs();
+        render();
+        feedbackSuccess();
+        showToast("بیک اپ کامیابی سے لوڈ ہو گیا ✔");
+      } catch (err) {
+        showToast("فائل درست نہیں ہے");
+      }
+    };
+    reader.onerror = function () { showToast("فائل پڑھنے میں مسئلہ"); };
+    reader.readAsText(file);
+  }
+
+  /* ============================================================
+     RIPPLE EFFECT
+     ============================================================ */
+  function attachRipple(el) {
+    el.addEventListener("click", function (e) {
+      var rect = this.getBoundingClientRect();
+      var size = Math.max(rect.width, rect.height);
+      var x = e.clientX - rect.left - size / 2;
+      var y = e.clientY - rect.top - size / 2;
+      if (!rect.width || !rect.height) { x = rect.width / 2 - size / 2; y = rect.height / 2 - size / 2; }
+      var r = document.createElement("span");
+      r.className = "ripple";
+      r.style.width = r.style.height = size + "px";
+      r.style.left = x + "px";
+      r.style.top = y + "px";
+      this.appendChild(r);
+      setTimeout(function () { if (r.parentNode) r.parentNode.removeChild(r); }, 620);
+    });
+  }
+
+  /* ============================================================
      EVENTS
      ============================================================ */
   function bindEvents() {
+
+    /* theme toggle */
+    $("themeBtn").addEventListener("click", function () {
+      applyTheme(currentTheme === "dark" ? "light" : "dark");
+      feedbackTap();
+    });
 
     /* bottom nav */
     var navBtns = document.querySelectorAll(".nav-btn");
@@ -1675,9 +2458,10 @@ button { cursor: pointer; border: 0; background: none; }
         var tab = this.getAttribute("data-tab");
         if (tab) switchTab(tab);
       });
+      attachRipple(navBtns[i]);
     }
 
-    /* mode segmented */
+    /* mode segments */
     $("modeSeg").addEventListener("click", function (e) {
       var t = e.target;
       while (t && t !== this) {
@@ -1703,18 +2487,29 @@ button { cursor: pointer; border: 0; background: none; }
         updateModeUI();
         updateChips();
       });
+      attachRipple(chips[i]);
     }
 
+    /* buttons */
     $("saveBtn").addEventListener("click", applySetup);
     $("resetBtn").addEventListener("click", resetAll);
-
     $("extraSaveBtn").addEventListener("click", saveExtra);
     $("extraResetBtn").addEventListener("click", resetExtra);
+    $("testNotifBtn").addEventListener("click", testNotification);
+    $("exportBtn").addEventListener("click", exportData);
+    $("importBtn").addEventListener("click", function () { $("importFile").click(); });
+    $("importFile").addEventListener("change", function (e) {
+      var f = e.target.files && e.target.files[0];
+      importData(f);
+      e.target.value = "";
+    });
+
+    /* extra input */
     $("extraInput").addEventListener("keydown", function (e) {
       if (e.key === "Enter") { e.preventDefault(); saveExtra(); }
     });
 
-    /* prayer toggle via delegation */
+    /* prayer list toggle */
     $("prayerList").addEventListener("click", function (e) {
       var t = e.target;
       while (t && t !== this) {
@@ -1726,31 +2521,74 @@ button { cursor: pointer; border: 0; background: none; }
       }
     });
 
-    /* refresh on visibility/focus */
+    /* reminder switch */
+    $("reminderSwitch").addEventListener("click", toggleReminder);
+    $("reminderTime").addEventListener("change", function () {
+      var v = this.value;
+      if (/^\d{2}:\d{2}$/.test(v)) {
+        reminder.time = v;
+        saveReminder(reminder);
+        scheduleReminder();
+        showToast("یاد دہانی کا وقت محفوظ: " + v);
+      }
+    });
+
+    /* ripple on primary buttons */
+    var rippleTargets = ["saveBtn", "extraSaveBtn", "extraResetBtn", "exportBtn", "importBtn", "testNotifBtn", "resetBtn"];
+    rippleTargets.forEach(function (id) {
+      var el = $(id);
+      if (el) attachRipple(el);
+    });
+
+    /* visibility / focus */
     document.addEventListener("visibilitychange", function () {
-      if (!document.hidden) render();
+      if (!document.hidden) {
+        render();
+        scheduleReminder();
+      }
     });
     window.addEventListener("focus", function () { render(); });
 
-    /* day rollover */
+    /* midnight rollover */
     var lastDay = todayISO();
     setInterval(function () {
       var now = todayISO();
-      if (now !== lastDay) { lastDay = now; render(); }
+      if (now !== lastDay) {
+        lastDay = now;
+        render();
+        scheduleReminder();
+      }
     }, 60000);
+
+    /* resize chart on orientation */
+    window.addEventListener("orientationchange", function () {
+      setTimeout(function () { if (weeklyChart) weeklyChart.resize(); }, 220);
+    });
+    window.addEventListener("resize", function () {
+      if (weeklyChart) weeklyChart.resize();
+    });
   }
 
   /* ============================================================
      INIT
      ============================================================ */
   function init() {
+    initTheme();
     state = loadState();
+    reminder = loadReminder();
     buildParahOptions();
     fillSetupInputs();
+    updateReminderUI();
     bindEvents();
     render();
     loadActiveTab();
+    scheduleReminder();
     save();
+
+    /* Chart lazy init when progress tab first shown */
+    setTimeout(function () {
+      if ($("panel-progress").classList.contains("active")) buildChart();
+    }, 400);
   }
 
   if (document.readyState === "loading") {
