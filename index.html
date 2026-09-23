@@ -4,203 +4,97 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0e7a5f">
-<title>اسمارٹ قرآن روٹین ٹریکر — VIP v5.5</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>قرآن کمپینین • AK TECH — v5.8</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-/* ============================================================
-   RESET
-   ============================================================ */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;width:100%;overflow:hidden;overscroll-behavior:none;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--text);font-family:'Noto Naskh Arabic','Segoe UI',Tahoma,system-ui,sans-serif;font-size:15px;line-height:1.7;direction:rtl;text-align:right;transition:background .4s,color .4s}
-
-/* ============================================================
-   THEME VARIABLES — EMERALD (DEFAULT)
-   ============================================================ */
-:root{
-  --bg:#eef5f1;--bg-2:#dfeee6;
-  --card:rgba(255,255,255,.72);--card-solid:#fff;--card-2:rgba(245,250,247,.6);
-  --text:#0d2a20;--text-strong:#061611;--muted:#5f7d70;
-  --emerald:#0e7a5f;--emerald-dark:#0a5c47;--emerald-soft:rgba(14,122,95,.14);--emerald-tint:rgba(14,122,95,.06);
-  --header-a:#0a5c47;--header-b:#0e7a5f;--header-c:#13906e;
-  --header-shadow:rgba(10,92,71,.28);
-  --gold:#c9a227;--gold-soft:rgba(201,162,39,.18);--gold-deep:#8a6c0d;
-  --border:rgba(14,122,95,.14);--border-strong:rgba(14,122,95,.24);
-  --shadow:0 6px 24px rgba(10,60,45,.08);--shadow-sm:0 2px 8px rgba(10,60,45,.05);
-  --blur:blur(18px) saturate(1.5);--radius:18px;--radius-sm:14px;
-  --nav-h:64px;--danger:#c0392b;
-}
-[data-theme="dark"]{
-  --bg:#06120e;--bg-2:#0a1c16;
-  --card:rgba(18,41,31,.68);--card-solid:#0e2019;--card-2:rgba(14,32,25,.5);
-  --text:#e2f2eb;--text-strong:#f4fbf8;--muted:#8fb0a2;
-  --emerald:#19a97e;--emerald-dark:#0e7a5f;--emerald-soft:rgba(25,169,126,.2);--emerald-tint:rgba(25,169,126,.08);
-  --header-a:#0a3d30;--header-b:#0e5f4a;--header-c:#10876a;
-  --header-shadow:rgba(0,0,0,.4);
-  --gold:#e0be4e;--gold-soft:rgba(224,190,78,.18);--gold-deep:#f0cf6a;
-  --border:rgba(25,169,126,.16);--border-strong:rgba(25,169,126,.28);
-  --shadow:0 6px 24px rgba(0,0,0,.4);--shadow-sm:0 2px 8px rgba(0,0,0,.3);
-}
-[data-skin="gold"]{
-  --emerald:#b8860b;--emerald-dark:#7a5a08;--emerald-soft:rgba(184,134,11,.15);--emerald-tint:rgba(184,134,11,.06);
-  --header-a:#7a5a08;--header-b:#b8860b;--header-c:#d4a017;
-  --header-shadow:rgba(122,90,8,.3);
-  --border:rgba(184,134,11,.2);--border-strong:rgba(184,134,11,.32);
-  --gold-soft:rgba(201,162,39,.22);
-  --bg:#f7f1dc;--bg-2:#efe4bf;
-}
-[data-skin="gold"][data-theme="dark"]{
-  --emerald:#e0be4e;--emerald-dark:#b8860b;--emerald-soft:rgba(224,190,78,.22);
-  --header-a:#4a3a06;--header-b:#7a5a08;--header-c:#b8860b;
-  --border:rgba(224,190,78,.2);--border-strong:rgba(224,190,78,.35);
-  --bg:#12100a;--bg-2:#1c1810;--card:rgba(35,28,12,.7);--card-2:rgba(28,22,10,.5);
-}
-[data-skin="night"]{
-  --bg:#000;--bg-2:#0a0a0a;
-  --card:rgba(18,18,18,.72);--card-solid:#0d0d0d;--card-2:rgba(15,15,15,.6);
-  --text:#e8f5ee;--text-strong:#fff;--muted:#7a9889;
-  --emerald:#19a97e;--emerald-dark:#0e7a5f;--emerald-soft:rgba(25,169,126,.22);--emerald-tint:rgba(25,169,126,.09);
-  --header-a:#000;--header-b:#0a2a20;--header-c:#0e5f4a;
-  --header-shadow:rgba(0,0,0,.7);
-  --gold:#e0be4e;--gold-soft:rgba(224,190,78,.2);--gold-deep:#f0cf6a;
-  --border:rgba(25,169,126,.18);--border-strong:rgba(25,169,126,.32);
-}
-[data-skin="ramadan"]{
-  --emerald:#6a2a8a;--emerald-dark:#4a1c63;--emerald-soft:rgba(106,42,138,.15);--emerald-tint:rgba(106,42,138,.06);
-  --header-a:#2d0f45;--header-b:#4a1c63;--header-c:#6a2a8a;
-  --header-shadow:rgba(45,15,69,.4);
-  --gold:#e0be4e;--gold-soft:rgba(224,190,78,.22);--gold-deep:#b8860b;
-  --border:rgba(106,42,138,.18);--border-strong:rgba(106,42,138,.3);
-  --bg:#f4ecf7;--bg-2:#e8d9f0;
-}
-[data-skin="ramadan"][data-theme="dark"]{
-  --emerald:#a06dc4;--emerald-dark:#6a2a8a;--emerald-soft:rgba(160,109,196,.22);
-  --header-a:#1a0628;--header-b:#2d0f45;--header-c:#4a1c63;
-  --border:rgba(160,109,196,.2);--border-strong:rgba(160,109,196,.35);
-  --bg:#0e0518;--bg-2:#1a0628;--card:rgba(35,15,50,.7);--card-2:rgba(28,10,40,.5);
-}
-[data-skin="kaaba"]{
-  --emerald:#8b6f47;--emerald-dark:#5c4730;--emerald-soft:rgba(139,111,71,.15);--emerald-tint:rgba(139,111,71,.06);
-  --header-a:#3d2f1e;--header-b:#5c4730;--header-c:#8b6f47;
-  --header-shadow:rgba(61,47,30,.35);
-  --gold:#d4af37;--gold-soft:rgba(212,175,55,.22);--gold-deep:#8b6f47;
-  --border:rgba(139,111,71,.2);--border-strong:rgba(139,111,71,.32);
-  --bg:#f5efe4;--bg-2:#ebe1ce;
-}
-[data-skin="kaaba"][data-theme="dark"]{
-  --emerald:#c9a56f;--emerald-dark:#8b6f47;--emerald-soft:rgba(201,165,111,.22);
-  --header-a:#1a1408;--header-b:#3d2f1e;--header-c:#5c4730;
-  --border:rgba(201,165,111,.22);--border-strong:rgba(201,165,111,.35);
-  --bg:#0f0a04;--bg-2:#1a1408;--card:rgba(40,30,18,.7);--card-2:rgba(30,22,12,.5);
-}
-body::before{
-  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:
-    radial-gradient(900px 500px at 100% -10%,var(--emerald-soft),transparent 60%),
-    radial-gradient(700px 400px at -10% 100%,var(--gold-soft),transparent 60%);
-  transition:opacity .4s;
-}
+:root{--bg:#eef5f1;--bg-2:#dfeee6;--card:rgba(255,255,255,.72);--card-solid:#fff;--card-2:rgba(245,250,247,.6);--text:#0d2a20;--text-strong:#061611;--muted:#5f7d70;--emerald:#0e7a5f;--emerald-dark:#0a5c47;--emerald-soft:rgba(14,122,95,.14);--emerald-tint:rgba(14,122,95,.06);--header-a:#0a5c47;--header-b:#0e7a5f;--header-c:#13906e;--header-shadow:rgba(10,92,71,.28);--gold:#c9a227;--gold-soft:rgba(201,162,39,.18);--gold-deep:#8a6c0d;--border:rgba(14,122,95,.14);--border-strong:rgba(14,122,95,.24);--shadow:0 6px 24px rgba(10,60,45,.08);--shadow-sm:0 2px 8px rgba(10,60,45,.05);--blur:blur(18px) saturate(1.5);--radius:18px;--radius-sm:14px;--nav-h:62px;--danger:#c0392b}
+[data-theme="dark"]{--bg:#06120e;--bg-2:#0a1c16;--card:rgba(18,41,31,.68);--card-solid:#0e2019;--card-2:rgba(14,32,25,.5);--text:#e2f2eb;--text-strong:#f4fbf8;--muted:#8fb0a2;--emerald:#19a97e;--emerald-dark:#0e7a5f;--emerald-soft:rgba(25,169,126,.2);--emerald-tint:rgba(25,169,126,.08);--header-a:#0a3d30;--header-b:#0e5f4a;--header-c:#10876a;--header-shadow:rgba(0,0,0,.4);--gold:#e0be4e;--gold-soft:rgba(224,190,78,.18);--gold-deep:#f0cf6a;--border:rgba(25,169,126,.16);--border-strong:rgba(25,169,126,.28);--shadow:0 6px 24px rgba(0,0,0,.4);--shadow-sm:0 2px 8px rgba(0,0,0,.3)}
+[data-skin="gold"]{--emerald:#b8860b;--emerald-dark:#7a5a08;--emerald-soft:rgba(184,134,11,.15);--emerald-tint:rgba(184,134,11,.06);--header-a:#7a5a08;--header-b:#b8860b;--header-c:#d4a017;--header-shadow:rgba(122,90,8,.3);--border:rgba(184,134,11,.2);--border-strong:rgba(184,134,11,.32);--gold-soft:rgba(201,162,39,.22);--bg:#f7f1dc;--bg-2:#efe4bf}
+[data-skin="gold"][data-theme="dark"]{--emerald:#e0be4e;--emerald-dark:#b8860b;--emerald-soft:rgba(224,190,78,.22);--header-a:#4a3a06;--header-b:#7a5a08;--header-c:#b8860b;--border:rgba(224,190,78,.2);--border-strong:rgba(224,190,78,.35);--bg:#12100a;--bg-2:#1c1810;--card:rgba(35,28,12,.7);--card-2:rgba(28,22,10,.5)}
+[data-skin="night"]{--bg:#000;--bg-2:#0a0a0a;--card:rgba(18,18,18,.72);--card-solid:#0d0d0d;--card-2:rgba(15,15,15,.6);--text:#e8f5ee;--text-strong:#fff;--muted:#7a9889;--emerald:#19a97e;--emerald-dark:#0e7a5f;--emerald-soft:rgba(25,169,126,.22);--emerald-tint:rgba(25,169,126,.09);--header-a:#000;--header-b:#0a2a20;--header-c:#0e5f4a;--header-shadow:rgba(0,0,0,.7);--gold:#e0be4e;--gold-soft:rgba(224,190,78,.2);--gold-deep:#f0cf6a;--border:rgba(25,169,126,.18);--border-strong:rgba(25,169,126,.32)}
+[data-skin="ramadan"]{--emerald:#6a2a8a;--emerald-dark:#4a1c63;--emerald-soft:rgba(106,42,138,.15);--emerald-tint:rgba(106,42,138,.06);--header-a:#2d0f45;--header-b:#4a1c63;--header-c:#6a2a8a;--header-shadow:rgba(45,15,69,.4);--gold:#e0be4e;--gold-soft:rgba(224,190,78,.22);--gold-deep:#b8860b;--border:rgba(106,42,138,.18);--border-strong:rgba(106,42,138,.3);--bg:#f4ecf7;--bg-2:#e8d9f0}
+[data-skin="ramadan"][data-theme="dark"]{--emerald:#a06dc4;--emerald-dark:#6a2a8a;--emerald-soft:rgba(160,109,196,.22);--header-a:#1a0628;--header-b:#2d0f45;--header-c:#4a1c63;--border:rgba(160,109,196,.2);--border-strong:rgba(160,109,196,.35);--bg:#0e0518;--bg-2:#1a0628;--card:rgba(35,15,50,.7);--card-2:rgba(28,10,40,.5)}
+[data-skin="kaaba"]{--emerald:#8b6f47;--emerald-dark:#5c4730;--emerald-soft:rgba(139,111,71,.15);--emerald-tint:rgba(139,111,71,.06);--header-a:#3d2f1e;--header-b:#5c4730;--header-c:#8b6f47;--header-shadow:rgba(61,47,30,.35);--gold:#d4af37;--gold-soft:rgba(212,175,55,.22);--gold-deep:#8b6f47;--border:rgba(139,111,71,.2);--border-strong:rgba(139,111,71,.32);--bg:#f5efe4;--bg-2:#ebe1ce}
+[data-skin="kaaba"][data-theme="dark"]{--emerald:#c9a56f;--emerald-dark:#8b6f47;--emerald-soft:rgba(201,165,111,.22);--header-a:#1a1408;--header-b:#3d2f1e;--header-c:#5c4730;--border:rgba(201,165,111,.22);--border-strong:rgba(201,165,111,.35);--bg:#0f0a04;--bg-2:#1a1408;--card:rgba(40,30,18,.7);--card-2:rgba(30,22,12,.5)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(900px 500px at 100% -10%,var(--emerald-soft),transparent 60%),radial-gradient(700px 400px at -10% 100%,var(--gold-soft),transparent 60%)}
 button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden;-webkit-user-select:none;user-select:none}
-.hidden{display:none !important}
+.hidden{display:none!important}
 .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rip .55s ease-out;pointer-events:none}
-[data-theme="dark"] .ripple{background:rgba(255,255,255,.35)}
 @keyframes rip{to{transform:scale(3.5);opacity:0}}
-
-.app-shell{display:flex;flex-direction:column;height:100vh;height:100dvh;width:100%;overflow:hidden;position:relative}
-
-.app-header{
-  flex:0 0 auto;width:100%;padding:10px 14px 12px;color:#fff;
-  background:linear-gradient(135deg,var(--header-a),var(--header-b),var(--header-c));
-  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
-  box-shadow:0 6px 22px var(--header-shadow);
-  position:relative;overflow:hidden;z-index:5;
-  padding-top:calc(10px + env(safe-area-inset-top));
-  transition:background .4s;
-}
-.app-header::after{content:"";position:absolute;inset:0;opacity:.4;pointer-events:none;
-  background-image:
-    radial-gradient(circle at 20% 30%,rgba(255,255,255,.2) 0 2px,transparent 3px),
-    radial-gradient(circle at 70% 65%,rgba(255,255,255,.14) 0 2px,transparent 3px);
-  background-size:44px 44px,66px 66px}
-.header-inner{position:relative;z-index:1;width:100%;max-width:640px;margin:0 auto;display:flex;align-items:center;gap:10px}
-.logo{flex:0 0 auto;width:38px;height:38px;display:grid;place-items:center;font-size:19px;border-radius:12px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.32);backdrop-filter:blur(8px)}
+/* ============ APP SHELL — SCROLL FIX ============ */
+.app-shell{display:flex;flex-direction:column;height:100vh;height:-webkit-fill-available;height:100dvh;width:100%;overflow:hidden;position:relative}
+.app-header{flex:0 0 auto;min-height:0;width:100%;padding:10px 14px 12px;color:#fff;background:linear-gradient(135deg,var(--header-a),var(--header-b),var(--header-c));box-shadow:0 6px 22px var(--header-shadow);position:relative;overflow:hidden;z-index:5;padding-top:calc(10px + env(safe-area-inset-top))}
+.app-header::after{content:"";position:absolute;inset:0;opacity:.4;pointer-events:none;background-image:radial-gradient(circle at 20% 30%,rgba(255,255,255,.2) 0 2px,transparent 3px),radial-gradient(circle at 70% 65%,rgba(255,255,255,.14) 0 2px,transparent 3px);background-size:44px 44px,66px 66px}
+.header-inner{position:relative;z-index:1;width:100%;max-width:640px;margin:0 auto;display:flex;align-items:center;gap:8px}
+.back-btn{flex:0 0 auto;width:36px;height:36px;display:grid;place-items:center;font-size:18px;border-radius:11px;color:#fff;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.32);transition:transform .2s,background .2s;animation:slideIn .3s ease}
+@keyframes slideIn{from{transform:translateX(20px);opacity:0}to{transform:translateX(0);opacity:1}}
+.back-btn:active{transform:scale(.9);background:rgba(255,255,255,.35)}
+.logo{flex:0 0 auto;width:38px;height:38px;display:grid;place-items:center;font-size:19px;border-radius:12px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.32)}
 .brand-text{min-width:0;flex:1 1 auto}
-.brand-text h1{font-size:15px;font-weight:700;line-height:1.3;margin:0}
-.brand-text p{font-size:10px;opacity:.88;line-height:1.4;margin:1px 0 0}
-.header-actions{flex:0 0 auto;display:flex;gap:6px;align-items:center}
-.streak-pill{display:flex;align-items:center;gap:3px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.32);font-size:12px;font-weight:700;color:#fff;backdrop-filter:blur(8px);transition:transform .3s}
-.streak-pill.bump{animation:bump .6s ease}
-@keyframes bump{0%,100%{transform:scale(1)}30%{transform:scale(1.15)}}
-.icon-btn{width:36px;height:36px;display:grid;place-items:center;font-size:16px;border-radius:11px;color:#fff;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);transition:transform .18s,background .2s}
+.brand-text h1{font-size:14.5px;font-weight:700;line-height:1.3;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-text p{font-size:10px;opacity:.88;line-height:1.4;margin:1px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.header-actions{flex:0 0 auto;display:flex;gap:5px;align-items:center}
+.streak-pill{display:flex;align-items:center;gap:3px;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.32);font-size:11.5px;font-weight:700;color:#fff}
+.icon-btn{width:34px;height:34px;display:grid;place-items:center;font-size:15px;border-radius:10px;color:#fff;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);transition:transform .18s,background .2s}
 .icon-btn:active{transform:scale(.9);background:rgba(255,255,255,.3)}
-
-.app-content{flex:1 1 auto;width:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:12px;padding-bottom:16px;scrollbar-width:thin;scroll-behavior:smooth}
+/* ============ CONTENT AREA — SCROLL FIX ============ */
+.app-content{flex:1 1 auto;min-height:0;width:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:12px;padding-bottom:20px;scrollbar-width:thin}
 .app-content::-webkit-scrollbar{width:4px}
 .app-content::-webkit-scrollbar-thumb{background:var(--emerald-soft);border-radius:999px}
 .content-inner{width:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
-
 .tab-panel{display:none;width:100%}
-.tab-panel.active{display:block;animation:tabIn .36s cubic-bezier(.16,1,.3,1)}
-@keyframes tabIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
-
-.card{width:100%;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);transition:background .4s,border-color .4s,box-shadow .3s}
+.tab-panel.active{display:block;animation:tabIn .32s cubic-bezier(.16,1,.3,1)}
+@keyframes tabIn{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+/* ============ CARDS ============ */
+.card{width:100%;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur)}
 .card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,var(--card-2),transparent);flex-wrap:wrap}
 .card-head h2{font-size:14px;font-weight:700;margin:0;min-width:0;color:var(--text-strong)}
 .card-body{padding:13px}
 .pill{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--emerald);background:var(--emerald-soft);padding:3px 10px;border-radius:999px;white-space:nowrap;border:1px solid var(--border)}
-
-.streak-banner{
-  position:relative;width:100%;padding:16px 18px;border-radius:20px;
-  background:linear-gradient(135deg,var(--header-a),var(--header-b),var(--header-c));
-  color:#fff;overflow:hidden;box-shadow:0 10px 28px var(--header-shadow);
-  display:flex;align-items:center;gap:14px;
-}
-.streak-banner::before{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;
-  background-image:
-    radial-gradient(circle at 15% 30%,rgba(255,255,255,.3) 0 2px,transparent 3px),
-    radial-gradient(circle at 85% 70%,rgba(255,255,255,.2) 0 2px,transparent 3px);
-  background-size:38px 38px,52px 52px}
-.streak-flame{position:relative;font-size:44px;line-height:1;filter:drop-shadow(0 4px 12px rgba(255,180,0,.6));animation:flamePulse 2.4s ease-in-out infinite}
+/* ============ STREAK BANNER ============ */
+.streak-banner{position:relative;width:100%;padding:14px 16px;border-radius:20px;background:linear-gradient(135deg,var(--header-a),var(--header-b),var(--header-c));color:#fff;overflow:hidden;box-shadow:0 10px 28px var(--header-shadow);display:flex;align-items:center;gap:12px}
+.streak-banner::before{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:radial-gradient(circle at 15% 30%,rgba(255,255,255,.3) 0 2px,transparent 3px),radial-gradient(circle at 85% 70%,rgba(255,255,255,.2) 0 2px,transparent 3px);background-size:38px 38px,52px 52px}
+.streak-flame{position:relative;font-size:40px;line-height:1;filter:drop-shadow(0 4px 12px rgba(255,180,0,.6));animation:flamePulse 2.4s ease-in-out infinite}
 @keyframes flamePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08) rotate(-3deg)}}
 .streak-info{position:relative;flex:1 1 0;min-width:0}
-.streak-info .s-label{font-size:11px;opacity:.88;letter-spacing:.3px;font-weight:600}
-.streak-info .s-num{font-size:34px;font-weight:800;line-height:1.05;margin-top:2px;font-family:'Amiri','Noto Naskh Arabic',serif}
+.streak-info .s-label{font-size:11px;opacity:.88;font-weight:600}
+.streak-info .s-num{font-size:32px;font-weight:800;line-height:1.05;margin-top:2px;font-family:'Amiri',serif}
 .streak-info .s-num small{font-size:14px;font-weight:600;opacity:.9;margin-inline-start:4px}
-.streak-info .s-sub{font-size:11.5px;opacity:.85;margin-top:4px}
-.streak-next{position:relative;text-align:center;padding:8px 12px;border-radius:14px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);min-width:80px}
-.streak-next .nx-icon{font-size:24px;line-height:1}
-.streak-next .nx-lbl{font-size:10px;opacity:.88;margin-top:2px;line-height:1.3}
-.streak-next .nx-cnt{font-size:10.5px;font-weight:700;margin-top:2px}
-
+.streak-info .s-sub{font-size:11px;opacity:.85;margin-top:4px}
+.streak-next{position:relative;text-align:center;padding:8px 10px;border-radius:13px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);min-width:74px}
+.streak-next .nx-icon{font-size:22px;line-height:1}
+.streak-next .nx-lbl{font-size:9.5px;opacity:.88;margin-top:2px;line-height:1.3}
+.streak-next .nx-cnt{font-size:10px;font-weight:700;margin-top:2px}
+/* ============ COMMON ============ */
 .date-pill-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
 .date-pill{font-size:12px;font-weight:600;color:var(--emerald);background:var(--emerald-soft);padding:5px 12px;border-radius:999px;white-space:nowrap;border:1px solid var(--border)}
 .section-title{font-size:13.5px;font-weight:700;color:var(--text-strong);display:flex;align-items:center;gap:6px}
 .hero{display:flex;align-items:stretch;gap:10px;margin-bottom:12px;min-width:0}
-.hero-num{flex:0 0 102px;padding:10px 6px;border-radius:16px;color:#fff;text-align:center;background:linear-gradient(160deg,var(--emerald),var(--emerald-dark));box-shadow:0 8px 22px var(--emerald-soft);display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
-.hero-num::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.25),transparent 60%);pointer-events:none}
-.hero-num .num{display:block;font-size:28px;font-weight:800;line-height:1.1;position:relative}
+.hero-num{flex:0 0 100px;padding:10px 6px;border-radius:16px;color:#fff;text-align:center;background:linear-gradient(160deg,var(--emerald),var(--emerald-dark));box-shadow:0 8px 22px var(--emerald-soft);display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
+.hero-num::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.25),transparent 60%)}
+.hero-num .num{display:block;font-size:27px;font-weight:800;line-height:1.1;position:relative}
 .hero-num small{display:block;font-size:10px;opacity:.92;margin-top:2px;position:relative}
 .hero-num .parah-eq{display:block;margin-top:5px;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.24);color:#fff;white-space:nowrap;border:1px solid rgba(255,255,255,.3);position:relative}
 .hero-right{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:center}
 .mini-top{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--muted);margin-bottom:6px}
 .mini-top strong{color:var(--text);font-size:13px}
 .mini-bottom{margin-top:6px;font-size:11.5px;color:var(--muted);line-height:1.6}
-
-.extra-box{margin-bottom:12px;padding:13px;border-radius:16px;background:linear-gradient(180deg,rgba(255,249,226,.85),var(--gold-soft));border:1.5px dashed rgba(201,162,39,.6);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur)}
+/* ============ EXTRA BOX ============ */
+.extra-box{margin-bottom:12px;padding:13px;border-radius:16px;background:linear-gradient(180deg,rgba(255,249,226,.85),var(--gold-soft));border:1.5px dashed rgba(201,162,39,.6)}
 [data-theme="dark"] .extra-box{background:linear-gradient(180deg,rgba(224,190,78,.08),var(--gold-soft))}
 .extra-box h3{font-size:13px;font-weight:700;color:var(--gold-deep);margin:0 0 9px;display:flex;align-items:center;gap:6px}
 .extra-row{display:flex;gap:8px;align-items:stretch}
-.extra-row input{flex:1 1 0;min-width:0;padding:10px 12px;border-radius:11px;border:1.5px solid rgba(201,162,39,.55);background:var(--card-solid);font-size:15px;outline:none;text-align:center;font-weight:700;color:var(--gold-deep);transition:border-color .2s,box-shadow .2s}
-.extra-row input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,.25)}
+.extra-row input{flex:1 1 0;min-width:0;padding:10px 12px;border-radius:11px;border:1.5px solid rgba(201,162,39,.55);background:var(--card-solid);font-size:15px;outline:none;text-align:center;font-weight:700;color:var(--gold-deep)}
 .extra-info{margin-top:10px;font-size:12px;color:var(--gold-deep);line-height:1.9}
 .extra-info b{color:var(--gold-deep);font-weight:800;font-size:14px}
 .extra-badge{display:inline-block;margin-inline-start:4px;padding:3px 10px;border-radius:999px;background:var(--card-solid);font-size:11.5px;font-weight:700;color:var(--gold-deep);border:1px solid rgba(201,162,39,.5)}
-
-.btn{display:block;width:100%;padding:13px 14px;border-radius:13px;font-size:15px;font-weight:700;transition:transform .15s,box-shadow .2s,opacity .2s;position:relative;overflow:hidden}
+/* ============ BUTTONS ============ */
+.btn{display:block;width:100%;padding:13px 14px;border-radius:13px;font-size:15px;font-weight:700;transition:transform .15s,box-shadow .2s}
 .btn:active{transform:scale(.98)}
 .btn.primary{color:#fff;background:linear-gradient(135deg,var(--emerald),var(--emerald-dark));box-shadow:0 6px 18px var(--emerald-soft)}
 .btn.ghost{margin-top:10px;color:var(--muted);background:transparent;border:1.5px solid var(--border-strong);font-size:13.5px;padding:10px}
@@ -208,7 +102,7 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .btn.mini{padding:10px 14px;font-size:13px;border-radius:11px;white-space:nowrap;width:auto}
 .btn.mini.gold{color:#fff;background:linear-gradient(135deg,#e0be4e,#c9a227);box-shadow:0 4px 12px rgba(201,162,39,.42)}
 .btn.mini.outline{background:transparent;border:1.5px solid var(--border-strong);color:var(--text)}
-
+/* ============ BARS ============ */
 .bar{width:100%;height:11px;border-radius:999px;background:var(--emerald-soft);overflow:hidden;position:relative}
 .bar>i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--emerald-dark),var(--emerald));transition:width .9s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
 .bar>i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shim 2.2s infinite}
@@ -216,23 +110,19 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .bar.gold{background:var(--gold-soft)}
 .bar.gold>i{background:linear-gradient(90deg,#c9a227,#f0cf6a)}
 .progress-top,.progress-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--muted)}
-.progress-top{margin-bottom:6px}
-.progress-top strong{color:var(--emerald);font-size:14.5px;font-weight:800}
-.progress-bottom{margin-top:6px}
-.progress-bottom b{color:var(--text);font-weight:700}
-
+.progress-top{margin-bottom:6px}.progress-top strong{color:var(--emerald);font-size:14.5px;font-weight:800}
+.progress-bottom{margin-top:6px}.progress-bottom b{color:var(--text);font-weight:700}
+/* ============ STATS ============ */
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
-.stat{padding:10px 6px;border-radius:13px;background:var(--card-2);border:1px solid var(--border);text-align:center;min-width:0;transition:transform .2s,background .3s;backdrop-filter:blur(6px)}
-.stat:active{transform:scale(.97)}
+.stat{padding:10px 6px;border-radius:13px;background:var(--card-2);border:1px solid var(--border);text-align:center;min-width:0}
 .stat b{display:block;font-size:17px;font-weight:800;color:var(--emerald);line-height:1.35}
 .stat span{display:block;font-size:10.5px;color:var(--muted);line-height:1.4;margin-top:1px}
-.stat.gold{background:var(--gold-soft);border-color:rgba(201,162,39,.35)}
-.stat.gold b{color:var(--gold-deep)}
-.note{margin-top:12px;padding:11px 13px;border-radius:13px;font-size:12.5px;line-height:1.85;background:var(--emerald-tint);border:1px dashed var(--border-strong);color:var(--text);backdrop-filter:blur(6px)}
+.stat.gold{background:var(--gold-soft);border-color:rgba(201,162,39,.35)}.stat.gold b{color:var(--gold-deep)}
+.note{margin-top:12px;padding:11px 13px;border-radius:13px;font-size:12.5px;line-height:1.85;background:var(--emerald-tint);border:1px dashed var(--border-strong);color:var(--text)}
 .target-info{margin-top:10px;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.7}
-
+/* ============ PRAYER ============ */
 .prayer-list{display:flex;flex-direction:column;gap:9px}
-.prayer{display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border-radius:15px;background:var(--card);border:1.5px solid var(--border);cursor:pointer;user-select:none;transition:background .3s,border-color .3s,transform .18s,box-shadow .25s;min-width:0;box-shadow:var(--shadow-sm);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur)}
+.prayer{display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border-radius:15px;background:var(--card);border:1.5px solid var(--border);cursor:pointer;user-select:none;transition:background .3s,border-color .3s,transform .18s;min-width:0;box-shadow:var(--shadow-sm)}
 .prayer:active{transform:scale(.98)}
 .prayer.done{background:linear-gradient(90deg,var(--emerald-soft),transparent);border-color:var(--emerald);box-shadow:0 4px 14px var(--emerald-soft)}
 .prayer.locked{opacity:.65}
@@ -244,30 +134,26 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .prayer-name{font-size:14px;font-weight:700;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-strong)}
 .prayer-range{font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .prayer-count{flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
-.prayer-count .pc-pages{font-size:11px;font-weight:700;color:var(--emerald);background:var(--emerald-soft);padding:3px 9px;border-radius:999px;white-space:nowrap;transition:background .3s,color .3s;border:1px solid var(--border)}
+.prayer-count .pc-pages{font-size:11px;font-weight:700;color:var(--emerald);background:var(--emerald-soft);padding:3px 9px;border-radius:999px;white-space:nowrap;border:1px solid var(--border)}
 .prayer-count .pc-parah{font-size:10px;font-weight:700;color:var(--gold-deep);background:var(--gold-soft);padding:2px 8px;border-radius:999px;white-space:nowrap;border:1px solid rgba(201,162,39,.35)}
 .prayer.done .prayer-count .pc-pages{background:var(--emerald);color:#fff;border-color:var(--emerald)}
-
+/* ============ BADGES ============ */
 .badges-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px}
-.badge{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:14px;background:var(--card-2);border:1.5px solid var(--border);text-align:center;transition:transform .2s,box-shadow .25s,background .3s;cursor:pointer}
-.badge:active{transform:scale(.95)}
-.badge .bd-icon{font-size:26px;line-height:1;filter:grayscale(1) opacity(.4);transition:filter .3s,transform .3s}
+.badge{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:14px;background:var(--card-2);border:1.5px solid var(--border);text-align:center}
+.badge .bd-icon{font-size:26px;line-height:1;filter:grayscale(1) opacity(.4);transition:filter .3s}
 .badge.unlocked{background:linear-gradient(180deg,var(--gold-soft),transparent);border-color:var(--gold)}
-.badge.unlocked .bd-icon{filter:none;animation:pop .6s ease}
-@keyframes pop{0%{transform:scale(.6)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.badge.unlocked .bd-icon{filter:none}
 .badge .bd-name{font-size:10px;font-weight:700;color:var(--text-strong);line-height:1.25}
 .badge .bd-req{font-size:9.5px;color:var(--muted);line-height:1.2}
 .badge.locked .bd-name{color:var(--muted)}
-
+/* ============ AUDIO ============ */
 .audio-hero{width:100%;padding:18px 16px;border-radius:20px;background:linear-gradient(135deg,var(--header-a),var(--header-b),var(--header-c));color:#fff;position:relative;overflow:hidden;box-shadow:0 10px 28px var(--header-shadow);text-align:center;margin-bottom:12px}
-.audio-hero::before{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:
-  radial-gradient(circle at 15% 30%,rgba(255,255,255,.3) 0 2px,transparent 3px),
-  radial-gradient(circle at 85% 70%,rgba(255,255,255,.2) 0 2px,transparent 3px);background-size:38px 38px,52px 52px}
+.audio-hero::before{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:radial-gradient(circle at 15% 30%,rgba(255,255,255,.3) 0 2px,transparent 3px),radial-gradient(circle at 85% 70%,rgba(255,255,255,.2) 0 2px,transparent 3px);background-size:38px 38px,52px 52px}
 .audio-hero .ah-icon{position:relative;font-size:38px;line-height:1}
 .audio-hero .ah-title{position:relative;font-size:17px;font-weight:800;margin-top:6px}
 .audio-hero .ah-sub{position:relative;font-size:11.5px;opacity:.88;margin-top:2px}
 .player-controls{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:14px;position:relative}
-.pc-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);color:#fff;display:grid;place-items:center;font-size:18px;transition:transform .15s,background .2s;backdrop-filter:blur(8px)}
+.pc-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);color:#fff;display:grid;place-items:center;font-size:18px;transition:transform .15s,background .2s}
 .pc-btn:active{transform:scale(.9);background:rgba(255,255,255,.32)}
 .pc-btn.play{width:60px;height:60px;font-size:24px;background:rgba(255,255,255,.28);box-shadow:0 6px 20px rgba(0,0,0,.25)}
 .player-seek{margin-top:12px;position:relative}
@@ -283,7 +169,7 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .surah-item.active{background:var(--emerald-soft);font-weight:700;color:var(--emerald)}
 .surah-item .si-num{flex:0 0 28px;height:28px;border-radius:9px;background:var(--emerald-soft);color:var(--emerald);display:grid;place-items:center;font-size:11px;font-weight:700;border:1px solid var(--border)}
 .surah-item.active .si-num{background:var(--emerald);color:#fff}
-
+/* ============ THEME PICKER ============ */
 .theme-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 .theme-swatch{display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 4px;border-radius:13px;background:var(--card-2);border:1.5px solid var(--border);cursor:pointer;transition:transform .2s,border-color .25s,box-shadow .25s}
 .theme-swatch:active{transform:scale(.94)}
@@ -295,7 +181,7 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .sw-night{background:linear-gradient(135deg,#1a1a1a,#000)}
 .sw-ramadan{background:linear-gradient(135deg,#a06dc4,#4a1c63)}
 .sw-kaaba{background:linear-gradient(135deg,#c9a56f,#5c4730)}
-
+/* ============ SETTINGS ============ */
 .setting-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--border)}
 .setting-row:last-child{border-bottom:0;padding-bottom:0}
 .setting-row:first-child{padding-top:0}
@@ -304,116 +190,193 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 .setting-info span{display:block;font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:2px}
 .switch{position:relative;flex:0 0 auto;width:46px;height:26px;border-radius:999px;background:var(--emerald-soft);border:1px solid var(--border-strong);transition:background .3s;cursor:pointer}
 .switch::after{content:"";position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.18);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
-.switch.on{background:var(--emerald)}
-.switch.on::after{transform:translateX(-20px)}
-
+.switch.on{background:var(--emerald)}.switch.on::after{transform:translateX(-20px)}
 .field{width:100%;margin-bottom:12px}
 .field label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:6px}
-.field input,.field select{display:block;width:100%;max-width:100%;padding:11px 13px;border-radius:12px;border:1.5px solid var(--border-strong);background:var(--card-2);color:var(--text);font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s,background .2s;-webkit-appearance:none;appearance:none;backdrop-filter:blur(8px)}
+.field input,.field select{display:block;width:100%;max-width:100%;padding:11px 13px;border-radius:12px;border:1.5px solid var(--border-strong);background:var(--card-2);color:var(--text);font-size:15px;outline:none;-webkit-appearance:none;appearance:none}
 .field input:focus,.field select:focus{border-color:var(--emerald);box-shadow:0 0 0 4px var(--emerald-soft);background:var(--card-solid)}
 .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235f7d70' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 13px center;padding-left:36px}
 .hint{display:block;margin-top:5px;font-size:11.5px;color:var(--muted)}
-
 .segmented{display:flex;width:100%;gap:4px;padding:4px;border-radius:12px;background:var(--card-2);border:1.5px solid var(--border-strong)}
-.seg{flex:1 1 0;min-width:0;padding:9px 6px;border-radius:9px;font-size:13.5px;font-weight:600;color:var(--muted);background:transparent;transition:background .25s,color .25s,transform .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.seg:active{transform:scale(.96)}
+.seg{flex:1 1 0;min-width:0;padding:9px 6px;border-radius:9px;font-size:13.5px;font-weight:600;color:var(--muted);background:transparent;transition:background .25s,color .25s}
 .seg.active{color:#fff;background:linear-gradient(135deg,var(--emerald),var(--emerald-dark));box-shadow:0 3px 10px var(--emerald-soft)}
-
 .quick-days{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:2px 0 13px}
 .quick-days>span{font-size:11.5px;color:var(--muted)}
-.chip{font-size:12.5px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--border-strong);background:var(--card-2);color:var(--text);transition:transform .15s,background .25s,border-color .25s,box-shadow .25s}
+.chip{font-size:12.5px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--border-strong);background:var(--card-2);color:var(--text);transition:transform .15s,background .25s,border-color .25s}
 .chip:active{transform:scale(.94)}
-.chip.active{font-weight:700;background:var(--gold-soft);border-color:var(--gold);box-shadow:0 3px 10px var(--gold-soft)}
-
+.chip.active{font-weight:700;background:var(--gold-soft);border-color:var(--gold)}
 .chart-wrap{width:100%;height:200px;padding:8px 4px 4px;position:relative}
-
-.bottom-nav{flex:0 0 auto;width:100%;display:flex;background:rgba(255,255,255,.82);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border-top:1px solid var(--border);box-shadow:0 -6px 24px rgba(10,60,45,.08);padding-bottom:env(safe-area-inset-bottom);z-index:10;transition:background .4s}
-[data-theme="dark"] .bottom-nav{background:rgba(14,32,25,.82)}
+/* ============ BOTTOM NAV ============ */
+.bottom-nav{flex:0 0 auto;min-height:0;width:100%;display:flex;background:rgba(255,255,255,.88);backdrop-filter:var(--blur);border-top:1px solid var(--border);box-shadow:0 -6px 24px rgba(10,60,45,.08);padding-bottom:env(safe-area-inset-bottom);z-index:10}
+[data-theme="dark"] .bottom-nav{background:rgba(14,32,25,.88)}
 .nav-inner{width:100%;max-width:640px;margin:0 auto;display:flex;align-items:stretch;height:var(--nav-h)}
 .nav-btn{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);background:transparent;border:0;padding:6px 2px;position:relative;transition:color .25s}
-.nav-btn .nav-icon{font-size:18px;line-height:1;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
-.nav-btn .nav-label{font-size:9.5px;font-weight:600;line-height:1.2;white-space:nowrap}
+.nav-btn .nav-icon{font-size:17px;line-height:1;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.nav-btn .nav-label{font-size:9px;font-weight:600;line-height:1.2;white-space:nowrap}
 .nav-btn.active{color:var(--emerald)}
-.nav-btn.active .nav-icon{transform:translateY(-2px) scale(1.18)}
-.nav-btn::after{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%) scaleX(0);width:40px;height:3px;border-radius:0 0 4px 4px;background:linear-gradient(90deg,var(--emerald-dark),var(--emerald));transition:transform .32s cubic-bezier(.34,1.56,.64,1);transform-origin:center}
+.nav-btn.active .nav-icon{transform:translateY(-2px) scale(1.15)}
+.nav-btn::after{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%) scaleX(0);width:32px;height:3px;border-radius:0 0 4px 4px;background:linear-gradient(90deg,var(--emerald-dark),var(--emerald));transition:transform .32s cubic-bezier(.34,1.56,.64,1)}
 .nav-btn.active::after{transform:translateX(-50%) scaleX(1)}
-
+/* ============ TOAST ============ */
 .toast{position:fixed;bottom:calc(var(--nav-h) + 20px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,20px);z-index:999;max-width:88vw;padding:11px 20px;border-radius:999px;background:rgba(13,42,32,.95);backdrop-filter:blur(10px);color:#fff;font-size:13px;text-align:center;opacity:0;pointer-events:none;box-shadow:0 12px 32px rgba(0,0,0,.32);transition:opacity .3s,transform .3s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 [data-theme="dark"] .toast{background:rgba(30,60,48,.95)}
-
+/* ============ HIFZ ============ */
+.hifz-hero{width:100%;padding:18px 16px;border-radius:20px;background:linear-gradient(135deg,var(--header-a),var(--header-b),var(--header-c));color:#fff;position:relative;overflow:hidden;box-shadow:0 10px 28px var(--header-shadow);text-align:center;margin-bottom:12px}
+.hifz-hero::before{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:radial-gradient(circle at 15% 30%,rgba(255,255,255,.3) 0 2px,transparent 3px),radial-gradient(circle at 85% 70%,rgba(255,255,255,.2) 0 2px,transparent 3px);background-size:38px 38px,52px 52px}
+.hifz-hero .hz-icon{position:relative;font-size:40px;line-height:1}
+.hifz-hero .hz-big{position:relative;font-size:36px;font-weight:800;line-height:1.1;margin-top:4px;font-family:'Amiri',serif}
+.hifz-hero .hz-lbl{position:relative;font-size:12px;opacity:.9;margin-top:4px}
+.hifz-hero .hz-parah{position:relative;display:inline-block;margin-top:8px;font-size:11.5px;font-weight:700;padding:3px 12px;border-radius:999px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.3)}
+.sabaq-grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:4px}
+.sabaq-card{display:flex;align-items:center;gap:12px;padding:12px;border-radius:15px;background:var(--card);border:1.5px solid var(--border);cursor:pointer;transition:background .3s,border-color .3s,transform .18s;min-width:0;box-shadow:var(--shadow-sm)}
+.sabaq-card:active{transform:scale(.98)}
+.sabaq-card.done{background:linear-gradient(90deg,var(--emerald-soft),transparent);border-color:var(--emerald)}
+.sabaq-icon{flex:0 0 42px;width:42px;height:42px;display:grid;place-items:center;font-size:20px;border-radius:12px;background:var(--emerald-soft);color:var(--emerald);border:1px solid var(--border)}
+.sabaq-card.done .sabaq-icon{background:var(--emerald);color:#fff;border-color:var(--emerald)}
+.sabaq-info{flex:1 1 0;min-width:0}
+.sabaq-name{font-size:14px;font-weight:700;color:var(--text-strong);line-height:1.4}
+.sabaq-desc{font-size:11.5px;color:var(--muted);margin-top:1px;line-height:1.5}
+.sabaq-count{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--emerald);background:var(--emerald-soft);padding:4px 10px;border-radius:999px;border:1px solid var(--border);white-space:nowrap}
+.sabaq-card.done .sabaq-count{background:var(--emerald);color:#fff;border-color:var(--emerald)}
+.hifz-pagegrid{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin-top:8px;max-height:180px;overflow-y:auto;padding:6px;background:var(--card-2);border-radius:12px;border:1px solid var(--border)}
+.hz-page{aspect-ratio:1/1;display:grid;place-items:center;font-size:9px;font-weight:700;border-radius:6px;background:var(--card-solid);border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:transform .15s,background .2s}
+.hz-page:active{transform:scale(.9)}
+.hz-page.on{background:var(--emerald);color:#fff;border-color:var(--emerald)}
+.hz-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:10.5px;color:var(--muted)}
+.hz-legend span{display:flex;align-items:center;gap:4px}
+.hz-legend i{width:10px;height:10px;border-radius:3px;display:inline-block;border:1px solid var(--border)}
+.hz-legend i.on{background:var(--emerald);border-color:var(--emerald)}
+/* ============ CALENDAR (in settings) ============ */
+.hijri-mini{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,var(--header-a),var(--header-b),var(--header-c));color:#fff;position:relative;overflow:hidden;box-shadow:0 8px 22px var(--header-shadow)}
+.hijri-mini::before{content:"";position:absolute;inset:0;opacity:.3;pointer-events:none;background-image:radial-gradient(circle at 20% 30%,rgba(255,255,255,.3) 0 2px,transparent 3px),radial-gradient(circle at 80% 70%,rgba(255,255,255,.2) 0 2px,transparent 3px);background-size:36px 36px,50px 50px}
+.hijri-mini .hm-icon{position:relative;font-size:34px;line-height:1}
+.hijri-mini .hm-info{position:relative;flex:1 1 0;min-width:0}
+.hijri-mini .hm-day{font-size:24px;font-weight:800;line-height:1.1;font-family:'Amiri',serif}
+.hijri-mini .hm-month{font-size:13px;font-weight:600;opacity:.92;margin-top:2px}
+.hijri-mini .hm-year{font-size:11px;opacity:.78;margin-top:3px}
+.hijri-mini .hm-greg{font-size:11px;opacity:.82;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.22)}
+.event-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.event-card{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:14px;background:var(--card-2);border:1.5px solid var(--border)}
+.event-card.today{background:linear-gradient(90deg,var(--gold-soft),transparent);border-color:var(--gold);box-shadow:0 3px 12px var(--gold-soft)}
+.event-icon{flex:0 0 40px;width:40px;height:40px;display:grid;place-items:center;font-size:19px;border-radius:11px;background:var(--emerald-soft);border:1px solid var(--border)}
+.event-card.today .event-icon{background:var(--gold);color:#fff;border-color:var(--gold)}
+.event-info{flex:1 1 0;min-width:0}
+.event-name{font-size:13.5px;font-weight:700;color:var(--text-strong);line-height:1.4}
+.event-date{font-size:11px;color:var(--muted);margin-top:1px}
+.event-badge{flex:0 0 auto;font-size:10px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--emerald-soft);color:var(--emerald);border:1px solid var(--border);white-space:nowrap}
+.event-card.today .event-badge{background:var(--gold);color:#fff;border-color:var(--gold)}
+.ramadan-banner{margin-top:12px;padding:14px;border-radius:16px;background:linear-gradient(135deg,#4a1c63,#6a2a8a);color:#fff;text-align:center;box-shadow:0 6px 20px rgba(74,28,99,.35);position:relative;overflow:hidden}
+.ramadan-banner::before{content:"";position:absolute;inset:0;opacity:.3;pointer-events:none;background-image:radial-gradient(circle at 20% 30%,rgba(255,255,255,.4) 0 2px,transparent 3px),radial-gradient(circle at 80% 70%,rgba(255,255,255,.3) 0 2px,transparent 3px);background-size:36px 36px,50px 50px}
+.ramadan-banner .rb-icon{position:relative;font-size:28px;line-height:1}
+.ramadan-banner .rb-title{position:relative;font-size:15px;font-weight:800;margin-top:4px;font-family:'Amiri',serif}
+.ramadan-banner .rb-sub{position:relative;font-size:11px;opacity:.9;margin-top:2px}
+/* ============ ABOUT ============ */
+.about-hero{width:100%;padding:22px 18px;border-radius:20px;background:linear-gradient(135deg,var(--header-a),var(--header-b),var(--header-c));color:#fff;position:relative;overflow:hidden;box-shadow:0 10px 28px var(--header-shadow);text-align:center;margin-bottom:12px}
+.about-hero::before{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:radial-gradient(circle at 15% 30%,rgba(255,255,255,.3) 0 2px,transparent 3px),radial-gradient(circle at 85% 70%,rgba(255,255,255,.2) 0 2px,transparent 3px);background-size:40px 40px,54px 54px}
+.about-hero .ab-logo{position:relative;width:60px;height:60px;margin:0 auto;border-radius:16px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);display:grid;place-items:center;font-size:30px}
+.about-hero .ab-name{position:relative;font-size:19px;font-weight:800;margin-top:10px;font-family:'Amiri',serif}
+.about-hero .ab-ver{position:relative;display:inline-block;margin-top:6px;font-size:11.5px;font-weight:700;padding:4px 14px;border-radius:999px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.32)}
+.about-hero .ab-tag{position:relative;font-size:12px;opacity:.9;margin-top:8px;line-height:1.7}
+.about-hero .ab-dev{position:relative;display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:5px 12px;border-radius:999px;background:rgba(0,0,0,.25);font-size:11.5px;font-weight:700;border:1px solid rgba(255,255,255,.28)}
+.about-section{margin-bottom:14px}
+.about-section:last-child{margin-bottom:0}
+.about-section h4{font-size:13.5px;font-weight:700;color:var(--text-strong);margin:0 0 8px;display:flex;align-items:center;gap:6px}
+.about-section p{font-size:12.5px;color:var(--text);line-height:1.85;margin:0}
+.about-features{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:4px}
+.about-feature{padding:10px;border-radius:12px;background:var(--card-2);border:1px solid var(--border);text-align:center}
+.about-feature .af-icon{font-size:20px;line-height:1}
+.about-feature .af-name{font-size:11px;font-weight:700;color:var(--text-strong);margin-top:4px}
+.roadmap-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.roadmap-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:12px;background:var(--card-2);border:1px solid var(--border)}
+.roadmap-item.done{background:linear-gradient(90deg,var(--emerald-soft),transparent);border-color:var(--emerald)}
+.roadmap-item.current{background:linear-gradient(90deg,var(--gold-soft),transparent);border-color:var(--gold)}
+.roadmap-v{flex:0 0 auto;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--muted);color:#fff;min-width:52px;text-align:center;line-height:1.4}
+.roadmap-item.done .roadmap-v{background:var(--emerald)}
+.roadmap-item.current .roadmap-v{background:var(--gold);color:#fff}
+.roadmap-info{flex:1 1 0;min-width:0}
+.roadmap-title{font-size:12.5px;font-weight:700;color:var(--text-strong);line-height:1.4}
+.roadmap-desc{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.5}
+.credits-footer{margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);text-align:center}
+.credits-footer .cf-love{font-size:12.5px;color:var(--text);line-height:1.8}
+.credits-footer .cf-heart{color:#e74c3c;font-size:14px}
+.credits-footer .cf-sub{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6}
+.credits-footer .cf-dua{font-family:'Amiri',serif;font-size:14px;color:var(--emerald);margin-top:8px;line-height:1.9}
+.dev-badge{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:5px 12px;border-radius:999px;background:var(--card-2);border:1px solid var(--border);font-size:11px;font-weight:700;color:var(--emerald)}
+/* ============ KHATM MODAL ============ */
 .khatm-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}
 .khatm-modal.show{display:flex;animation:fadeIn .35s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .khatm-inner{position:relative;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;background:linear-gradient(160deg,var(--header-a),var(--header-b));border-radius:24px;padding:26px 20px 20px;color:#fff;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.5);animation:khatmPop .6s cubic-bezier(.34,1.56,.64,1)}
 @keyframes khatmPop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
-.khatm-bismillah{font-family:'Amiri',serif;font-size:20px;margin-bottom:8px;opacity:.95}
-.khatm-title{font-family:'Amiri',serif;font-size:28px;font-weight:700;line-height:1.3;margin:8px 0 4px;text-shadow:0 2px 12px rgba(0,0,0,.3)}
+.khatm-bismillah{font-family:'Amiri',serif;font-size:20px;margin-bottom:8px}
+.khatm-title{font-family:'Amiri',serif;font-size:28px;font-weight:700;line-height:1.3;margin:8px 0 4px}
 .khatm-subtitle{font-size:13.5px;opacity:.9;margin-bottom:14px}
-.khatm-dua{font-family:'Amiri',serif;font-size:16px;line-height:2;padding:14px 12px;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);margin:12px 0;text-align:center}
+.khatm-dua{font-family:'Amiri',serif;font-size:16px;line-height:2;padding:14px 12px;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);margin:12px 0}
 .khatm-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
 .khatm-stat{padding:9px 4px;border-radius:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22)}
 .khatm-stat b{display:block;font-size:19px;font-weight:800;line-height:1.2}
 .khatm-stat span{display:block;font-size:10px;opacity:.85;margin-top:2px}
 .khatm-actions{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-.khatm-actions .btn{background:rgba(255,255,255,.22);color:#fff;border:1px solid rgba(255,255,255,.32);box-shadow:none;backdrop-filter:blur(6px)}
-.khatm-actions .btn.gold{background:linear-gradient(135deg,#e0be4e,#c9a227);border-color:transparent;color:#fff}
+.khatm-actions .btn{background:rgba(255,255,255,.22);color:#fff;border:1px solid rgba(255,255,255,.32);box-shadow:none}
+.khatm-actions .btn.gold{background:linear-gradient(135deg,#e0be4e,#c9a227);border-color:transparent}
 .khatm-close{position:absolute;top:12px;left:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;font-size:18px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.3)}
 .confetti{position:absolute;top:-20px;width:10px;height:14px;opacity:.9;pointer-events:none;animation:fall linear forwards}
 @keyframes fall{0%{transform:translateY(-20px) rotate(0);opacity:1}100%{transform:translateY(90vh) rotate(720deg);opacity:0}}
-
-@media (min-width:480px){.stats{grid-template-columns:repeat(4,1fr)}.badges-grid{grid-template-columns:repeat(5,1fr)}}
+/* ============ RESPONSIVE ============ */
+@media (min-width:480px){.stats{grid-template-columns:repeat(4,1fr)}.badges-grid{grid-template-columns:repeat(5,1fr)}.hifz-pagegrid{grid-template-columns:repeat(12,1fr)}}
 @media (max-width:360px){
   body{font-size:14px}
   .hero-num{flex:0 0 86px}.hero-num .num{font-size:24px}
   .stat b{font-size:15.5px}.stat span{font-size:10px}
   .prayer-name{font-size:13px}
-  .nav-btn .nav-label{font-size:9px}.nav-btn .nav-icon{font-size:17px}
-  .brand-text h1{font-size:14px}.icon-btn{width:32px;height:32px;font-size:14px}
-  .streak-info .s-num{font-size:28px}
-  .streak-flame{font-size:36px}
+  .nav-btn .nav-label{font-size:8px}.nav-btn .nav-icon{font-size:15px}
+  .brand-text h1{font-size:13px}.icon-btn{width:30px;height:30px;font-size:13px}
+  .streak-info .s-num{font-size:26px}.streak-flame{font-size:34px}
   .theme-grid{grid-template-columns:repeat(3,1fr)}
   .badges-grid{grid-template-columns:repeat(3,1fr)}
-  .khatm-title{font-size:24px}
+  .khatm-title{font-size:22px}
+  .hifz-pagegrid{grid-template-columns:repeat(7,1fr)}
+  .about-features{grid-template-columns:1fr}
+  .back-btn{width:30px;height:30px;font-size:16px}
 }
 </style>
 </head>
 <body>
 
 <div class="app-shell">
-
+  <!-- ========== HEADER ========== -->
   <header class="app-header">
     <div class="header-inner">
+      <button class="back-btn hidden" id="backBtn" type="button" aria-label="واپس">←</button>
       <div class="logo">☪</div>
       <div class="brand-text">
-        <h1>قرآن روٹین ٹریکر</h1>
-        <p id="headerSub">ورژن 5.5 • VIP ایڈیشن • 549 صفحات</p>
+        <h1>قرآن کمپینین</h1>
+        <p id="headerSub">AK TECH • ورژن 5.8</p>
       </div>
       <div class="header-actions">
-        <div class="streak-pill" id="headerStreak" title="اسٹریک">
-          <span>🔥</span><span id="headerStreakNum">0</span>
-        </div>
+        <div class="streak-pill" title="اسٹریک"><span>🔥</span><span id="headerStreakNum">0</span></div>
         <button class="icon-btn" id="themeBtn" type="button" aria-label="تھیم">🌙</button>
       </div>
     </div>
   </header>
 
+  <!-- ========== CONTENT ========== -->
   <main class="app-content" id="appContent">
     <div class="content-inner">
 
-      <!-- ========== TAB: TODAY ========== -->
+      <!-- ===== TAB 1: TODAY ===== -->
       <section class="tab-panel active" id="panel-today">
-
-        <div class="streak-banner" id="streakBanner">
+        <div class="streak-banner">
           <div class="streak-flame">🔥</div>
           <div class="streak-info">
             <div class="s-label">مسلسل تلاوت</div>
             <div class="s-num"><span id="streakNum">0</span><small>دن</small></div>
             <div class="s-sub" id="streakSub">آج کا سفر شروع کریں</div>
           </div>
-          <div class="streak-next" id="streakNext">
-            <div class="nx-icon">🏅</div>
-            <div class="nx-lbl">اگلا بیج</div>
+          <div class="streak-next">
+            <div class="nx-icon" id="streakNextIcon">🏅</div>
+            <div class="nx-lbl" id="streakNextLbl">اگلا بیج</div>
             <div class="nx-cnt" id="streakNextCnt">—</div>
           </div>
         </div>
@@ -452,28 +415,19 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
         </div>
 
         <div class="prayer-list" id="prayerList"></div>
-
       </section>
 
-      <!-- ========== TAB: PROGRESS ========== -->
+      <!-- ===== TAB 2: PROGRESS ===== -->
       <section class="tab-panel" id="panel-progress">
-
         <div class="date-pill-row">
           <span class="section-title">📊 مجموعی پیش رفت</span>
           <span class="pill" id="ovPctPill">0%</span>
         </div>
-
         <div class="card">
           <div class="card-body">
-            <div class="progress-top">
-              <span>پورا قرآن (<span id="ovTotalLabel">549</span> صفحات • 30 پارے)</span>
-              <strong><span id="ovPct">0%</span></strong>
-            </div>
+            <div class="progress-top"><span>پورا قرآن (<span id="ovTotalLabel">549</span> صفحات • 30 پارے)</span><strong><span id="ovPct">0%</span></strong></div>
             <div class="bar"><i id="ovBar"></i></div>
-            <div class="progress-bottom">
-              <span>پڑھے گئے: <b id="ovRead">0</b></span>
-              <span>باقی: <b id="ovLeft">549</b></span>
-            </div>
+            <div class="progress-bottom"><span>پڑھے: <b id="ovRead">0</b></span><span>باقی: <b id="ovLeft">549</b></span></div>
             <div class="stats">
               <div class="stat"><b id="stDailyPages">0</b><span>روزانہ صفحات</span></div>
               <div class="stat gold"><b id="stDailyParah">0</b><span>روزانہ پارہ ≈</span></div>
@@ -488,7 +442,6 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
             </div>
           </div>
         </div>
-
         <div class="card" style="margin-top:12px;">
           <div class="card-head"><h2>📈 ہفتہ وار پیش رفت</h2><span class="pill">7 دن</span></div>
           <div class="card-body">
@@ -496,59 +449,40 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
             <div class="target-info" id="weeklyNote">—</div>
           </div>
         </div>
-
         <div class="card" style="margin-top:12px;">
-          <div class="card-head">
-            <h2>🏆 بیجز اور اعزازات</h2>
-            <span class="pill" id="badgeCountPill">0 / 8</span>
-          </div>
-          <div class="card-body">
-            <div class="badges-grid" id="badgesGrid"></div>
-          </div>
+          <div class="card-head"><h2>🏆 بیجز اور اعزازات</h2><span class="pill" id="badgeCountPill">0 / 8</span></div>
+          <div class="card-body"><div class="badges-grid" id="badgesGrid"></div></div>
         </div>
-
         <div class="card" style="margin-top:12px;">
           <div class="card-body">
-            <div class="note" id="statusNote" style="margin-top:0;">—</div>
+            <div class="note" id="statusNote">—</div>
             <div class="target-info" id="targetInfo">—</div>
           </div>
         </div>
-
       </section>
 
-      <!-- ========== TAB: AUDIO ========== -->
+      <!-- ===== TAB 3: AUDIO ===== -->
       <section class="tab-panel" id="panel-audio">
-
         <div class="audio-hero">
           <div class="ah-icon">🎧</div>
           <div class="ah-title" id="audioSurahName">سورۃ الفاتحة</div>
           <div class="ah-sub" id="audioReciterName">مشاری راشد العفاسی</div>
-
           <div class="player-controls">
-            <button class="pc-btn" id="audioPrev" type="button" aria-label="پچھلی">⏮</button>
-            <button class="pc-btn play" id="audioPlayBtn" type="button" aria-label="چلائیں">▶</button>
-            <button class="pc-btn" id="audioNext" type="button" aria-label="اگلی">⏭</button>
+            <button class="pc-btn" id="audioPrev" type="button">⏮</button>
+            <button class="pc-btn play" id="audioPlayBtn" type="button">▶</button>
+            <button class="pc-btn" id="audioNext" type="button">⏭</button>
           </div>
-
           <div class="player-seek">
             <div class="bar"><i id="audioProgress"></i></div>
-            <div class="player-times">
-              <span id="audioCurrent">0:00</span>
-              <span id="audioDuration">0:00</span>
-            </div>
+            <div class="player-times"><span id="audioCurrent">0:00</span><span id="audioDuration">0:00</span></div>
           </div>
         </div>
-
         <div class="card">
           <div class="card-head"><h2>⚙️ ترتیبات</h2></div>
           <div class="card-body">
             <div class="select-grid">
-              <div class="field">
-                <label for="reciterSelect">قاری</label>
-                <select id="reciterSelect"></select>
-              </div>
-              <div class="field">
-                <label for="speedSelect">رفتار</label>
+              <div class="field"><label for="reciterSelect">قاری</label><select id="reciterSelect"></select></div>
+              <div class="field"><label for="speedSelect">رفتار</label>
                 <select id="speedSelect">
                   <option value="0.75">0.75x آہستہ</option>
                   <option value="1" selected>1x معمول</option>
@@ -559,133 +493,178 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
             </div>
           </div>
         </div>
-
         <div class="card" style="margin-top:12px;">
-          <div class="card-head">
-            <h2>📖 سورتیں</h2>
-            <span class="pill">114</span>
-          </div>
+          <div class="card-head"><h2>📖 سورتیں</h2><span class="pill">114</span></div>
           <div class="card-body">
-            <div class="field" style="margin-bottom:0;">
-              <input type="search" id="surahSearch" placeholder="🔍 سورت تلاش کریں..." style="width:100%;padding:11px 13px;border-radius:12px;border:1.5px solid var(--border-strong);background:var(--card-2);color:var(--text);font-size:14px;outline:none;">
-            </div>
+            <input type="search" id="surahSearch" placeholder="🔍 سورت تلاش کریں..." style="width:100%;padding:11px 13px;border-radius:12px;border:1.5px solid var(--border-strong);background:var(--card-2);color:var(--text);font-size:14px;outline:none;">
             <div class="surah-picker" id="surahPicker"></div>
           </div>
         </div>
-
         <audio id="audioEl" preload="none"></audio>
-
       </section>
 
-      <!-- ========== TAB: SETTINGS ========== -->
+      <!-- ===== TAB 4: HIFZ ===== -->
+      <section class="tab-panel" id="panel-hifz">
+        <div class="hifz-hero">
+          <div class="hz-icon">🧠</div>
+          <div class="hz-big"><span id="hifzMemorizedCount">0</span> / 549</div>
+          <div class="hz-lbl">یاد شدہ صفحات</div>
+          <div class="hz-parah">≈ <span id="hifzParahCount">0</span> پارے محفوظ</div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="progress-top"><span>حفظ کی پیش رفت</span><strong><span id="hifzPct">0%</span></strong></div>
+            <div class="bar"><i id="hifzBar"></i></div>
+            <div class="progress-bottom"><span>باقی: <b id="hifzRemaining">549</b> صفحات</span><span>≈ <b id="hifzRemainingParah">30</b> پارے</span></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:12px;">
+          <div class="card-head"><h2>📚 آج کا نصاب</h2><span class="pill" id="hifzTodayPill">0/3</span></div>
+          <div class="card-body">
+            <div class="sabaq-grid">
+              <div class="sabaq-card" data-sabaq="sabaq">
+                <div class="sabaq-icon">🌱</div>
+                <div class="sabaq-info"><div class="sabaq-name">سبق (نیا یاد)</div><div class="sabaq-desc" id="sabaqDesc">آج نیا صفحہ یاد کریں</div></div>
+                <div class="sabaq-count" id="sabaqCount">1 صفحہ</div>
+              </div>
+              <div class="sabaq-card" data-sabaq="sabqi">
+                <div class="sabaq-icon">🔄</div>
+                <div class="sabaq-info"><div class="sabaq-name">سبقی (حالیہ مراجعت)</div><div class="sabaq-desc" id="sabqiDesc">پچھلے 7 دن کا دہرائیں</div></div>
+                <div class="sabaq-count" id="sabqiCount">5 صفحات</div>
+              </div>
+              <div class="sabaq-card" data-sabaq="manzil">
+                <div class="sabaq-icon">📖</div>
+                <div class="sabaq-info"><div class="sabaq-name">منزل (پرانا دہراؤ)</div><div class="sabaq-desc" id="manzilDesc">مکمل حفظ کا دہراؤ</div></div>
+                <div class="sabaq-count" id="manzilCount">10 صفحات</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:12px;">
+          <div class="card-head"><h2>🎯 روزانہ کے اہداف</h2></div>
+          <div class="card-body">
+            <div class="field"><label for="hifzSabaqTarget">سبق (نیا) — صفحات</label><input type="number" id="hifzSabaqTarget" min="1" max="20" value="1"></div>
+            <div class="field"><label for="hifzSabqiTarget">سبقی (حالیہ) — صفحات</label><input type="number" id="hifzSabqiTarget" min="1" max="50" value="5"></div>
+            <div class="field" style="margin-bottom:0;"><label for="hifzManzilTarget">منزل (پرانا) — صفحات</label><input type="number" id="hifzManzilTarget" min="1" max="100" value="10"></div>
+            <button class="btn primary" id="hifzSaveTargets" type="button" style="margin-top:12px;">✔ اہداف محفوظ کریں</button>
+          </div>
+        </div>
+        <div class="card" style="margin-top:12px;">
+          <div class="card-head"><h2>📖 یاد شدہ صفحات منتخب کریں</h2><span class="pill">1 تا 549</span></div>
+          <div class="card-body">
+            <div class="hifz-pagegrid" id="hifzPageGrid"></div>
+            <div class="hz-legend"><span><i></i> باقی</span><span><i class="on"></i> یاد</span></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:12px;">
+          <div class="card-body">
+            <div class="stats">
+              <div class="stat"><b id="hifzTotalDays">0</b><span>کل دن</span></div>
+              <div class="stat"><b id="hifzStreak">0</b><span>مسلسل دن</span></div>
+              <div class="stat gold"><b id="hifzParahStat">0</b><span>مکمل پارے</span></div>
+              <div class="stat gold"><b id="hifzRemainingStat">549</b><span>باقی صفحات</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TAB 5: SETTINGS + ABOUT ===== -->
       <section class="tab-panel" id="panel-settings">
 
-        <div class="date-pill-row"><span class="section-title">🎨 تھیم منتخب کریں</span></div>
+        <!-- Islamic Calendar Card (moved here) -->
+        <div class="date-pill-row"><span class="section-title">🌙 اسلامی کیلنڈر</span></div>
 
+        <div class="hijri-mini">
+          <div class="hm-icon">🌙</div>
+          <div class="hm-info">
+            <div class="hm-day" id="hijriDay">1</div>
+            <div class="hm-month" id="hijriMonth">محرم</div>
+            <div class="hm-year" id="hijriYear">1446 ہجری</div>
+            <div class="hm-greg" id="hijriGreg">—</div>
+          </div>
+        </div>
+
+        <div class="ramadan-banner hidden" id="ramadanBanner">
+          <div class="rb-icon">🌙</div>
+          <div class="rb-title">رمضان المبارک</div>
+          <div class="rb-sub" id="ramadanSub">روزہ اور تراویح کا مہینہ</div>
+        </div>
+
+        <div class="card" style="margin-top:12px;">
+          <div class="card-head"><h2>📅 اہم اسلامی تاریخیں</h2><span class="pill" id="eventMonthPill">—</span></div>
+          <div class="card-body"><div class="event-list" id="eventList"></div></div>
+        </div>
+
+        <div class="card" style="margin-top:12px;">
+          <div class="card-head"><h2>🗓️ سال بھر کے مواقع</h2></div>
+          <div class="card-body"><div class="event-list" id="yearEventsList"></div></div>
+        </div>
+
+        <!-- Theme -->
+        <div class="date-pill-row" style="margin-top:8px;"><span class="section-title">🎨 تھیم منتخب کریں</span></div>
         <div class="card">
           <div class="card-body">
             <div class="theme-grid" id="themeGrid">
-              <button class="theme-swatch active" data-skin="emerald" type="button">
-                <div class="sw-circle sw-emerald">🌿</div>
-                <div class="sw-name">زمرد</div>
-              </button>
-              <button class="theme-swatch" data-skin="gold" type="button">
-                <div class="sw-circle sw-gold">👑</div>
-                <div class="sw-name">سونا</div>
-              </button>
-              <button class="theme-swatch" data-skin="night" type="button">
-                <div class="sw-circle sw-night">🌑</div>
-                <div class="sw-name">رات</div>
-              </button>
-              <button class="theme-swatch" data-skin="ramadan" type="button">
-                <div class="sw-circle sw-ramadan">🌙</div>
-                <div class="sw-name">رمضان</div>
-              </button>
-              <button class="theme-swatch" data-skin="kaaba" type="button">
-                <div class="sw-circle sw-kaaba">🕋</div>
-                <div class="sw-name">کعبہ</div>
-              </button>
+              <button class="theme-swatch active" data-skin="emerald" type="button"><div class="sw-circle sw-emerald">🌿</div><div class="sw-name">زمرد</div></button>
+              <button class="theme-swatch" data-skin="gold" type="button"><div class="sw-circle sw-gold">👑</div><div class="sw-name">سونا</div></button>
+              <button class="theme-swatch" data-skin="night" type="button"><div class="sw-circle sw-night">🌑</div><div class="sw-name">رات</div></button>
+              <button class="theme-swatch" data-skin="ramadan" type="button"><div class="sw-circle sw-ramadan">🌙</div><div class="sw-name">رمضان</div></button>
+              <button class="theme-swatch" data-skin="kaaba" type="button"><div class="sw-circle sw-kaaba">🕋</div><div class="sw-name">کعبہ</div></button>
             </div>
           </div>
         </div>
 
-        <div class="date-pill-row" style="margin-top:4px;"><span class="section-title">⚙️ روٹین کی ترتیب</span></div>
-
+        <!-- Routine -->
+        <div class="date-pill-row" style="margin-top:8px;"><span class="section-title">⚙️ روٹین کی ترتیب</span></div>
         <div class="card">
           <div class="card-body">
-            <div class="field">
-              <label for="startDate">شروع کی تاریخ</label>
-              <input type="date" id="startDate">
-            </div>
-            <div class="field">
-              <label>ہدف کا تعین کیسے کریں؟</label>
+            <div class="field"><label for="startDate">شروع کی تاریخ</label><input type="date" id="startDate"></div>
+            <div class="field"><label>ہدف کا تعین</label>
               <div class="segmented" id="modeSeg">
                 <button type="button" class="seg active" data-mode="days">دنوں میں</button>
                 <button type="button" class="seg" data-mode="date">تاریخ سے</button>
               </div>
             </div>
-            <div class="field" id="daysField">
-              <label for="totalDays">کل دن</label>
-              <input type="number" id="totalDays" min="1" max="3650" inputmode="numeric" value="30">
-              <small class="hint">مثلاً: 30 دن، 15 دن، 10 دن</small>
-            </div>
-            <div class="field hidden" id="dateField">
-              <label for="targetDate">ہدف مکمل کرنے کی تاریخ</label>
-              <input type="date" id="targetDate">
-            </div>
+            <div class="field" id="daysField"><label for="totalDays">کل دن</label><input type="number" id="totalDays" min="1" max="3650" value="30"></div>
+            <div class="field hidden" id="dateField"><label for="targetDate">ہدف کی تاریخ</label><input type="date" id="targetDate"></div>
             <div class="quick-days">
-              <span>فوری انتخاب:</span>
+              <span>فوری:</span>
               <button type="button" class="chip" data-days="30">30 دن</button>
               <button type="button" class="chip" data-days="15">15 دن</button>
               <button type="button" class="chip" data-days="10">10 دن</button>
               <button type="button" class="chip" data-days="7">7 دن</button>
             </div>
-            <div class="field">
-              <label for="startMode">تلاوت کہاں سے شروع کریں؟</label>
+            <div class="field"><label for="startMode">تلاوت کہاں سے؟</label>
               <select id="startMode">
-                <option value="page1">پہلے صفحے سے (صفحہ 1)</option>
-                <option value="page">مخصوص صفحہ نمبر سے</option>
+                <option value="page1">پہلے صفحے سے</option>
+                <option value="page">مخصوص صفحہ سے</option>
                 <option value="parah">پارہ نمبر سے</option>
               </select>
             </div>
-            <div class="field hidden" id="pageField">
-              <label for="startPage">صفحہ نمبر (1 تا 549)</label>
-              <input type="number" id="startPage" min="1" max="549" inputmode="numeric" value="1">
-            </div>
-            <div class="field hidden" id="parahField">
-              <label for="parahSelect">پارہ منتخب کریں</label>
-              <select id="parahSelect"></select>
-            </div>
+            <div class="field hidden" id="pageField"><label for="startPage">صفحہ (1 تا 549)</label><input type="number" id="startPage" min="1" max="549" value="1"></div>
+            <div class="field hidden" id="parahField"><label for="parahSelect">پارہ</label><select id="parahSelect"></select></div>
             <button class="btn primary" id="saveBtn" type="button">✔ ترتیب محفوظ کریں</button>
           </div>
         </div>
 
+        <!-- Reminder -->
         <div class="card" style="margin-top:12px;">
           <div class="card-head"><h2>🔔 روزانہ یاد دہانی</h2><span class="pill" id="notifStatusPill">—</span></div>
           <div class="card-body">
             <div class="setting-row">
-              <div class="setting-info">
-                <b>روزانہ یاد دہانی فعال کریں</b>
-                <span>ہر روز ایک مقررہ وقت پر اطلاع ملے گی</span>
-              </div>
+              <div class="setting-info"><b>یاد دہانی فعال کریں</b><span>مقررہ وقت پر اطلاع</span></div>
               <div class="switch" id="reminderSwitch" role="switch" aria-checked="false"></div>
             </div>
-            <div class="field" style="margin-top:12px;margin-bottom:0;">
-              <label for="reminderTime">یاد دہانی کا وقت</label>
-              <input type="time" id="reminderTime" value="08:00">
-              <small class="hint">براؤزر/ویب ویو کی اجازت درکار ہوگی</small>
-            </div>
-            <button class="btn ghost" id="testNotifBtn" type="button" style="margin-top:10px;">🔔 ٹیسٹ اطلاع بھیجیں</button>
+            <div class="field" style="margin-top:12px;margin-bottom:0;"><label for="reminderTime">وقت</label><input type="time" id="reminderTime" value="08:00"></div>
+            <button class="btn ghost" id="testNotifBtn" type="button" style="margin-top:10px;">🔔 ٹیسٹ اطلاع</button>
           </div>
         </div>
 
+        <!-- Backup -->
         <div class="card" style="margin-top:12px;">
           <div class="card-head"><h2>💾 ڈیٹا بیک اپ</h2><span class="pill">JSON</span></div>
           <div class="card-body">
-            <div class="setting-info" style="margin-bottom:10px;">
-              <b>اپنی پیش رفت محفوظ رکھیں</b>
-              <span>بیک اپ فائل ڈاؤن لوڈ کریں یا پہلے سے محفوظ فائل لوڈ کریں</span>
-            </div>
+            <div class="setting-info" style="margin-bottom:10px;"><b>پیش رفت محفوظ رکھیں</b><span>بیک اپ ڈاؤن لوڈ یا لوڈ کریں</span></div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
               <button class="btn mini gold" id="exportBtn" type="button" style="flex:1;">⬇ ایکسپورٹ</button>
               <button class="btn mini outline" id="importBtn" type="button" style="flex:1;color:var(--text);">⬆ امپورٹ</button>
@@ -694,15 +673,97 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
           </div>
         </div>
 
+        <!-- Khatm -->
         <div class="card" style="margin-top:12px;">
           <div class="card-head"><h2>🎉 جشن منائیں</h2></div>
           <div class="card-body">
-            <div class="setting-info" style="margin-bottom:10px;">
-              <b>ختمِ قرآن سرٹیفکیٹ</b>
-              <span>اپنے نام کے ساتھ خوبصورت سرٹیفکیٹ بنائیں اور ڈاؤن لوڈ کریں</span>
-            </div>
             <button class="btn primary" id="openKhatmBtn" type="button" style="margin-bottom:8px;">🎊 جشن دیکھیں</button>
             <button class="btn ghost" id="certificateBtn" type="button">📜 سرٹیفکیٹ ڈاؤن لوڈ</button>
+          </div>
+        </div>
+
+        <!-- About -->
+        <div class="date-pill-row" style="margin-top:8px;"><span class="section-title">ℹ️ ایپ کے بارے میں</span></div>
+
+        <div class="about-hero">
+          <div class="ab-logo">☪</div>
+          <div class="ab-name">قرآن کمپینین</div>
+          <div class="ab-ver">VIP ایڈیشن • ورژن 5.8</div>
+          <div class="ab-tag">قرآن سے روزانہ تعلق جوڑنے کا آسان، خوبصورت اور مؤثر ساتھی</div>
+          <div class="ab-dev">✨ AK TECH پریزنٹس ✨</div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="about-section">
+              <h4>🎯 مقصد</h4>
+              <p>بہت سے لوگ قرآن مکمل کرنے کا ارادہ کرتے ہیں لیکن شیڈول اور پیش رفت کا ٹریک نہ ہونے کی وجہ سے راستہ بھٹک جاتے ہیں۔ یہ ایپ اس مشکل کا حل ہے — روزانہ کا واضح ہدف، پانچ نمازوں میں تقسیم، پارہ کنورٹر، حفظ ٹریکر، اور روحانی جذبہ بڑھانے والے بیجز — سب ایک جگہ۔</p>
+            </div>
+
+            <div class="about-section">
+              <h4>✨ اہم خصوصیات</h4>
+              <div class="about-features">
+                <div class="about-feature"><div class="af-icon">📖</div><div class="af-name">549 صفحات ٹریکر</div></div>
+                <div class="about-feature"><div class="af-icon">🕌</div><div class="af-name">پانچ نماز تقسیم</div></div>
+                <div class="about-feature"><div class="af-icon">📚</div><div class="af-name">پارہ کنورٹر</div></div>
+                <div class="about-feature"><div class="af-icon">🔥</div><div class="af-name">اسٹریک سسٹم</div></div>
+                <div class="about-feature"><div class="af-icon">🏆</div><div class="af-name">8 بیجز</div></div>
+                <div class="about-feature"><div class="af-icon">🎧</div><div class="af-name">آڈیو تلاوت</div></div>
+                <div class="about-feature"><div class="af-icon">🧠</div><div class="af-name">حفظ موڈ</div></div>
+                <div class="about-feature"><div class="af-icon">🌙</div><div class="af-name">اسلامی کیلنڈر</div></div>
+                <div class="about-feature"><div class="af-icon">🎉</div><div class="af-name">ختمِ قرآن جشن</div></div>
+                <div class="about-feature"><div class="af-icon">📜</div><div class="af-name">سرٹیفکیٹ</div></div>
+                <div class="about-feature"><div class="af-icon">🎨</div><div class="af-name">5 تھیمز</div></div>
+                <div class="about-feature"><div class="af-icon">💾</div><div class="af-name">JSON بیک اپ</div></div>
+              </div>
+            </div>
+
+            <div class="about-section">
+              <h4>🚀 اپڈیٹس کا سفر (روڈ میپ)</h4>
+              <div class="roadmap-list">
+                <div class="roadmap-item done">
+                  <div class="roadmap-v">v5.8</div>
+                  <div class="roadmap-info">
+                    <div class="roadmap-title">✓ موجودہ ورژن — AK TECH</div>
+                    <div class="roadmap-desc">اسلامی کیلنڈر + حفظ موڈ + About + بیک بٹن + سکرول فکس</div>
+                  </div>
+                </div>
+                <div class="roadmap-item current">
+                  <div class="roadmap-v">v6.0</div>
+                  <div class="roadmap-info">
+                    <div class="roadmap-title">🕌 نماز اوقات + تسبیح کاؤنٹر</div>
+                    <div class="roadmap-desc">GPS سے اوقات، اگلی نماز کا countdown، ڈیجیٹل تسبیح (طے شدہ: جلد)</div>
+                  </div>
+                </div>
+                <div class="roadmap-item">
+                  <div class="roadmap-v">v6.5</div>
+                  <div class="roadmap-info">
+                    <div class="roadmap-title">📖 قرآن متن + اردو ترجمہ</div>
+                    <div class="roadmap-desc">آف لائن قرآن کا متن (کنز الایمان / فتح محمد جالندھری)</div>
+                  </div>
+                </div>
+                <div class="roadmap-item">
+                  <div class="roadmap-v">v7.0</div>
+                  <div class="roadmap-info">
+                    <div class="roadmap-title">🎯 مزید فیچرز</div>
+                    <div class="roadmap-desc">دعائیں لائبریری، 99 نام، ماہانہ heatmap، اور بہت کچھ</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-section">
+              <h4>👨‍💻 ڈویلپر کا نوٹ</h4>
+              <p>یہ ایپ محبت اور دعا کے ساتھ بنائی گئی ہے تاکہ ہر مسلمان آسانی سے قرآن سے اپنا روزانہ تعلق مضبوط کر سکے۔ اگر آپ کو یہ ایپ پسند آئی تو اسے اپنے دوستوں اور عزیزوں کے ساتھ ضرور شیئر کریں۔ ہر وہ شخص جو اس ایپ کی وجہ سے قرآن سے جڑے گا، اس کا ثواب آپ کو بھی ملتا رہے گا۔</p>
+              <div class="dev-badge">💚 AK TECH • عاصم خان</div>
+            </div>
+
+            <div class="credits-footer">
+              <div class="cf-love">محبت اور دعا کے ساتھ بنایا گیا <span class="cf-heart">❤</span></div>
+              <div class="cf-dua">اللَّهُمَّ اجْعَلْ الْقُرْآنَ رَبِيعَ قُلُوبِنَا</div>
+              <div class="cf-sub">اے اللہ! قرآن کو ہمارے دلوں کی بہار بنا دے</div>
+              <div class="cf-sub" style="margin-top:10px;opacity:.7;">© 2026 • قرآن کمپینین v5.8 • AK TECH</div>
+            </div>
           </div>
         </div>
 
@@ -717,43 +778,34 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
     </div>
   </main>
 
+  <!-- ========== BOTTOM NAV ========== -->
   <nav class="bottom-nav">
     <div class="nav-inner">
-      <button type="button" class="nav-btn active" data-tab="today">
-        <span class="nav-icon">📖</span><span class="nav-label">آج کا ہدف</span>
-      </button>
-      <button type="button" class="nav-btn" data-tab="progress">
-        <span class="nav-icon">📊</span><span class="nav-label">پیش رفت</span>
-      </button>
-      <button type="button" class="nav-btn" data-tab="audio">
-        <span class="nav-icon">🎧</span><span class="nav-label">تلاوت</span>
-      </button>
-      <button type="button" class="nav-btn" data-tab="settings">
-        <span class="nav-icon">⚙️</span><span class="nav-label">ترتیب</span>
-      </button>
+      <button type="button" class="nav-btn active" data-tab="today"><span class="nav-icon">📖</span><span class="nav-label">آج</span></button>
+      <button type="button" class="nav-btn" data-tab="progress"><span class="nav-icon">📊</span><span class="nav-label">پیش</span></button>
+      <button type="button" class="nav-btn" data-tab="audio"><span class="nav-icon">🎧</span><span class="nav-label">تلاوت</span></button>
+      <button type="button" class="nav-btn" data-tab="hifz"><span class="nav-icon">🧠</span><span class="nav-label">حفظ</span></button>
+      <button type="button" class="nav-btn" data-tab="settings"><span class="nav-icon">⚙️</span><span class="nav-label">ترتیب</span></button>
     </div>
   </nav>
-
 </div>
 
+<!-- ========== KHATM MODAL ========== -->
 <div class="khatm-modal" id="khatmModal">
   <div class="khatm-inner">
-    <button class="khatm-close" id="khatmClose" type="button" aria-label="بند">✕</button>
+    <button class="khatm-close" id="khatmClose" type="button">✕</button>
     <div class="khatm-bismillah">﷽</div>
     <div class="khatm-title">🎉 مبارک ہو!</div>
     <div class="khatm-subtitle">آپ نے پورا قرآنِ کریم مکمل کر لیا</div>
-    <div class="khatm-dua">
-      اللَّهُمَّ ارْحَمْنِي بِالْقُرْآنِ<br>
-      وَاجْعَلْهُ لِي إِمَامًا وَنُورًا وَهُدًى وَرَحْمَةً
-    </div>
+    <div class="khatm-dua">اللَّهُمَّ ارْحَمْنِي بِالْقُرْآنِ<br>وَاجْعَلْهُ لِي إِمَامًا وَنُورًا وَهُدًى وَرَحْمَةً</div>
     <div class="khatm-stats">
       <div class="khatm-stat"><b id="khDays">30</b><span>دن</span></div>
       <div class="khatm-stat"><b id="khPages">549</b><span>صفحات</span></div>
       <div class="khatm-stat"><b id="khParas">30</b><span>پارے</span></div>
     </div>
     <div class="khatm-actions">
-      <button class="btn gold" id="khatmCertBtn" type="button">📜 سرٹیفکیٹ ڈاؤن لوڈ کریں</button>
-      <button class="btn" id="khatmShareBtn" type="button">📤 پیش رفت شیئر کریں</button>
+      <button class="btn gold" id="khatmCertBtn" type="button">📜 سرٹیفکیٹ ڈاؤن لوڈ</button>
+      <button class="btn" id="khatmShareBtn" type="button">📤 شیئر کریں</button>
       <button class="btn" id="khatmCloseBtn" type="button">بند کریں</button>
     </div>
   </div>
@@ -762,1224 +814,1042 @@ button{cursor:pointer;border:0;background:none;position:relative;overflow:hidden
 <div class="toast" id="toast"></div>
 
 <script>
-(function () {
-  "use strict";
+(function(){
+"use strict";
+var TOTAL_PAGES=549,TOTAL_PARAS=30,PAGES_PER_PARAH=TOTAL_PAGES/TOTAL_PARAS;
+var STORAGE_KEY="smart_quran_v5_8";
+var ACTIVE_TAB_KEY="smart_quran_tab_v5_8";
+var THEME_KEY="smart_quran_theme_v5_8";
+var SKIN_KEY="smart_quran_skin_v5_8";
+var REMINDER_KEY="smart_quran_reminder_v5_8";
+var USERNAME_KEY="smart_quran_username_v5_8";
+var AUDIO_KEY="smart_quran_audio_v5_8";
+var HIFZ_KEY="smart_quran_hifz_v5_8";
 
-  /* ============================================================
-     CONSTANTS — VERSION 5.5
-     ============================================================ */
-  var TOTAL_PAGES = 549, TOTAL_PARAS = 30;
-  var PAGES_PER_PARAH = TOTAL_PAGES / TOTAL_PARAS;
-  var STORAGE_KEY = "smart_quran_routine_v5_5";
-  var ACTIVE_TAB_KEY = "smart_quran_tab_v5_5";
-  var THEME_KEY = "smart_quran_theme_v5_5";
-  var SKIN_KEY = "smart_quran_skin_v5_5";
-  var REMINDER_KEY = "smart_quran_reminder_v5_5";
-  var KHATM_KEY = "smart_quran_khatm_v5_5";
-  var USERNAME_KEY = "smart_quran_username_v5_5";
-  var AUDIO_KEY = "smart_quran_audio_v5_5";
+var PARAH_STARTS=[1,19,37,55,73,91,109,127,145,163,181,199,217,235,253,271,289,307,325,343,361,379,397,415,433,451,469,487,505,523];
+var PRAYERS=[{key:"fajr",name:"فجر",icon:"🌅"},{key:"dhuhr",name:"ظہر",icon:"☀️"},{key:"asr",name:"عصر",icon:"🌤️"},{key:"maghrib",name:"مغرب",icon:"🌇"},{key:"isha",name:"عشاء",icon:"🌙"}];
+var URDU_MONTHS=["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","ستمبر","اکتوبر","نومبر","دسمبر"];
+var WEEKDAYS=["اتوار","پیر","منگل","بدھ","جمعرات","جمعہ","ہفتہ"];
+var HIJRI_MONTHS=["محرم","صفر","ربیع الاول","ربیع الثانی","جمادی الاول","جمادی الثانی","رجب","شعبان","رمضان","شوال","ذی القعدہ","ذی الحجہ"];
+var ISLAMIC_EVENTS=[
+  {m:1,d:1,name:"اسلامی نیا سال",icon:"🌙"},
+  {m:1,d:10,name:"یومِ عاشورہ",icon:"🕌"},
+  {m:3,d:12,name:"عید میلاد النبی ﷺ",icon:"🌟"},
+  {m:7,d:27,name:"شبِ معراج",icon:"✨"},
+  {m:8,d:15,name:"شبِ برات",icon:"🌌"},
+  {m:9,d:1,name:"رمضان کا آغاز",icon:"🌙"},
+  {m:9,d:27,name:"شبِ قدر (متوقع)",icon:"🌟"},
+  {m:10,d:1,name:"عید الفطر",icon:"🎉"},
+  {m:12,d:9,name:"یومِ عرفہ",icon:"🕋"},
+  {m:12,d:10,name:"عید الاضحیٰ",icon:"🐏"}
+];
+var SURAHS=["الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
+var RECITERS=[
+  {id:"ar.alafasy",name:"مشاری راشد العفاسی"},
+  {id:"ar.abdulbasitmurattal",name:"عبدالباسط عبدالصمد"},
+  {id:"ar.abdurrahmaansudais",name:"عبدالرحمن السدیس"},
+  {id:"ar.muhammadayyoub",name:"محمد ایوب"}
+];
+var BADGES=[
+  {id:"start",icon:"🌱",name:"ابتدائی قدم",req:"پہلا دن",check:function(c){return c.streak>=1;}},
+  {id:"week",icon:"🔥",name:"ہفتہ وار",req:"7 دن",check:function(c){return c.streak>=7;}},
+  {id:"fort",icon:"💫",name:"دو ہفتے",req:"14 دن",check:function(c){return c.streak>=14;}},
+  {id:"month",icon:"💎",name:"ماہانہ",req:"30 دن",check:function(c){return c.streak>=30;}},
+  {id:"cent",icon:"👑",name:"سو دن",req:"100 دن",check:function(c){return c.streak>=100;}},
+  {id:"year",icon:"🏆",name:"سالانہ",req:"365 دن",check:function(c){return c.streak>=365;}},
+  {id:"fast",icon:"⚡",name:"تیز رفتار",req:"15 دن ختم",check:function(c){return c.plan.totalDone>=c.plan.totalToRead&&c.plan.totalToRead>0&&c.elapsed<=15;}},
+  {id:"khatm",icon:"📖",name:"پہلا ختم",req:"پورا قرآن",check:function(c){return c.plan.totalDone>=c.plan.totalToRead&&c.plan.totalToRead>0;}}
+];
 
-  var PARAH_STARTS = [
-    1,19,37,55,73,91,109,127,145,163,
-    181,199,217,235,253,271,289,307,325,343,
-    361,379,397,415,433,451,469,487,505,523
-  ];
+function $(id){return document.getElementById(id);}
+function clamp(v,a,b){return v<a?a:(v>b?b:v);}
+function pad2(n){return n<10?"0"+n:""+n;}
+function todayISO(){var d=new Date();return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());}
+function parseISO(s){var p=String(s).split("-");return new Date(parseInt(p[0],10),(parseInt(p[1],10)-1),parseInt(p[2],10));}
+function addDaysISO(iso,n){var d=parseISO(iso);d.setDate(d.getDate()+n);return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());}
+function diffDays(a,b){var A=parseISO(a),B=parseISO(b);A.setHours(0,0,0,0);B.setHours(0,0,0,0);return Math.round((B-A)/86400000);}
+function formatDateUr(iso){var d=parseISO(iso);return d.getDate()+" "+URDU_MONTHS[d.getMonth()]+" "+d.getFullYear();}
+function pagesToParah(p){return (!p||p<=0)?0:p/PAGES_PER_PARAH;}
+function formatParah(p){if(!p||p<=0)return "0";if(p<0.05)return "~0";return (Math.round(p*10)/10).toFixed(1);}
+function getHijri(date){
+  try{
+    var fmt=new Intl.DateTimeFormat("en-US-u-ca-islamic",{day:"numeric",month:"numeric",year:"numeric"});
+    var parts=fmt.formatToParts(date||new Date()),h={};
+    parts.forEach(function(p){h[p.type]=p.value;});
+    return {day:parseInt(h.day,10),month:parseInt(h.month,10),year:parseInt(h.year,10)};
+  }catch(e){return null;}
+}
 
-  var PRAYERS = [
-    { key:"fajr", name:"فجر", icon:"🌅" },
-    { key:"dhuhr", name:"ظہر", icon:"☀️" },
-    { key:"asr", name:"عصر", icon:"🌤️" },
-    { key:"maghrib", name:"مغرب", icon:"🌇" },
-    { key:"isha", name:"عشاء", icon:"🌙" }
-  ];
+/* THEME */
+var currentTheme="light",currentSkin="emerald";
+function applyTheme(t){
+  currentTheme=(t==="dark")?"dark":"light";
+  document.documentElement.setAttribute("data-theme",currentTheme);
+  $("themeBtn").textContent=currentTheme==="dark"?"☀️":"🌙";
+  var m=document.querySelector('meta[name="theme-color"]');
+  if(m) m.setAttribute("content",currentTheme==="dark"?"#06120e":"#0e7a5f");
+  try{localStorage.setItem(THEME_KEY,currentTheme);}catch(e){}
+  if(weeklyChart) updateChartTheme();
+}
+function applySkin(s){
+  if(["emerald","gold","night","ramadan","kaaba"].indexOf(s)===-1) s="emerald";
+  currentSkin=s;
+  document.documentElement.setAttribute("data-skin",s);
+  if(s==="night") applyTheme("dark");
+  try{localStorage.setItem(SKIN_KEY,s);}catch(e){}
+  var sw=document.querySelectorAll(".theme-swatch");
+  for(var i=0;i<sw.length;i++) sw[i].classList.toggle("active",sw[i].getAttribute("data-skin")===s);
+  if(weeklyChart) updateChartTheme();
+}
+function initThemeAndSkin(){
+  var st=null,ss=null;
+  try{st=localStorage.getItem(THEME_KEY);ss=localStorage.getItem(SKIN_KEY);}catch(e){}
+  if(st==="dark"||st==="light") currentTheme=st;
+  else {try{currentTheme=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}catch(e){currentTheme="light";}}
+  document.documentElement.setAttribute("data-theme",currentTheme);
+  $("themeBtn").textContent=currentTheme==="dark"?"☀️":"🌙";
+  applySkin(ss||"emerald");
+}
 
-  var URDU_MONTHS = ["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","ستمبر","اکتوبر","نومبر","دسمبر"];
-  var WEEKDAYS = ["اتوار","پیر","منگل","بدھ","جمعرات","جمعہ","ہفتہ"];
-
-  var SURAHS = ["الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
-
-  /* ============================================================
-     RECITERS — v5.5 UPDATE
-     محمد ایوب نے محمود خلیل الحصری کی جگہ لی ہے
-     ============================================================ */
-  var RECITERS = [
-    { id:"ar.alafasy", name:"مشاری راشد العفاسی" },
-    { id:"ar.abdulbasitmurattal", name:"عبدالباسط عبدالصمد" },
-    { id:"ar.abdurrahmaansudais", name:"عبدالرحمن السدیس" },
-    { id:"ar.muhammadayyoub", name:"محمد ایوب" }
-  ];
-
-  var BADGES = [
-    { id:"start", icon:"🌱", name:"ابتدائی قدم", req:"پہلا دن", check: function(c){ return c.streak >= 1; } },
-    { id:"week", icon:"🔥", name:"ہفتہ وار", req:"7 دن مسلسل", check: function(c){ return c.streak >= 7; } },
-    { id:"fort", icon:"💫", name:"دو ہفتے", req:"14 دن مسلسل", check: function(c){ return c.streak >= 14; } },
-    { id:"month", icon:"💎", name:"ماہانہ ہیرا", req:"30 دن مسلسل", check: function(c){ return c.streak >= 30; } },
-    { id:"cent", icon:"👑", name:"سو دن", req:"100 دن مسلسل", check: function(c){ return c.streak >= 100; } },
-    { id:"year", icon:"🏆", name:"سالانہ", req:"365 دن مسلسل", check: function(c){ return c.streak >= 365; } },
-    { id:"fast", icon:"⚡", name:"تیز رفتار", req:"15 دن میں ختم", check: function(c){ return c.plan.totalDone >= c.plan.totalToRead && c.plan.totalToRead > 0 && c.elapsed <= 15; } },
-    { id:"khatm", icon:"📖", name:"پہلا ختم", req:"پورا قرآن", check: function(c){ return c.plan.totalDone >= c.plan.totalToRead && c.plan.totalToRead > 0; } }
-  ];
-
-  function $(id){ return document.getElementById(id); }
-  function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
-  function pad2(n){ return n<10?"0"+n:""+n; }
-  function todayISO(){ var d=new Date(); return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate()); }
-  function parseISO(s){ var p=String(s).split("-"); return new Date(parseInt(p[0],10),(parseInt(p[1],10)-1),parseInt(p[2],10)); }
-  function addDaysISO(iso,n){ var d=parseISO(iso); d.setDate(d.getDate()+n); return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate()); }
-  function diffDays(a,b){ var A=parseISO(a),B=parseISO(b); A.setHours(0,0,0,0); B.setHours(0,0,0,0); return Math.round((B-A)/86400000); }
-  function formatDateUr(iso){ var d=parseISO(iso); return d.getDate()+" "+URDU_MONTHS[d.getMonth()]+" "+d.getFullYear(); }
-  function hijriDate(d){
-    try{
-      var fmt=new Intl.DateTimeFormat("ar-SA-u-ca-islamic",{day:"numeric",month:"long",year:"numeric"});
-      return fmt.format(d||new Date()).replace("هـ","ہجری");
-    }catch(e){ return ""; }
-  }
-  function pagesToParah(p){ return (!p||p<=0)?0:p/PAGES_PER_PARAH; }
-  function formatParah(p){ if(!p||p<=0) return "0"; if(p<0.05) return "~0"; return (Math.round(p*10)/10).toFixed(1); }
-
-  var currentTheme = "light";
-  var currentSkin = "emerald";
-
-  function applyTheme(t){
-    currentTheme = (t==="dark")?"dark":"light";
-    document.documentElement.setAttribute("data-theme",currentTheme);
-    $("themeBtn").textContent = currentTheme==="dark"?"☀️":"🌙";
-    var meta=document.querySelector('meta[name="theme-color"]');
-    if(meta) meta.setAttribute("content", currentTheme==="dark"?"#06120e":"#0e7a5f");
-    try{ localStorage.setItem(THEME_KEY,currentTheme); }catch(e){}
-    if(weeklyChart) updateChartTheme();
-  }
-  function applySkin(s){
-    if(["emerald","gold","night","ramadan","kaaba"].indexOf(s)===-1) s="emerald";
-    currentSkin = s;
-    document.documentElement.setAttribute("data-skin",s);
-    if(s==="night"){ applyTheme("dark"); }
-    try{ localStorage.setItem(SKIN_KEY,s); }catch(e){}
-    var swatches=document.querySelectorAll(".theme-swatch");
-    for(var i=0;i<swatches.length;i++){
-      swatches[i].classList.toggle("active", swatches[i].getAttribute("data-skin")===s);
+/* STATE */
+var state=null,weeklyChart=null;
+function defaultState(){var t=todayISO();return {startDate:t,mode:"days",totalDays:30,targetDate:addDaysISO(t,29),startMode:"page1",startPage:1,parah:1,log:{},completedQuran:false};}
+function loadState(){
+  var def=defaultState();
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY); if(!raw) return def;
+    var p=JSON.parse(raw); if(!p||typeof p!=="object") return def;
+    var s=defaultState(),k;
+    for(k in def){if(def.hasOwnProperty(k)&&p.hasOwnProperty(k)) s[k]=p[k];}
+    if(!s.log||typeof s.log!=="object"||Array.isArray(s.log)) s.log={};
+    s.startPage=clamp(parseInt(s.startPage,10)||1,1,TOTAL_PAGES);
+    s.parah=clamp(parseInt(s.parah,10)||1,1,30);
+    s.totalDays=clamp(parseInt(s.totalDays,10)||30,1,3650);
+    if(s.mode!=="days"&&s.mode!=="date") s.mode="days";
+    if(["page1","page","parah"].indexOf(s.startMode)===-1) s.startMode="page1";
+    if(!s.startDate) s.startDate=todayISO();
+    if(!s.targetDate) s.targetDate=s.startDate;
+    s.completedQuran=!!s.completedQuran;
+    var d;
+    for(d in s.log){
+      if(!s.log.hasOwnProperty(d)) continue;
+      var day=s.log[d];
+      if(!day||typeof day!=="object"){delete s.log[d];continue;}
+      if(!Array.isArray(day.prayers)) day.prayers=[];
+      if(typeof day.extra!=="number"||day.extra<0) day.extra=0;
     }
-    if(weeklyChart) updateChartTheme();
-  }
-  function initThemeAndSkin(){
-    var savedT=null, savedS=null;
-    try{ savedT=localStorage.getItem(THEME_KEY); savedS=localStorage.getItem(SKIN_KEY); }catch(e){}
-    if(savedT==="dark"||savedT==="light") currentTheme=savedT;
-    else {
-      try{ currentTheme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"; }catch(e){ currentTheme="light"; }
+    return s;
+  }catch(e){return def;}
+}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){}}
+
+/* HIFZ STATE */
+var hifzState=null;
+function defaultHifz(){return {memorized:[],targets:{sabaq:1,sabqi:5,manzil:10},log:{}};}
+function loadHifz(){
+  var def=defaultHifz();
+  try{
+    var raw=localStorage.getItem(HIFZ_KEY); if(!raw) return def;
+    var p=JSON.parse(raw); if(!p||typeof p!=="object") return def;
+    var s=defaultHifz();
+    if(Array.isArray(p.memorized)) s.memorized=p.memorized.filter(function(x){return typeof x==="number"&&x>=1&&x<=TOTAL_PAGES;});
+    if(p.targets&&typeof p.targets==="object"){
+      s.targets.sabaq=clamp(parseInt(p.targets.sabaq,10)||1,1,20);
+      s.targets.sabqi=clamp(parseInt(p.targets.sabqi,10)||5,1,50);
+      s.targets.manzil=clamp(parseInt(p.targets.manzil,10)||10,1,100);
     }
-    document.documentElement.setAttribute("data-theme",currentTheme);
-    $("themeBtn").textContent = currentTheme==="dark"?"☀️":"🌙";
-    applySkin(savedS||"emerald");
-  }
+    if(p.log&&typeof p.log==="object") s.log=p.log;
+    return s;
+  }catch(e){return def;}
+}
+function saveHifz(){try{localStorage.setItem(HIFZ_KEY,JSON.stringify(hifzState));}catch(e){}}
 
-  var state=null, weeklyChart=null;
-
-  function defaultState(){
-    var t=todayISO();
-    return {
-      startDate:t, mode:"days", totalDays:30, targetDate:addDaysISO(t,29),
-      startMode:"page1", startPage:1, parah:1, log:{},
-      completedQuran: false
-    };
+/* PROGRESS */
+function pagesForDate(iso){
+  var day=state.log[iso]; if(!day) return 0;
+  var sum=0,i;
+  if(day.prayers&&day.prayers.length){
+    for(i=0;i<day.prayers.length;i++){
+      var p=day.prayers[i];
+      if(p&&p.done&&typeof p.count==="number"&&p.count>0) sum+=p.count;
+    }
   }
-  function loadState(){
-    var def=defaultState();
+  if(day.extra&&day.extra>0) sum+=day.extra;
+  return sum;
+}
+function pagesDoneBeforeToday(){var today=todayISO(),sum=0,d;for(d in state.log){if(!state.log.hasOwnProperty(d)) continue;if(d>=today) continue;sum+=pagesForDate(d);}return sum;}
+function pagesDoneToday(){return pagesForDate(todayISO());}
+function calculateStreak(){
+  var today=todayISO(),streak=0,i;
+  if(pagesForDate(today)>0){streak=1;i=1;}else{i=1;}
+  while(i<3650){var iso=addDaysISO(today,-i);if(pagesForDate(iso)>0){streak++;i++;}else break;}
+  return streak;
+}
+function getPlan(){
+  var today=todayISO();
+  var startPage=clamp(state.startPage,1,TOTAL_PAGES);
+  var totalToRead=TOTAL_PAGES-startPage+1;
+  var doneBefore=pagesDoneBeforeToday();if(doneBefore>totalToRead) doneBefore=totalToRead;
+  var dayStartPage=startPage+doneBefore;
+  var remainingAtDayStart=TOTAL_PAGES-dayStartPage+1;if(remainingAtDayStart<0) remainingAtDayStart=0;
+  var rawDaysLeft=diffDays(today,state.targetDate)+1;
+  var daysLeftDisplay=rawDaysLeft<0?0:rawDaysLeft;
+  var overdue=rawDaysLeft<1;
+  var remainingDays=rawDaysLeft<1?1:rawDaysLeft;
+  var dailyTarget=remainingAtDayStart>0?Math.ceil(remainingAtDayStart/remainingDays):0;
+  var base=Math.floor(dailyTarget/5),rem=dailyTarget%5;
+  var cursor=dayStartPage,items=[],i;
+  for(i=0;i<5;i++){
+    var cnt=base+(i<rem?1:0);
+    var from=cursor;
+    var to=cnt>0?cursor+cnt-1:cursor-1;
+    if(to>TOTAL_PAGES) to=TOTAL_PAGES;
+    cursor+=cnt;
+    items.push({key:PRAYERS[i].key,name:PRAYERS[i].name,icon:PRAYERS[i].icon,from:from,to:to,count:cnt,parahEq:pagesToParah(cnt)});
+  }
+  var doneToday=pagesDoneToday();
+  var totalDone=doneBefore+doneToday;if(totalDone>totalToRead) totalDone=totalToRead;
+  var elapsed=diffDays(state.startDate,today)+1;if(elapsed<1) elapsed=1;
+  return {startPage:startPage,totalToRead:totalToRead,doneBefore:doneBefore,doneToday:doneToday,totalDone:totalDone,remainingPages:totalToRead-totalDone,daysLeft:daysLeftDisplay,overdue:overdue,dailyTarget:dailyTarget,dailyTargetParah:pagesToParah(dailyTarget),items:items,currentPage:startPage+totalDone,dayStartPage:dayStartPage,totalToReadParah:pagesToParah(totalToRead),totalDoneParah:pagesToParah(totalDone),remainingParah:pagesToParah(Math.max(0,totalToRead-totalDone)),elapsed:elapsed};
+}
+function syncToday(plan){
+  var today=todayISO();
+  var day=state.log[today];
+  if(!day||typeof day!=="object") day=state.log[today]={prayers:[],extra:0};
+  if(!day.prayers||!day.prayers.length) day.prayers=[];
+  if(typeof day.extra!=="number"||day.extra<0) day.extra=0;
+  var i;
+  for(i=0;i<5;i++){
+    var it=plan.items[i],prev=day.prayers[i];
+    if(prev&&prev.done) continue;
+    day.prayers[i]={done:false,from:it.from,to:it.to,count:it.count};
+  }
+  if(day.prayers.length>5) day.prayers.length=5;
+}
+function pruneLog(){
+  var today=todayISO(),d;
+  for(d in state.log){
+    if(!state.log.hasOwnProperty(d)) continue;
+    if(d===today) continue;
+    var day=state.log[d],any=false,i;
+    if(day&&day.prayers&&day.prayers.length){for(i=0;i<day.prayers.length;i++){if(day.prayers[i]&&day.prayers[i].done){any=true;break;}}}
+    if(day&&day.extra&&day.extra>0) any=true;
+    if(!any) delete state.log[d];
+  }
+}
+function getHifzTodayDone(){
+  var d=hifzState.log[todayISO()]||{};
+  return (d.sabaq?1:0)+(d.sabqi?1:0)+(d.manzil?1:0);
+}
+function getHifzTotalDays(){
+  var c=0,d;
+  for(d in hifzState.log){if(hifzState.log.hasOwnProperty(d)){var day=hifzState.log[d];if(day&&(day.sabaq||day.sabqi||day.manzil)) c++;}}
+  return c;
+}
+function getHifzStreak(){
+  var today=todayISO(),streak=0,i;
+  function has(iso){var d=hifzState.log[iso];return d&&(d.sabaq||d.sabqi||d.manzil);}
+  if(has(today)){streak=1;i=1;}else{i=1;}
+  while(i<3650){var iso=addDaysISO(today,-i);if(has(iso)){streak++;i++;}else break;}
+  return streak;
+}
+
+/* RENDER */
+function render(){
+  var plan=getPlan();
+  syncToday(plan); pruneLog(); save();
+  var streak=calculateStreak();
+  renderStreak(streak,plan);
+  renderOverview(plan);
+  renderToday(plan);
+  renderExtra(plan);
+  renderPrayers(plan);
+  renderBadges(streak,plan);
+  renderChart();
+  renderHifz();
+  renderCalendar();
+  if(!state.completedQuran && plan.totalToRead>0 && plan.totalDone>=plan.totalToRead){
+    state.completedQuran=true;save();
+    setTimeout(showKhatmModal,800);
+  }
+}
+function renderStreak(streak,plan){
+  $("streakNum").textContent=streak;$("headerStreakNum").textContent=streak;
+  var sub;
+  if(streak===0) sub="آج تلاوت شروع کریں";
+  else if(streak===1) sub="بہت خوب! کل بھی جاری رکھیں";
+  else if(streak<7) sub="شاندار! اگلا بیج 7 دن پر";
+  else if(streak<14) sub="ماشاءاللہ! اگلا بیج 14 دن پر";
+  else if(streak<30) sub="زبردست! اگلا بیج 30 دن پر";
+  else if(streak<100) sub="لاجواب! اگلا بیج 100 دن پر";
+  else sub="ماشاءاللہ! آپ رول ماڈل ہیں";
+  $("streakSub").textContent=sub;
+  var next=null;
+  for(var i=0;i<BADGES.length;i++){
+    if(!BADGES[i].check({streak:streak,plan:plan,elapsed:plan.elapsed})){next=BADGES[i];break;}
+  }
+  if(next){
+    var target=0;
+    if(next.id==="start") target=1;
+    else if(next.id==="week") target=7;
+    else if(next.id==="fort") target=14;
+    else if(next.id==="month") target=30;
+    else if(next.id==="cent") target=100;
+    else if(next.id==="year") target=365;
+    $("streakNextIcon").textContent=next.icon;
+    $("streakNextLbl").textContent=next.name;
+    $("streakNextCnt").textContent=target>0?streak+"/"+target:"—";
+  } else {
+    $("streakNextIcon").textContent="🏆";
+    $("streakNextLbl").textContent="تمام بیجز";
+    $("streakNextCnt").textContent="مکمل";
+  }
+}
+function renderOverview(plan){
+  var pct=plan.totalToRead>0?(plan.totalDone/plan.totalToRead)*100:0;if(pct>100)pct=100;
+  var pctR=Math.round(pct);
+  $("ovBar").style.width=pct+"%";$("ovPct").textContent=pctR+"%";$("ovPctPill").textContent=pctR+"%";
+  $("ovRead").textContent=plan.totalDone;$("ovLeft").textContent=plan.remainingPages;$("ovTotalLabel").textContent=plan.totalToRead;
+  $("stDailyPages").textContent=plan.dailyTarget;$("stDailyParah").textContent="≈ "+formatParah(plan.dailyTargetParah);
+  $("stDonePages").textContent=plan.totalDone;$("stDoneParah").textContent="≈ "+formatParah(plan.totalDoneParah);
+  $("stStart").textContent=plan.startPage;$("stCurrent").textContent=plan.remainingPages>0?plan.currentPage:"—";
+  $("stDaysLeft").textContent=plan.overdue?"0":plan.daysLeft;$("stRemParah").textContent="≈ "+formatParah(plan.remainingParah);
+  var note;
+  if(plan.remainingPages===0) note="🎉 ماشاءاللہ! پورا قرآن مکمل ہو گیا۔ اللہ قبول فرمائے۔";
+  else if(plan.overdue) note="⚠️ ہدف کی تاریخ گزر چکی۔ باقی "+plan.remainingPages+" صفحات (≈ "+formatParah(plan.remainingParah)+" پارے) جلد مکمل کریں۔";
+  else {
+    var totalD=state.totalDays>0?state.totalDays:1;
+    var expected=Math.ceil((plan.totalToRead*Math.min(plan.elapsed,totalD))/totalD);
+    if(expected>plan.totalToRead) expected=plan.totalToRead;
+    var diff=plan.totalDone-expected;
+    if(diff<-1) note="📌 آپ شیڈول سے "+Math.abs(diff)+" صفحات پیچھے ہیں۔";
+    else if(diff>1) note="🌟 ماشاءاللہ! آپ شیڈول سے "+diff+" صفحات آگے ہیں۔";
+    else note="✅ آپ شیڈول کے عین مطابق چل رہے ہیں۔";
+  }
+  $("statusNote").textContent=note;
+  $("targetInfo").textContent="ہدف: "+formatDateUr(state.targetDate)+" • "+state.totalDays+" دن • "+plan.totalDone+"/"+plan.totalToRead+" صفحات • ≈ "+formatParah(plan.totalDoneParah)+"/"+formatParah(plan.totalToReadParah)+" پارے";
+}
+function renderToday(plan){
+  $("todayDate").textContent=formatDateUr(todayISO());
+  $("todayTarget").textContent=plan.dailyTarget;
+  $("todayTargetParah").textContent="≈ "+formatParah(plan.dailyTargetParah)+" پارہ";
+  var done=plan.doneToday,pct;
+  if(plan.dailyTarget>0) pct=(done/plan.dailyTarget)*100;else pct=done>0?100:0;
+  if(pct>100) pct=100;
+  $("todayBar").style.width=pct+"%";$("todayDone").textContent=done;$("todayTotal").textContent=plan.dailyTarget;
+  var dp=formatParah(pagesToParah(done)),msg;
+  if(plan.dailyTarget===0) msg="🎉 پورا قرآن مکمل";
+  else if(done>=plan.dailyTarget) msg="✅ ہدف مکمل — "+done+" صفحات (≈ "+dp+" پارہ)";
+  else msg="ابھی "+(plan.dailyTarget-done)+" صفحات باقی • "+done+" مکمل (≈ "+dp+" پارہ)";
+  $("todayMsg").textContent=msg;
+}
+function renderExtra(plan){
+  var today=todayISO();
+  var day=state.log[today]||{prayers:[],extra:0};
+  var extra=day.extra||0;
+  var doneToday=plan.doneToday;
+  var dp=formatParah(pagesToParah(doneToday));
+  if(document.activeElement!==$("extraInput")) $("extraInput").value=extra;
+  $("extraInfo").innerHTML="آج کل مکمل: <b>"+doneToday+"</b> صفحات <span class=\"extra-badge\">≈ "+dp+" پارہ</span>";
+}
+function renderPrayers(plan){
+  var today=todayISO();
+  var day=state.log[today]||{prayers:[]};
+  var html="",i;
+  for(i=0;i<5;i++){
+    var it=plan.items[i];
+    var entry=day.prayers[i]||{};
+    var done=!!entry.done;
+    var locked=it.count===0;
+    var rangeTxt=it.count>0?("صفحہ "+it.from+" تا "+it.to):"ہدف مکمل";
+    var pagesTxt=it.count>0?it.count+" صفحات":"—";
+    var parahTxt=it.count>0?("≈ "+formatParah(it.parahEq)+" پارہ"):"—";
+    html+='<div class="prayer'+(done?" done":"")+(locked?" locked":"")+'" data-idx="'+i+'">';
+    html+='<div class="check"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M20 6L9 17l-5-5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+    html+='<div class="prayer-info"><div class="prayer-name">'+it.icon+" "+it.name+'</div><div class="prayer-range">'+rangeTxt+'</div></div>';
+    html+='<div class="prayer-count"><span class="pc-pages">'+pagesTxt+'</span><span class="pc-parah">'+parahTxt+'</span></div>';
+    html+='</div>';
+  }
+  $("prayerList").innerHTML=html;
+}
+function renderBadges(streak,plan){
+  var ctx={streak:streak,plan:plan,elapsed:plan.elapsed};
+  var html="",unlocked=0;
+  for(var i=0;i<BADGES.length;i++){
+    var b=BADGES[i];var ok=b.check(ctx);
+    if(ok) unlocked++;
+    html+='<div class="badge '+(ok?"unlocked":"locked")+'" title="'+b.name+' — '+b.req+'">';
+    html+='<div class="bd-icon">'+b.icon+'</div>';
+    html+='<div class="bd-name">'+b.name+'</div>';
+    html+='<div class="bd-req">'+b.req+'</div></div>';
+  }
+  $("badgesGrid").innerHTML=html;
+  $("badgeCountPill").textContent=unlocked+" / "+BADGES.length;
+}
+function getWeeklyData(){var arr=[],today=todayISO(),i;for(i=6;i>=0;i--){var iso=addDaysISO(today,-i);var d=parseISO(iso);arr.push({iso:iso,label:WEEKDAYS[d.getDay()],pages:pagesForDate(iso)});}return arr;}
+function buildChart(){
+  var canvas=$("weeklyChart");if(!canvas||typeof Chart==="undefined") return;
+  var data=getWeeklyData();
+  var isDark=currentTheme==="dark";
+  var mutedCol=isDark?"#8fb0a2":"#5f7d70";
+  var gridCol=isDark?"rgba(25,169,126,0.14)":"rgba(14,122,95,0.1)";
+  var accent=getComputedStyle(document.documentElement).getPropertyValue("--emerald").trim()||"#0e7a5f";
+  weeklyChart=new Chart(canvas.getContext("2d"),{
+    type:"bar",
+    data:{labels:data.map(function(x){return x.label;}),datasets:[{label:"صفحات",data:data.map(function(x){return x.pages;}),backgroundColor:function(ctx){var chart=ctx.chart,area=chart.chartArea;if(!area)return accent;var g=chart.ctx.createLinearGradient(0,area.top,0,area.bottom);g.addColorStop(0,accent);g.addColorStop(1,accent+"44");return g;},borderRadius:8,borderSkipped:false,maxBarThickness:34}]},
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:900,easing:"easeOutQuart"},plugins:{legend:{display:false},tooltip:{rtl:true,textDirection:"rtl",backgroundColor:isDark?"#0e2019":"#0d2a20",titleColor:"#fff",bodyColor:"#fff",padding:10,cornerRadius:10,displayColors:false,callbacks:{label:function(c){var p=c.parsed.y;return p+" صفحات ≈ "+formatParah(pagesToParah(p))+" پارہ";}}}},scales:{x:{ticks:{color:mutedCol,font:{family:"'Noto Naskh Arabic',sans-serif",size:11}},grid:{display:false},border:{display:false}},y:{beginAtZero:true,ticks:{color:mutedCol,font:{size:10},precision:0,stepSize:10},grid:{color:gridCol,drawBorder:false},border:{display:false}}}}
+  });
+  updateWeeklyNote(data);
+}
+function updateChartTheme(){
+  if(!weeklyChart){buildChart();return;}
+  var isDark=currentTheme==="dark";
+  var mutedCol=isDark?"#8fb0a2":"#5f7d70";
+  var gridCol=isDark?"rgba(25,169,126,0.14)":"rgba(14,122,95,0.1)";
+  var accent=getComputedStyle(document.documentElement).getPropertyValue("--emerald").trim()||"#0e7a5f";
+  weeklyChart.options.scales.x.ticks.color=mutedCol;
+  weeklyChart.options.scales.y.ticks.color=mutedCol;
+  weeklyChart.options.scales.y.grid.color=gridCol;
+  weeklyChart.data.datasets[0].backgroundColor=function(ctx){var chart=ctx.chart,area=chart.chartArea;if(!area)return accent;var g=chart.ctx.createLinearGradient(0,area.top,0,area.bottom);g.addColorStop(0,accent);g.addColorStop(1,accent+"44");return g;};
+  weeklyChart.update();
+}
+function updateWeeklyNote(data){
+  var total=data.reduce(function(a,b){return a+b.pages;},0);
+  var active=data.filter(function(x){return x.pages>0;}).length;
+  var avg=active>0?Math.round(total/active):0;
+  $("weeklyNote").textContent="پچھلے 7 دنوں میں "+total+" صفحات (≈ "+formatParah(pagesToParah(total))+" پارے) • اوسط: "+avg+" صفحات/دن";
+}
+function renderChart(){
+  if(!weeklyChart){buildChart();return;}
+  var data=getWeeklyData();
+  weeklyChart.data.labels=data.map(function(x){return x.label;});
+  weeklyChart.data.datasets[0].data=data.map(function(x){return x.pages;});
+  weeklyChart.update();
+  updateWeeklyNote(data);
+}
+function renderHifz(){
+  var total=hifzState.memorized.length;
+  var pct=(total/TOTAL_PAGES)*100;
+  var remaining=TOTAL_PAGES-total;
+  $("hifzMemorizedCount").textContent=total;
+  $("hifzParahCount").textContent=formatParah(pagesToParah(total));
+  $("hifzPct").textContent=Math.round(pct)+"%";
+  $("hifzBar").style.width=pct+"%";
+  $("hifzRemaining").textContent=remaining;
+  $("hifzRemainingParah").textContent=formatParah(pagesToParah(remaining));
+  $("hifzTotalDays").textContent=getHifzTotalDays();
+  $("hifzStreak").textContent=getHifzStreak();
+  $("hifzParahStat").textContent=formatParah(pagesToParah(total));
+  $("hifzRemainingStat").textContent=remaining;
+  /* targets */
+  $("hifzSabaqTarget").value=hifzState.targets.sabaq;
+  $("hifzSabqiTarget").value=hifzState.targets.sabqi;
+  $("hifzManzilTarget").value=hifzState.targets.manzil;
+  $("sabaqCount").textContent=hifzState.targets.sabaq+" صفحہ";
+  $("sabqiCount").textContent=hifzState.targets.sabqi+" صفحات";
+  $("manzilCount").textContent=hifzState.targets.manzil+" صفحات";
+  /* today's log */
+  var today=todayISO();
+  var todayLog=hifzState.log[today]||{};
+  var done=0;
+  ["sabaq","sabqi","manzil"].forEach(function(k){
+    var el=document.querySelector('.sabaq-card[data-sabaq="'+k+'"]');
+    if(!el) return;
+    if(todayLog[k]){el.classList.add("done");done++;}
+    else el.classList.remove("done");
+  });
+  $("hifzTodayPill").textContent=done+"/3";
+  /* page grid */
+  var grid=$("hifzPageGrid");
+  if(!grid.dataset.built){
+    var html="",i;
+    for(i=1;i<=TOTAL_PAGES;i++) html+='<div class="hz-page" data-page="'+i+'">'+i+'</div>';
+    grid.innerHTML=html;
+    grid.dataset.built="1";
+  }
+  var pages=grid.children;
+  var mem=hifzState.memorized;
+  for(var j=0;j<pages.length;j++){
+    var p=parseInt(pages[j].getAttribute("data-page"),10);
+    if(mem.indexOf(p)!==-1) pages[j].classList.add("on");
+    else pages[j].classList.remove("on");
+  }
+}
+function renderCalendar(){
+  var h=getHijri(new Date());
+  if(!h){
+    $("hijriDay").textContent="—";
+    $("hijriMonth").textContent="اسلامی کیلنڈر";
+    $("hijriYear").textContent="دستیاب نہیں";
+    $("hijriGreg").textContent=formatDateUr(todayISO());
+    return;
+  }
+  $("hijriDay").textContent=h.day;
+  $("hijriMonth").textContent=HIJRI_MONTHS[h.month-1];
+  $("hijriYear").textContent=h.year+" ہجری";
+  $("hijriGreg").textContent=formatDateUr(todayISO());
+  /* Ramadan banner */
+  if(h.month===9){
+    $("ramadanBanner").classList.remove("hidden");
+    $("ramadanSub").textContent="رمضان کا "+h.day+" واں دن • روزہ اور تراویح کا مہینہ";
+  } else {
+    $("ramadanBanner").classList.add("hidden");
+  }
+  /* Events for current month */
+  var monthEvents=ISLAMIC_EVENTS.filter(function(e){return e.m===h.month;});
+  var html="";
+  if(monthEvents.length===0){
+    html='<div class="event-card"><div class="event-icon">🌙</div><div class="event-info"><div class="event-name">اس ماہ کوئی خاص موقع نہیں</div><div class="event-date">'+HIJRI_MONTHS[h.month-1]+' — اگلے مہینے کے لیے تیار رہیں</div></div></div>';
+  } else {
+    monthEvents.forEach(function(e){
+      var isToday=(e.d===h.day);
+      html+='<div class="event-card'+(isToday?" today":"")+'">';
+      html+='<div class="event-icon">'+e.icon+'</div>';
+      html+='<div class="event-info"><div class="event-name">'+e.name+'</div><div class="event-date">'+e.d+' '+HIJRI_MONTHS[e.m-1]+'</div></div>';
+      html+='<div class="event-badge">'+(isToday?"آج":(e.d+" "+HIJRI_MONTHS[e.m-1]))+'</div>';
+      html+='</div>';
+    });
+  }
+  $("eventList").innerHTML=html;
+  $("eventMonthPill").textContent=HIJRI_MONTHS[h.month-1];
+  /* Year events */
+  var yhtml="";
+  ISLAMIC_EVENTS.forEach(function(e){
+    yhtml+='<div class="event-card"><div class="event-icon">'+e.icon+'</div><div class="event-info"><div class="event-name">'+e.name+'</div><div class="event-date">'+e.d+' '+HIJRI_MONTHS[e.m-1]+'</div></div><div class="event-badge">'+e.d+' '+HIJRI_MONTHS[e.m-1]+'</div></div>';
+  });
+  $("yearEventsList").innerHTML=yhtml;
+}
+
+/* AUDIO */
+var audioEl=$("audioEl"),currentSurah=1,currentReciterIndex=0;
+function loadAudioPrefs(){try{var raw=localStorage.getItem(AUDIO_KEY);if(raw){var p=JSON.parse(raw);if(p&&typeof p==="object"){if(p.surah>=1&&p.surah<=114) currentSurah=p.surah;if(p.reciter>=0&&p.reciter<RECITERS.length) currentReciterIndex=p.reciter;}}}catch(e){}}
+function saveAudioPrefs(){try{localStorage.setItem(AUDIO_KEY,JSON.stringify({surah:currentSurah,reciter:currentReciterIndex}));}catch(e){}}
+function buildReciterOptions(){var sel=$("reciterSelect"),html="",i;for(i=0;i<RECITERS.length;i++) html+='<option value="'+i+'">'+RECITERS[i].name+'</option>';sel.innerHTML=html;sel.value=String(currentReciterIndex);}
+function buildSurahList(filter){
+  var box=$("surahPicker"),html="",i,f=(filter||"").trim();
+  for(i=0;i<114;i++){var name=SURAHS[i];if(f&&name.indexOf(f)===-1&&String(i+1)!==f) continue;var active=(i+1)===currentSurah?" active":"";html+='<div class="surah-item'+active+'" data-surah="'+(i+1)+'"><span class="si-num">'+(i+1)+'</span><span>سورۃ '+name+'</span></div>';}
+  box.innerHTML=html;
+}
+function audioURL(surahIdx,reciterId){return "https://cdn.islamic.network/quran/audio-surah/128/"+reciterId+"/"+surahIdx+".mp3";}
+function loadAndPlaySurah(idx,autoPlay){
+  currentSurah=idx;saveAudioPrefs();
+  var r=RECITERS[currentReciterIndex];
+  audioEl.src=audioURL(idx,r.id);
+  audioEl.playbackRate=parseFloat($("speedSelect").value)||1;
+  $("audioSurahName").textContent="سورۃ "+SURAHS[idx-1];
+  $("audioReciterName").textContent=r.name;
+  buildSurahList($("surahSearch").value);
+  if(autoPlay!==false){var p=audioEl.play();if(p&&p.catch) p.catch(function(){showToast("چلانے میں مسئلہ");});}
+}
+function fmtTime(s){if(!isFinite(s)||s<0)s=0;var m=Math.floor(s/60),sec=Math.floor(s%60);return m+":"+(sec<10?"0":"")+sec;}
+function setupAudio(){
+  buildReciterOptions();buildSurahList("");$("audioPlayBtn").textContent=audioEl.paused?"▶":"❚❚";
+  $("audioPlayBtn").addEventListener("click",function(){if(!audioEl.src){loadAndPlaySurah(currentSurah,true);return;}if(audioEl.paused){audioEl.play();}else{audioEl.pause();}});
+  $("audioPrev").addEventListener("click",function(){var n=currentSurah-1;if(n<1)n=114;loadAndPlaySurah(n,true);});
+  $("audioNext").addEventListener("click",function(){var n=currentSurah+1;if(n>114)n=1;loadAndPlaySurah(n,true);});
+  $("reciterSelect").addEventListener("change",function(){currentReciterIndex=parseInt(this.value,10)||0;saveAudioPrefs();loadAndPlaySurah(currentSurah,!audioEl.paused);});
+  $("speedSelect").addEventListener("change",function(){audioEl.playbackRate=parseFloat(this.value)||1;});
+  $("surahSearch").addEventListener("input",function(){buildSurahList(this.value);});
+  $("surahPicker").addEventListener("click",function(e){var t=e.target;while(t&&t!==this){if(t.classList&&t.classList.contains("surah-item")){loadAndPlaySurah(parseInt(t.getAttribute("data-surah"),10),true);return;}t=t.parentNode;}});
+  audioEl.addEventListener("play",function(){$("audioPlayBtn").textContent="❚❚";});
+  audioEl.addEventListener("pause",function(){$("audioPlayBtn").textContent="▶";});
+  audioEl.addEventListener("ended",function(){$("audioPlayBtn").textContent="▶";var n=currentSurah+1;if(n<=114)loadAndPlaySurah(n,true);});
+  audioEl.addEventListener("timeupdate",function(){var pct=audioEl.duration>0?(audioEl.currentTime/audioEl.duration)*100:0;$("audioProgress").style.width=pct+"%";$("audioCurrent").textContent=fmtTime(audioEl.currentTime);});
+  audioEl.addEventListener("loadedmetadata",function(){$("audioDuration").textContent=fmtTime(audioEl.duration);});
+  audioEl.addEventListener("error",function(){showToast("آڈیو لوڈ نہیں ہو سکی");$("audioPlayBtn").textContent="▶";});
+  var r=RECITERS[currentReciterIndex];
+  $("audioSurahName").textContent="سورۃ "+SURAHS[currentSurah-1];
+  $("audioReciterName").textContent=r.name;
+}
+
+/* SOUND + HAPTIC */
+var audioCtx=null;
+function playChime(){
+  try{
+    var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+    if(!audioCtx) audioCtx=new AC();
+    if(audioCtx.state==="suspended") audioCtx.resume();
+    var now=audioCtx.currentTime;
+    [{f:659.25,t:0},{f:880.0,t:0.13}].forEach(function(n){
+      var osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+      osc.type="sine";osc.frequency.value=n.f;
+      gain.gain.setValueAtTime(0.0001,now+n.t);
+      gain.gain.exponentialRampToValueAtTime(0.16,now+n.t+0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001,now+n.t+0.32);
+      osc.connect(gain);gain.connect(audioCtx.destination);
+      osc.start(now+n.t);osc.stop(now+n.t+0.34);
+    });
+  }catch(e){}
+}
+function haptic(p){if(!navigator.vibrate)return;try{navigator.vibrate(p||15);}catch(e){}}
+function fbSuccess(){playChime();haptic([12,40,18]);}
+function fbTap(){haptic(8);}
+
+/* ACTIONS */
+function togglePrayer(idx){
+  var today=todayISO();
+  var day=state.log[today];
+  if(!day||!day.prayers||!day.prayers[idx]) return;
+  var entry=day.prayers[idx];
+  if(!entry.done&&(!entry.count||entry.count<=0)){showToast("یہ ہدف مکمل ہے");return;}
+  entry.done=!entry.done;save();render();
+  if(entry.done){fbSuccess();showToast("ماشاءاللہ! "+PRAYERS[idx].name+" مکمل 🌿");}
+  else fbTap();
+}
+function saveExtra(){
+  var val=parseInt($("extraInput").value,10);
+  if(isNaN(val)||val<0) val=0;if(val>TOTAL_PAGES) val=TOTAL_PAGES;
+  var today=todayISO();
+  var day=state.log[today];
+  if(!day||typeof day!=="object") day=state.log[today]={prayers:[],extra:0};
+  if(!Array.isArray(day.prayers)) day.prayers=[];
+  day.extra=val;save();render();
+  if(val>0){fbSuccess();showToast("اضافی محفوظ: "+val+" صفحات (≈ "+formatParah(pagesToParah(val))+" پارہ)");}
+  else showToast("اضافی صفر");
+}
+function resetExtra(){var today=todayISO();var day=state.log[today];if(day) day.extra=0;save();render();showToast("اضافی صفر");}
+function applySetup(){
+  var startDate=$("startDate").value||todayISO();
+  var mode=state.mode,totalDays=parseInt($("totalDays").value,10),targetDate=$("targetDate").value;
+  if(mode==="days"){if(!totalDays||totalDays<1) totalDays=1;if(totalDays>3650) totalDays=3650;targetDate=addDaysISO(startDate,totalDays-1);}
+  else {if(!targetDate) targetDate=startDate;if(diffDays(startDate,targetDate)<0) targetDate=startDate;totalDays=diffDays(startDate,targetDate)+1;}
+  var sm=$("startMode").value,startPage=1,parah=1;
+  if(sm==="page1") startPage=1;
+  else if(sm==="page") startPage=clamp(parseInt($("startPage").value,10)||1,1,TOTAL_PAGES);
+  else {parah=clamp(parseInt($("parahSelect").value,10)||1,1,30);startPage=PARAH_STARTS[parah-1];}
+  var startChanged=(startPage!==state.startPage);
+  state.startDate=startDate;state.mode=mode;state.totalDays=totalDays;
+  state.targetDate=targetDate;state.startMode=sm;state.startPage=startPage;state.parah=parah;
+  if(startChanged){state.log={};state.completedQuran=false;}
+  save();fillSetupInputs();render();fbSuccess();
+  showToast(startChanged?"ترتیب محفوظ — پیش رفت ری سیٹ":"ترتیب محفوظ ✔");
+}
+function resetAll(){
+  if(!confirm("کیا آپ واقعی ساری پیش رفت ری سیٹ کرنا چاہتے ہیں؟")) return;
+  var t=todayISO();
+  state=defaultState();state.startDate=t;state.targetDate=addDaysISO(t,29);
+  hifzState=defaultHifz();
+  save();saveHifz();fillSetupInputs();render();showToast("سب کچھ ری سیٹ");
+}
+function toggleHifzSabaq(key){
+  var today=todayISO();
+  if(!hifzState.log[today]) hifzState.log[today]={};
+  var log=hifzState.log[today];
+  log[key]=!log[key];
+  if(!log.sabaq&&!log.sabqi&&!log.manzil) delete hifzState.log[today];
+  saveHifz();
+  if(log[key]){fbSuccess();showToast("ماشاءاللہ! "+({sabaq:"سبق",sabqi:"سبقی",manzil:"منزل"}[key])+" مکمل 🌿");}
+  else fbTap();
+  renderHifz();
+}
+function toggleHifzPage(page){
+  var idx=hifzState.memorized.indexOf(page);
+  if(idx===-1) hifzState.memorized.push(page);
+  else hifzState.memorized.splice(idx,1);
+  hifzState.memorized.sort(function(a,b){return a-b;});
+  saveHifz();renderHifz();
+  fbTap();
+}
+function saveHifzTargets(){
+  var s=clamp(parseInt($("hifzSabaqTarget").value,10)||1,1,20);
+  var q=clamp(parseInt($("hifzSabqiTarget").value,10)||5,1,50);
+  var m=clamp(parseInt($("hifzManzilTarget").value,10)||10,1,100);
+  hifzState.targets={sabaq:s,sabqi:q,manzil:m};
+  saveHifz();renderHifz();fbSuccess();
+  showToast("اہداف محفوظ ✔");
+}
+
+/* TOAST */
+var toastTimer=null;
+function showToast(msg){
+  var el=$("toast");if(!el) return;
+  el.textContent=msg;el.classList.add("show");
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){el.classList.remove("show");},2200);
+}
+
+/* TABS + BACK BUTTON */
+function switchTab(tab){
+  var panels=document.querySelectorAll(".tab-panel"),i;
+  for(i=0;i<panels.length;i++) panels[i].classList.toggle("active",panels[i].id==="panel-"+tab);
+  var btns=document.querySelectorAll(".nav-btn");
+  for(i=0;i<btns.length;i++) btns[i].classList.toggle("active",btns[i].getAttribute("data-tab")===tab);
+  var c=$("appContent");if(c) c.scrollTop=0;
+  try{localStorage.setItem(ACTIVE_TAB_KEY,tab);}catch(e){}
+  /* back button visibility */
+  if(tab!=="today") $("backBtn").classList.remove("hidden");
+  else $("backBtn").classList.add("hidden");
+  fbTap();
+  if(tab==="progress") setTimeout(function(){if(weeklyChart) weeklyChart.resize();else buildChart();},80);
+}
+function loadActiveTab(){
+  var t="today";
+  try{var v=localStorage.getItem(ACTIVE_TAB_KEY);if(v&&["today","progress","audio","hifz","settings"].indexOf(v)!==-1) t=v;}catch(e){}
+  switchTab(t);
+}
+
+/* SETUP UI */
+function buildParahOptions(){var sel=$("parahSelect"),html="",i;for(i=0;i<30;i++) html+='<option value="'+(i+1)+'">پارہ '+(i+1)+' (صفحہ '+PARAH_STARTS[i]+')</option>';sel.innerHTML=html;}
+function updateModeUI(){
+  var isDays=state.mode==="days";
+  $("daysField").className="field"+(isDays?"":" hidden");
+  $("dateField").className="field"+(isDays?" hidden":"");
+  var segs=$("modeSeg").children,i;
+  for(i=0;i<segs.length;i++){var b=segs[i];if(b.getAttribute("data-mode")===state.mode) b.classList.add("active");else b.classList.remove("active");}
+}
+function updateStartFields(){var mode=$("startMode").value;$("pageField").className="field"+(mode==="page"?"":" hidden");$("parahField").className="field"+(mode==="parah"?"":" hidden");}
+function updateChips(){var chips=document.querySelectorAll(".chip"),i;for(i=0;i<chips.length;i++){var c=chips[i],v=parseInt(c.getAttribute("data-days"),10);if(state.mode==="days"&&v===state.totalDays) c.classList.add("active");else c.classList.remove("active");}}
+function fillSetupInputs(){
+  $("startDate").value=state.startDate;$("totalDays").value=state.totalDays;$("targetDate").value=state.targetDate;
+  $("startMode").value=state.startMode;$("startPage").value=state.startPage;$("parahSelect").value=String(state.parah);
+  updateModeUI();updateStartFields();updateChips();
+}
+
+/* REMINDER */
+var reminder={enabled:false,time:"08:00"},reminderTimer=null;
+function loadReminder(){try{var raw=localStorage.getItem(REMINDER_KEY);if(!raw)return;var p=JSON.parse(raw);if(p&&typeof p==="object"){reminder.enabled=!!p.enabled;if(typeof p.time==="string"&&/^\d{2}:\d{2}$/.test(p.time)) reminder.time=p.time;}}catch(e){}}
+function saveReminder(){try{localStorage.setItem(REMINDER_KEY,JSON.stringify(reminder));}catch(e){}}
+function updateReminderUI(){
+  var sw=$("reminderSwitch");
+  if(reminder.enabled) sw.classList.add("on");else sw.classList.remove("on");
+  sw.setAttribute("aria-checked",reminder.enabled?"true":"false");
+  $("reminderTime").value=reminder.time;
+  var pill=$("notifStatusPill");
+  if(!("Notification" in window)) pill.textContent="غیر دستیاب";
+  else if(Notification.permission==="granted") pill.textContent=reminder.enabled?"فعال":"بند";
+  else if(Notification.permission==="denied") pill.textContent="اجازت نہیں";
+  else pill.textContent="اجازت درکار";
+}
+function requestNotifPermission(){
+  return new Promise(function(resolve){
+    if(!("Notification" in window)){resolve(false);return;}
+    if(Notification.permission==="granted"){resolve(true);return;}
+    if(Notification.permission==="denied"){resolve(false);return;}
+    try{Notification.requestPermission().then(function(p){resolve(p==="granted");}).catch(function(){resolve(false);});}catch(e){resolve(false);}
+  });
+}
+function sendNotification(title,body){
+  if(!("Notification" in window)) return;
+  if(Notification.permission!=="granted") return;
+  try{new Notification(title,{body:body,dir:"rtl",lang:"ur"});}catch(e){}
+}
+function scheduleReminder(){
+  if(reminderTimer){clearTimeout(reminderTimer);reminderTimer=null;}
+  if(!reminder.enabled) return;
+  var now=new Date(),parts=reminder.time.split(":");
+  var target=new Date();
+  target.setHours(parseInt(parts[0],10),parseInt(parts[1],10),0,0);
+  if(target.getTime()<=now.getTime()) target.setDate(target.getDate()+1);
+  var delay=target.getTime()-now.getTime();
+  if(delay>24*3600*1000) delay=24*3600*1000;
+  reminderTimer=setTimeout(function(){
+    var plan=getPlan();
+    var body=plan.remainingPages>0?("آج کا ہدف: "+plan.dailyTarget+" صفحات (≈ "+formatParah(plan.dailyTargetParah)+" پارہ)"):"ماشاءاللہ! قرآن مکمل";
+    sendNotification("📖 قرآن کمپینین یاد دہانی",body);
+    scheduleReminder();
+  },delay);
+}
+function toggleReminder(){
+  if(!reminder.enabled){
+    requestNotifPermission().then(function(ok){
+      if(!ok){showToast("اطلاع کی اجازت نہیں");updateReminderUI();return;}
+      reminder.enabled=true;saveReminder();scheduleReminder();updateReminderUI();
+      showToast("یاد دہانی فعال ✔");
+      sendNotification("🔔 یاد دہانی فعال","ہر روز "+reminder.time+" پر اطلاع");
+    });
+  } else {
+    reminder.enabled=false;saveReminder();scheduleReminder();updateReminderUI();
+    showToast("یاد دہانی بند");
+  }
+}
+
+/* EXPORT/IMPORT */
+function exportData(){
+  try{
+    var payload={app:"Quran Companion — AK TECH",version:"5.8",exportedAt:new Date().toISOString(),state:state,hifz:hifzState,reminder:reminder,skin:currentSkin,theme:currentTheme};
+    var blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+    var url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download="quran-companion-backup-"+todayISO()+".json";
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},800);
+    fbSuccess();showToast("بیک اپ ڈاؤن لوڈ ہو گیا");
+  }catch(e){showToast("ایکسپورٹ ناکام");}
+}
+function importData(file){
+  if(!file) return;
+  var reader=new FileReader();
+  reader.onload=function(e){
     try{
-      var raw=localStorage.getItem(STORAGE_KEY);
-      if(!raw) return def;
-      var p=JSON.parse(raw);
-      if(!p||typeof p!=="object") return def;
-      var s=defaultState(); var k;
-      for(k in def){ if(def.hasOwnProperty(k)&&p.hasOwnProperty(k)) s[k]=p[k]; }
+      var txt=String(e.target.result||"");
+      var parsed=JSON.parse(txt);
+      var incoming=parsed&&parsed.state?parsed.state:parsed;
+      if(!incoming||typeof incoming!=="object") throw new Error("bad");
+      var s=defaultState(),k;
+      for(k in s){if(s.hasOwnProperty(k)&&incoming.hasOwnProperty(k)) s[k]=incoming[k];}
       if(!s.log||typeof s.log!=="object"||Array.isArray(s.log)) s.log={};
       s.startPage=clamp(parseInt(s.startPage,10)||1,1,TOTAL_PAGES);
       s.parah=clamp(parseInt(s.parah,10)||1,1,30);
       s.totalDays=clamp(parseInt(s.totalDays,10)||30,1,3650);
       if(s.mode!=="days"&&s.mode!=="date") s.mode="days";
       if(["page1","page","parah"].indexOf(s.startMode)===-1) s.startMode="page1";
-      if(!s.startDate) s.startDate=todayISO();
-      if(!s.targetDate) s.targetDate=s.startDate;
-      s.completedQuran=!!s.completedQuran;
       var d;
-      for(d in s.log){
-        if(!s.log.hasOwnProperty(d)) continue;
-        var day=s.log[d];
-        if(!day||typeof day!=="object"){ delete s.log[d]; continue; }
-        if(!Array.isArray(day.prayers)) day.prayers=[];
-        if(typeof day.extra!=="number"||day.extra<0) day.extra=0;
+      for(d in s.log){if(!s.log.hasOwnProperty(d)) continue;var day=s.log[d];if(!day||typeof day!=="object"){delete s.log[d];continue;}if(!Array.isArray(day.prayers)) day.prayers=[];if(typeof day.extra!=="number"||day.extra<0) day.extra=0;}
+      state=s;
+      if(parsed.hifz){
+        var h=defaultHifz();
+        if(Array.isArray(parsed.hifz.memorized)) h.memorized=parsed.hifz.memorized.filter(function(x){return typeof x==="number"&&x>=1&&x<=TOTAL_PAGES;});
+        if(parsed.hifz.targets) h.targets=parsed.hifz.targets;
+        if(parsed.hifz.log) h.log=parsed.hifz.log;
+        hifzState=h;saveHifz();
       }
-      return s;
-    }catch(e){ return def; }
-  }
-  function save(){ try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); }catch(e){} }
+      if(parsed.reminder){reminder.enabled=!!parsed.reminder.enabled;if(typeof parsed.reminder.time==="string"&&/^\d{2}:\d{2}$/.test(parsed.reminder.time)) reminder.time=parsed.reminder.time;saveReminder();scheduleReminder();updateReminderUI();}
+      if(parsed.skin) applySkin(parsed.skin);
+      if(parsed.theme) applyTheme(parsed.theme);
+      save();fillSetupInputs();render();fbSuccess();
+      showToast("بیک اپ لوڈ ہو گیا ✔");
+    }catch(err){showToast("فائل درست نہیں");}
+  };
+  reader.onerror=function(){showToast("فائل پڑھنے میں مسئلہ");};
+  reader.readAsText(file);
+}
 
-  function pagesForDate(iso){
-    var day=state.log[iso]; if(!day) return 0;
-    var sum=0,i;
-    if(day.prayers&&day.prayers.length){
-      for(i=0;i<day.prayers.length;i++){
-        var p=day.prayers[i];
-        if(p&&p.done&&typeof p.count==="number"&&p.count>0) sum+=p.count;
-      }
-    }
-    if(day.extra&&day.extra>0) sum+=day.extra;
-    return sum;
+/* KHATM */
+function spawnConfetti(container){
+  var colors=["#0e7a5f","#c9a227","#e0be4e","#19a97e","#f0cf6a","#ffffff"];
+  for(var i=0;i<70;i++){
+    (function(){
+      var el=document.createElement("div");
+      el.className="confetti";
+      el.style.left=Math.random()*100+"%";
+      el.style.background=colors[Math.floor(Math.random()*colors.length)];
+      el.style.width=(6+Math.random()*8)+"px";
+      el.style.height=(10+Math.random()*10)+"px";
+      el.style.animationDuration=(2.4+Math.random()*2)+"s";
+      el.style.animationDelay=(Math.random()*0.8)+"s";
+      el.style.borderRadius=Math.random()>0.5?"2px":"50%";
+      container.appendChild(el);
+      setTimeout(function(){if(el.parentNode) el.parentNode.removeChild(el);},5500);
+    })();
   }
-  function pagesDoneBeforeToday(){
-    var today=todayISO(), sum=0, d;
-    for(d in state.log){
-      if(!state.log.hasOwnProperty(d)) continue;
-      if(d>=today) continue;
-      sum += pagesForDate(d);
-    }
-    return sum;
+}
+function showKhatmModal(){
+  var plan=getPlan();
+  $("khDays").textContent=plan.elapsed;$("khPages").textContent=plan.totalDone;$("khParas").textContent=formatParah(plan.totalDoneParah);
+  $("khatmModal").classList.add("show");
+  spawnConfetti($("khatmModal"));
+  fbSuccess();
+}
+function hideKhatmModal(){$("khatmModal").classList.remove("show");}
+function getUserName(){
+  var n=null;
+  try{n=localStorage.getItem(USERNAME_KEY);}catch(e){}
+  if(!n){
+    n=prompt("اپنا نام لکھیں (سرٹیفکیٹ کے لیے):","");
+    if(n&&n.trim()){n=n.trim().slice(0,40);try{localStorage.setItem(USERNAME_KEY,n);}catch(e){}}
+    else n="";
   }
-  function pagesDoneToday(){ return pagesForDate(todayISO()); }
+  return n;
+}
+function generateCertificate(){
+  var plan=getPlan(),name=getUserName();
+  if(!name){showToast("سرٹیفکیٹ کے لیے نام ضروری ہے");return;}
+  var W=900,H=1250;
+  var canvas=document.createElement("canvas");
+  canvas.width=W;canvas.height=H;
+  var ctx=canvas.getContext("2d");
+  var g=ctx.createLinearGradient(0,0,W,H);
+  g.addColorStop(0,"#0a5c47");g.addColorStop(0.5,"#0e7a5f");g.addColorStop(1,"#13906e");
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  ctx.globalAlpha=0.08;ctx.fillStyle="#ffffff";
+  for(var y=40;y<H;y+=60){for(var x=40;x<W;x+=60){ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fill();}}
+  ctx.globalAlpha=1;
+  ctx.strokeStyle="#c9a227";ctx.lineWidth=8;ctx.strokeRect(30,30,W-60,H-60);
+  ctx.strokeStyle="#e0be4e";ctx.lineWidth=2;ctx.strokeRect(50,50,W-100,H-100);
+  ctx.fillStyle="#e0be4e";
+  [[50,50],[W-50,50],[50,H-50],[W-50,H-50]].forEach(function(c){ctx.beginPath();ctx.arc(c[0],c[1],10,0,Math.PI*2);ctx.fill();});
+  ctx.fillStyle="#ffffff";ctx.textAlign="center";
+  ctx.font="bold 42px 'Amiri', serif";ctx.fillText("﷽",W/2,180);
+  ctx.fillStyle="#e0be4e";ctx.font="bold 56px 'Amiri', serif";ctx.fillText("شہادتِ ختمِ قرآن",W/2,280);
+  ctx.fillStyle="#ffffff";ctx.font="22px 'Noto Naskh Arabic', sans-serif";ctx.fillText("Certificate of Quran Completion",W/2,325);
+  ctx.fillStyle="rgba(255,255,255,0.85)";ctx.font="24px 'Noto Naskh Arabic', sans-serif";ctx.fillText("یہ سند دی جاتی ہے",W/2,420);
+  ctx.fillStyle="#ffffff";ctx.font="bold 60px 'Amiri', serif";ctx.fillText(name||"____",W/2,510);
+  ctx.strokeStyle="#e0be4e";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(200,535);ctx.lineTo(W-200,535);ctx.stroke();
+  ctx.fillStyle="rgba(255,255,255,0.95)";ctx.font="26px 'Noto Naskh Arabic', sans-serif";ctx.fillText("نے پورا قرآنِ کریم مکمل کیا",W/2,600);
+  ctx.fillStyle="rgba(255,255,255,0.8)";ctx.font="20px 'Noto Naskh Arabic', sans-serif";ctx.fillText("اللہ تعالیٰ اس کلامِ پاک کی تلاوت کو قبول فرمائے",W/2,645);
+  [{x:130,lbl:"دن",val:plan.elapsed},{x:W/2,lbl:"صفحات",val:plan.totalDone},{x:W-130,lbl:"پارے",val:formatParah(plan.totalDoneParah)}].forEach(function(b){
+    ctx.fillStyle="rgba(255,255,255,0.14)";roundRect(ctx,b.x-90,720,180,120,16);ctx.fill();
+    ctx.strokeStyle="rgba(224,190,78,0.6)";ctx.lineWidth=2;roundRect(ctx,b.x-90,720,180,120,16);ctx.stroke();
+    ctx.fillStyle="#e0be4e";ctx.font="bold 46px 'Amiri', serif";ctx.textAlign="center";ctx.fillText(String(b.val),b.x,790);
+    ctx.fillStyle="rgba(255,255,255,0.9)";ctx.font="20px 'Noto Naskh Arabic', sans-serif";ctx.fillText(b.lbl,b.x,815);
+  });
+  ctx.fillStyle="rgba(255,255,255,0.9)";ctx.font="italic 22px 'Amiri', serif";ctx.fillText("اللَّهُمَّ ارْحَمْنِي بِالْقُرْآنِ",W/2,910);
+  ctx.font="italic 20px 'Amiri', serif";ctx.fillText("وَاجْعَلْهُ لِي إِمَامًا وَنُورًا وَهُدًى وَرَحْمَةً",W/2,945);
+  ctx.fillStyle="rgba(255,255,255,0.85)";ctx.font="20px 'Noto Naskh Arabic', sans-serif";ctx.fillText(formatDateUr(todayISO()),W/2,1020);
+  var h=getHijri(new Date());
+  if(h){ctx.font="18px 'Noto Naskh Arabic', sans-serif";ctx.fillStyle="rgba(255,255,255,0.65)";ctx.fillText(h.day+" "+HIJRI_MONTHS[h.month-1]+" "+h.year+" ہجری",W/2,1050);}
+  ctx.fillStyle="rgba(224,190,78,0.9)";ctx.font="18px 'Noto Naskh Arabic', sans-serif";ctx.fillText("قرآن کمپینین • v5.8 • AK TECH",W/2,1160);
+  try{
+    var dataURL=canvas.toDataURL("image/png");
+    var a=document.createElement("a");
+    a.href=dataURL;a.download="quran-certificate-"+todayISO()+".png";
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    fbSuccess();showToast("سرٹیفکیٹ ڈاؤن لوڈ 🎉");
+  }catch(e){showToast("سرٹیفکیٹ بنانے میں مسئلہ");}
+}
+function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function shareProgress(){
+  var plan=getPlan(),streak=calculateStreak();
+  var txt="🌟 میری قرآنِ کریم تلاوت کی پیش رفت\n\n🔥 مسلسل: "+streak+" دن\n📖 مکمل: "+plan.totalDone+"/"+plan.totalToRead+" صفحات\n📚 پارے: ≈ "+formatParah(plan.totalDoneParah)+"/"+formatParah(plan.totalToReadParah)+"\n📊 پیش رفت: "+Math.round((plan.totalDone/plan.totalToRead)*100)+"%\n\nاللہ ہم سب کو قرآن سے محبت عطا فرمائے 🤲\n— قرآن کمپینین • AK TECH";
+  if(navigator.share){navigator.share({title:"قرآن کمپینین",text:txt}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){showToast("ٹیکسٹ کاپی ہو گیا");}).catch(function(){});}
+  else showToast("شیئر دستیاب نہیں");
+}
 
-  function calculateStreak(){
-    var today=todayISO(), streak=0, i;
-    if(pagesForDate(today)>0){ streak=1; i=1; } else { i=1; }
-    while(i<3650){
-      var iso=addDaysISO(today,-i);
-      if(pagesForDate(iso)>0){ streak++; i++; } else break;
-    }
-    return streak;
-  }
+/* RIPPLE */
+function attachRipple(el){
+  if(!el) return;
+  el.addEventListener("click",function(e){
+    var rect=this.getBoundingClientRect();
+    var size=Math.max(rect.width,rect.height);
+    var x=e.clientX-rect.left-size/2;
+    var y=e.clientY-rect.top-size/2;
+    if(!rect.width||!rect.height){x=rect.width/2-size/2;y=rect.height/2-size/2;}
+    var r=document.createElement("span");
+    r.className="ripple";
+    r.style.width=r.style.height=size+"px";
+    r.style.left=x+"px";r.style.top=y+"px";
+    this.appendChild(r);
+    setTimeout(function(){if(r.parentNode) r.parentNode.removeChild(r);},620);
+  });
+}
 
-  function getPlan(){
-    var today=todayISO();
-    var startPage=clamp(state.startPage,1,TOTAL_PAGES);
-    var totalToRead=TOTAL_PAGES-startPage+1;
-    var doneBefore=pagesDoneBeforeToday();
-    if(doneBefore>totalToRead) doneBefore=totalToRead;
-    var dayStartPage=startPage+doneBefore;
-    var remainingAtDayStart=TOTAL_PAGES-dayStartPage+1;
-    if(remainingAtDayStart<0) remainingAtDayStart=0;
-    var rawDaysLeft=diffDays(today,state.targetDate)+1;
-    var daysLeftDisplay=rawDaysLeft<0?0:rawDaysLeft;
-    var overdue=rawDaysLeft<1;
-    var remainingDays=rawDaysLeft<1?1:rawDaysLeft;
-    var dailyTarget=remainingAtDayStart>0?Math.ceil(remainingAtDayStart/remainingDays):0;
-    var base=Math.floor(dailyTarget/5), rem=dailyTarget%5;
-    var cursor=dayStartPage, items=[], i;
-    for(i=0;i<5;i++){
-      var cnt=base+(i<rem?1:0);
-      var from=cursor;
-      var to=cnt>0?cursor+cnt-1:cursor-1;
-      if(to>TOTAL_PAGES) to=TOTAL_PAGES;
-      cursor+=cnt;
-      items.push({
-        key:PRAYERS[i].key, name:PRAYERS[i].name, icon:PRAYERS[i].icon,
-        from:from, to:to, count:cnt, parahEq:pagesToParah(cnt)
-      });
-    }
-    var doneToday=pagesDoneToday();
-    var totalDone=doneBefore+doneToday;
-    if(totalDone>totalToRead) totalDone=totalToRead;
-    var elapsed=diffDays(state.startDate,today)+1;
-    if(elapsed<1) elapsed=1;
-    return {
-      startPage:startPage, totalToRead:totalToRead,
-      doneBefore:doneBefore, doneToday:doneToday, totalDone:totalDone,
-      remainingPages:totalToRead-totalDone,
-      daysLeft:daysLeftDisplay, overdue:overdue,
-      dailyTarget:dailyTarget, dailyTargetParah:pagesToParah(dailyTarget),
-      items:items, currentPage:startPage+totalDone, dayStartPage:dayStartPage,
-      totalToReadParah:pagesToParah(totalToRead), totalDoneParah:pagesToParah(totalDone),
-      remainingParah:pagesToParah(Math.max(0,totalToRead-totalDone)),
-      elapsed:elapsed
-    };
-  }
+/* ANDROID BACK BUTTON */
+function handleBackPress(){
+  /* if modal open, close it */
+  if($("khatmModal").classList.contains("show")){hideKhatmModal();return true;}
+  /* if not on today tab, go to today */
+  var currentTab=null;
+  var btns=document.querySelectorAll(".nav-btn");
+  for(var i=0;i<btns.length;i++){if(btns[i].classList.contains("active")){currentTab=btns[i].getAttribute("data-tab");break;}}
+  if(currentTab&&currentTab!=="today"){switchTab("today");return true;}
+  return false;
+}
 
-  function syncToday(plan){
-    var today=todayISO();
-    var day=state.log[today];
-    if(!day||typeof day!=="object") day=state.log[today]={prayers:[],extra:0};
-    if(!day.prayers||!day.prayers.length) day.prayers=[];
-    if(typeof day.extra!=="number"||day.extra<0) day.extra=0;
-    var i;
-    for(i=0;i<5;i++){
-      var it=plan.items[i]; var prev=day.prayers[i];
-      if(prev&&prev.done) continue;
-      day.prayers[i]={done:false,from:it.from,to:it.to,count:it.count};
-    }
-    if(day.prayers.length>5) day.prayers.length=5;
-  }
-  function pruneLog(){
-    var today=todayISO(), d;
-    for(d in state.log){
-      if(!state.log.hasOwnProperty(d)) continue;
-      if(d===today) continue;
-      var day=state.log[d]; var any=false; var i;
-      if(day&&day.prayers&&day.prayers.length){
-        for(i=0;i<day.prayers.length;i++){
-          if(day.prayers[i]&&day.prayers[i].done){ any=true; break; }
-        }
-      }
-      if(day&&day.extra&&day.extra>0) any=true;
-      if(!any) delete state.log[d];
-    }
-  }
+/* EVENTS */
+function bindEvents(){
+  $("themeBtn").addEventListener("click",function(){applyTheme(currentTheme==="dark"?"light":"dark");fbTap();});
+  $("backBtn").addEventListener("click",function(){switchTab("today");});
 
-  function render(){
-    var plan=getPlan();
-    syncToday(plan);
-    pruneLog();
-    save();
-    var streak=calculateStreak();
-    renderStreak(streak, plan);
-    renderOverview(plan);
-    renderToday(plan);
-    renderExtra(plan);
-    renderPrayers(plan);
-    renderBadges(streak, plan);
-    renderChart();
-    if(!state.completedQuran && plan.totalToRead>0 && plan.totalDone>=plan.totalToRead){
-      state.completedQuran=true; save();
-      setTimeout(showKhatmModal, 800);
-    }
-  }
-
-  function renderStreak(streak, plan){
-    $("streakNum").textContent=streak;
-    $("headerStreakNum").textContent=streak;
-    var sub;
-    if(streak===0) sub="آج تلاوت شروع کریں — اسٹریک بنائیں";
-    else if(streak===1) sub="بہت خوب! کل بھی جاری رکھیں";
-    else if(streak<7) sub="شاندار! اگلا بیج 7 دن پر";
-    else if(streak<14) sub="ماشاءاللہ! اگلا بیج 14 دن پر";
-    else if(streak<30) sub="زبردست! اگلا بیج 30 دن پر";
-    else if(streak<100) sub="لاجواب! اگلا بیج 100 دن پر";
-    else sub="ماشاءاللہ! آپ ایک رول ماڈل ہیں";
-    $("streakSub").textContent=sub;
-
-    var next=null;
-    for(var i=0;i<BADGES.length;i++){
-      if(!BADGES[i].check({streak:streak,plan:plan,elapsed:plan.elapsed})){
-        next=BADGES[i]; break;
-      }
-    }
-    if(next){
-      var target=0;
-      if(next.id==="start") target=1;
-      else if(next.id==="week") target=7;
-      else if(next.id==="fort") target=14;
-      else if(next.id==="month") target=30;
-      else if(next.id==="cent") target=100;
-      else if(next.id==="year") target=365;
-      $("streakNext").querySelector(".nx-icon").textContent=next.icon;
-      $("streakNext").querySelector(".nx-lbl").textContent=next.name;
-      if(target>0) $("streakNextCnt").textContent=streak+"/"+target;
-      else $("streakNextCnt").textContent="—";
-    } else {
-      $("streakNext").querySelector(".nx-icon").textContent="🏆";
-      $("streakNext").querySelector(".nx-lbl").textContent="تمام بیجز";
-      $("streakNextCnt").textContent="مکمل";
-    }
+  var navBtns=document.querySelectorAll(".nav-btn"),i;
+  for(i=0;i<navBtns.length;i++){
+    navBtns[i].addEventListener("click",function(){var t=this.getAttribute("data-tab");if(t) switchTab(t);});
+    attachRipple(navBtns[i]);
   }
 
-  function renderOverview(plan){
-    var pct=plan.totalToRead>0?(plan.totalDone/plan.totalToRead)*100:0;
-    if(pct>100) pct=100;
-    var pctR=Math.round(pct);
-    $("ovBar").style.width=pct+"%";
-    $("ovPct").textContent=pctR+"%";
-    $("ovPctPill").textContent=pctR+"%";
-    $("ovRead").textContent=plan.totalDone;
-    $("ovLeft").textContent=plan.remainingPages;
-    $("ovTotalLabel").textContent=plan.totalToRead;
-    $("stDailyPages").textContent=plan.dailyTarget;
-    $("stDailyParah").textContent="≈ "+formatParah(plan.dailyTargetParah);
-    $("stDonePages").textContent=plan.totalDone;
-    $("stDoneParah").textContent="≈ "+formatParah(plan.totalDoneParah);
-    $("stStart").textContent=plan.startPage;
-    $("stCurrent").textContent=plan.remainingPages>0?plan.currentPage:"—";
-    $("stDaysLeft").textContent=plan.overdue?"0":plan.daysLeft;
-    $("stRemParah").textContent="≈ "+formatParah(plan.remainingParah);
-
-    var note;
-    if(plan.remainingPages===0){
-      note="🎉 ماشاءاللہ! آپ نے پورا قرآن مکمل کر لیا۔ اللہ قبول فرمائے۔";
-    } else if(plan.overdue){
-      note="⚠️ ہدف کی تاریخ گزر چکی۔ باقی "+plan.remainingPages+" صفحات (≈ "+formatParah(plan.remainingParah)+" پارے) جلد مکمل کریں۔";
-    } else {
-      var totalD=state.totalDays>0?state.totalDays:1;
-      var expected=Math.ceil((plan.totalToRead*Math.min(plan.elapsed,totalD))/totalD);
-      if(expected>plan.totalToRead) expected=plan.totalToRead;
-      var diff=plan.totalDone-expected;
-      if(diff<-1) note="📌 آپ شیڈول سے "+Math.abs(diff)+" صفحات پیچھے ہیں — روزانہ ہدف بڑھا دیا گیا ہے۔";
-      else if(diff>1) note="🌟 ماشاءاللہ! آپ شیڈول سے "+diff+" صفحات آگے ہیں۔";
-      else note="✅ آپ شیڈول کے عین مطابق چل رہے ہیں۔";
-    }
-    $("statusNote").textContent=note;
-    $("targetInfo").textContent="ہدف: "+formatDateUr(state.targetDate)+" • "+state.totalDays+" دن • "+plan.totalDone+"/"+plan.totalToRead+" صفحات • ≈ "+formatParah(plan.totalDoneParah)+"/"+formatParah(plan.totalToReadParah)+" پارے";
+  var swatches=document.querySelectorAll(".theme-swatch");
+  for(i=0;i<swatches.length;i++){
+    swatches[i].addEventListener("click",function(){applySkin(this.getAttribute("data-skin"));fbSuccess();showToast("تھیم تبدیل ہو گیا");});
+    attachRipple(swatches[i]);
   }
 
-  function renderToday(plan){
-    $("todayDate").textContent=formatDateUr(todayISO());
-    $("todayTarget").textContent=plan.dailyTarget;
-    $("todayTargetParah").textContent="≈ "+formatParah(plan.dailyTargetParah)+" پارہ";
-    var done=plan.doneToday, pct;
-    if(plan.dailyTarget>0) pct=(done/plan.dailyTarget)*100;
-    else pct=done>0?100:0;
-    if(pct>100) pct=100;
-    $("todayBar").style.width=pct+"%";
-    $("todayDone").textContent=done;
-    $("todayTotal").textContent=plan.dailyTarget;
-    var dp=formatParah(pagesToParah(done)), msg;
-    if(plan.dailyTarget===0) msg="🎉 پورا قرآن مکمل";
-    else if(done>=plan.dailyTarget) msg="✅ ہدف مکمل — "+done+" صفحات (≈ "+dp+" پارہ)";
-    else msg="ابھی "+(plan.dailyTarget-done)+" صفحات باقی • "+done+" مکمل (≈ "+dp+" پارہ)";
-    $("todayMsg").textContent=msg;
+  $("modeSeg").addEventListener("click",function(e){var t=e.target;while(t&&t!==this){if(t.classList&&t.classList.contains("seg")){state.mode=t.getAttribute("data-mode");updateModeUI();updateChips();return;}t=t.parentNode;}});
+  $("startMode").addEventListener("change",updateStartFields);
+
+  var chips=document.querySelectorAll(".chip");
+  for(i=0;i<chips.length;i++){
+    chips[i].addEventListener("click",function(){var d=parseInt(this.getAttribute("data-days"),10);state.mode="days";$("totalDays").value=d;updateModeUI();updateChips();});
+    attachRipple(chips[i]);
   }
 
-  function renderExtra(plan){
-    var today=todayISO();
-    var day=state.log[today]||{prayers:[],extra:0};
-    var extra=day.extra||0;
-    var doneToday=plan.doneToday;
-    var dp=formatParah(pagesToParah(doneToday));
-    if(document.activeElement!==$("extraInput")) $("extraInput").value=extra;
-    $("extraInfo").innerHTML="آج کل مکمل: <b>"+doneToday+"</b> صفحات <span class=\"extra-badge\">≈ "+dp+" پارہ</span>";
-  }
-
-  function renderPrayers(plan){
-    var today=todayISO();
-    var day=state.log[today]||{prayers:[]};
-    var html="", i;
-    for(i=0;i<5;i++){
-      var it=plan.items[i];
-      var entry=day.prayers[i]||{};
-      var done=!!entry.done;
-      var locked=it.count===0;
-      var rangeTxt=it.count>0?("صفحہ "+it.from+" تا "+it.to):"ہدف مکمل";
-      var pagesTxt=it.count>0?it.count+" صفحات":"—";
-      var parahTxt=it.count>0?("≈ "+formatParah(it.parahEq)+" پارہ"):"—";
-      html+='<div class="prayer'+(done?" done":"")+(locked?" locked":"")+'" data-idx="'+i+'">';
-      html+='<div class="check"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M20 6L9 17l-5-5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
-      html+='<div class="prayer-info"><div class="prayer-name">'+it.icon+" "+it.name+'</div><div class="prayer-range">'+rangeTxt+'</div></div>';
-      html+='<div class="prayer-count"><span class="pc-pages">'+pagesTxt+'</span><span class="pc-parah">'+parahTxt+'</span></div>';
-      html+='</div>';
-    }
-    $("prayerList").innerHTML=html;
-  }
-
-  function renderBadges(streak, plan){
-    var ctx={streak:streak, plan:plan, elapsed:plan.elapsed};
-    var html="", unlocked=0;
-    for(var i=0;i<BADGES.length;i++){
-      var b=BADGES[i];
-      var ok=b.check(ctx);
-      if(ok) unlocked++;
-      html+='<div class="badge '+(ok?"unlocked":"locked")+'" title="'+b.name+' — '+b.req+'">';
-      html+='<div class="bd-icon">'+b.icon+'</div>';
-      html+='<div class="bd-name">'+b.name+'</div>';
-      html+='<div class="bd-req">'+b.req+'</div>';
-      html+='</div>';
-    }
-    $("badgesGrid").innerHTML=html;
-    $("badgeCountPill").textContent=unlocked+" / "+BADGES.length;
-  }
-
-  function getWeeklyData(){
-    var arr=[], today=todayISO(), i;
-    for(i=6;i>=0;i--){
-      var iso=addDaysISO(today,-i);
-      var d=parseISO(iso);
-      arr.push({ iso:iso, label:WEEKDAYS[d.getDay()], pages:pagesForDate(iso) });
-    }
-    return arr;
-  }
-  function buildChart(){
-    var canvas=$("weeklyChart");
-    if(!canvas||typeof Chart==="undefined") return;
-    var data=getWeeklyData();
-    var isDark=currentTheme==="dark";
-    var mutedCol=isDark?"#8fb0a2":"#5f7d70";
-    var gridCol=isDark?"rgba(25,169,126,0.14)":"rgba(14,122,95,0.1)";
-    var accent=getComputedStyle(document.documentElement).getPropertyValue("--emerald").trim()||"#0e7a5f";
-    weeklyChart=new Chart(canvas.getContext("2d"),{
-      type:"bar",
-      data:{
-        labels:data.map(function(x){return x.label;}),
-        datasets:[{
-          label:"صفحات",
-          data:data.map(function(x){return x.pages;}),
-          backgroundColor:function(ctx){
-            var chart=ctx.chart, area=chart.chartArea;
-            if(!area) return accent;
-            var g=chart.ctx.createLinearGradient(0,area.top,0,area.bottom);
-            g.addColorStop(0,accent); g.addColorStop(1,accent+"44");
-            return g;
-          },
-          borderRadius:8, borderSkipped:false, maxBarThickness:34
-        }]
-      },
-      options:{
-        responsive:true, maintainAspectRatio:false,
-        animation:{duration:900,easing:"easeOutQuart"},
-        plugins:{
-          legend:{display:false},
-          tooltip:{
-            rtl:true, textDirection:"rtl",
-            backgroundColor:isDark?"#0e2019":"#0d2a20",
-            titleColor:"#fff", bodyColor:"#fff",
-            padding:10, cornerRadius:10, displayColors:false,
-            callbacks:{label:function(c){var p=c.parsed.y;return p+" صفحات ≈ "+formatParah(pagesToParah(p))+" پارہ";}}
-          }
-        },
-        scales:{
-          x:{ticks:{color:mutedCol,font:{family:"'Noto Naskh Arabic',sans-serif",size:11}},grid:{display:false},border:{display:false}},
-          y:{beginAtZero:true,ticks:{color:mutedCol,font:{size:10},precision:0,stepSize:10},grid:{color:gridCol,drawBorder:false},border:{display:false}}
-        }
-      }
-    });
-    updateWeeklyNote(data);
-  }
-  function updateChartTheme(){
-    if(!weeklyChart){ buildChart(); return; }
-    var isDark=currentTheme==="dark";
-    var mutedCol=isDark?"#8fb0a2":"#5f7d70";
-    var gridCol=isDark?"rgba(25,169,126,0.14)":"rgba(14,122,95,0.1)";
-    var accent=getComputedStyle(document.documentElement).getPropertyValue("--emerald").trim()||"#0e7a5f";
-    weeklyChart.options.scales.x.ticks.color=mutedCol;
-    weeklyChart.options.scales.y.ticks.color=mutedCol;
-    weeklyChart.options.scales.y.grid.color=gridCol;
-    weeklyChart.data.datasets[0].backgroundColor=function(ctx){
-      var chart=ctx.chart, area=chart.chartArea;
-      if(!area) return accent;
-      var g=chart.ctx.createLinearGradient(0,area.top,0,area.bottom);
-      g.addColorStop(0,accent); g.addColorStop(1,accent+"44");
-      return g;
-    };
-    weeklyChart.update();
-  }
-  function updateWeeklyNote(data){
-    var total=data.reduce(function(a,b){return a+b.pages;},0);
-    var active=data.filter(function(x){return x.pages>0;}).length;
-    var avg=active>0?Math.round(total/active):0;
-    $("weeklyNote").textContent="پچھلے 7 دنوں میں "+total+" صفحات (≈ "+formatParah(pagesToParah(total))+" پارے) • اوسط: "+avg+" صفحات/دن";
-  }
-  function renderChart(){
-    if(!weeklyChart){ buildChart(); return; }
-    var data=getWeeklyData();
-    weeklyChart.data.labels=data.map(function(x){return x.label;});
-    weeklyChart.data.datasets[0].data=data.map(function(x){return x.pages;});
-    weeklyChart.update();
-    updateWeeklyNote(data);
-  }
-
-  var audioCtx=null;
-  function playChime(){
-    try{
-      var AC=window.AudioContext||window.webkitAudioContext;
-      if(!AC) return;
-      if(!audioCtx) audioCtx=new AC();
-      if(audioCtx.state==="suspended") audioCtx.resume();
-      var now=audioCtx.currentTime;
-      var notes=[{f:659.25,t:0},{f:880.0,t:0.13}];
-      notes.forEach(function(n){
-        var osc=audioCtx.createOscillator(), gain=audioCtx.createGain();
-        osc.type="sine"; osc.frequency.value=n.f;
-        gain.gain.setValueAtTime(0.0001,now+n.t);
-        gain.gain.exponentialRampToValueAtTime(0.16,now+n.t+0.02);
-        gain.gain.exponentialRampToValueAtTime(0.0001,now+n.t+0.32);
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.start(now+n.t); osc.stop(now+n.t+0.34);
-      });
-    }catch(e){}
-  }
-  function haptic(p){ if(!navigator.vibrate) return; try{ navigator.vibrate(p||15); }catch(e){} }
-  function fbSuccess(){ playChime(); haptic([12,40,18]); }
-  function fbTap(){ haptic(8); }
-
-  function togglePrayer(idx){
-    var today=todayISO();
-    var day=state.log[today];
-    if(!day||!day.prayers||!day.prayers[idx]) return;
-    var entry=day.prayers[idx];
-    if(!entry.done&&(!entry.count||entry.count<=0)){ showToast("یہ ہدف پہلے ہی مکمل ہے"); return; }
-    entry.done=!entry.done;
-    save(); render();
-    if(entry.done){ fbSuccess(); showToast("ماشاءاللہ! "+PRAYERS[idx].name+" مکمل 🌿"); }
-    else fbTap();
-  }
-  function saveExtra(){
-    var val=parseInt($("extraInput").value,10);
-    if(isNaN(val)||val<0) val=0;
-    if(val>TOTAL_PAGES) val=TOTAL_PAGES;
-    var today=todayISO();
-    var day=state.log[today];
-    if(!day||typeof day!=="object") day=state.log[today]={prayers:[],extra:0};
-    if(!Array.isArray(day.prayers)) day.prayers=[];
-    day.extra=val; save(); render();
-    if(val>0){ fbSuccess(); showToast("اضافی محفوظ: "+val+" صفحات (≈ "+formatParah(pagesToParah(val))+" پارہ)"); }
-    else showToast("اضافی صفر کر دی گئی");
-  }
-  function resetExtra(){
-    var today=todayISO();
-    var day=state.log[today];
-    if(day) day.extra=0;
-    save(); render(); showToast("اضافی صفر ہو گئی");
-  }
-  function applySetup(){
-    var startDate=$("startDate").value||todayISO();
-    var mode=state.mode;
-    var totalDays=parseInt($("totalDays").value,10);
-    var targetDate=$("targetDate").value;
-    if(mode==="days"){
-      if(!totalDays||totalDays<1) totalDays=1;
-      if(totalDays>3650) totalDays=3650;
-      targetDate=addDaysISO(startDate,totalDays-1);
-    } else {
-      if(!targetDate) targetDate=startDate;
-      if(diffDays(startDate,targetDate)<0) targetDate=startDate;
-      totalDays=diffDays(startDate,targetDate)+1;
-    }
-    var sm=$("startMode").value, startPage=1, parah=1;
-    if(sm==="page1") startPage=1;
-    else if(sm==="page") startPage=clamp(parseInt($("startPage").value,10)||1,1,TOTAL_PAGES);
-    else { parah=clamp(parseInt($("parahSelect").value,10)||1,1,30); startPage=PARAH_STARTS[parah-1]; }
-    var startChanged=(startPage!==state.startPage);
-    state.startDate=startDate; state.mode=mode; state.totalDays=totalDays;
-    state.targetDate=targetDate; state.startMode=sm; state.startPage=startPage; state.parah=parah;
-    if(startChanged){ state.log={}; state.completedQuran=false; }
-    save(); fillSetupInputs(); render(); fbSuccess();
-    showToast(startChanged?"ترتیب محفوظ — پیش رفت ری سیٹ":"ترتیب محفوظ ✔");
-  }
-  function resetAll(){
-    if(!confirm("کیا آپ واقعی ساری پیش رفت ری سیٹ کرنا چاہتے ہیں؟")) return;
-    var t=todayISO();
-    state=defaultState();
-    state.startDate=t; state.targetDate=addDaysISO(t,29);
-    save(); fillSetupInputs(); render(); showToast("سب کچھ ری سیٹ ہو گیا");
-  }
-
-  var toastTimer=null;
-  function showToast(msg){
-    var el=$("toast"); if(!el) return;
-    el.textContent=msg; el.classList.add("show");
-    if(toastTimer) clearTimeout(toastTimer);
-    toastTimer=setTimeout(function(){ el.classList.remove("show"); },2400);
-  }
-
-  function switchTab(tab){
-    var panels=document.querySelectorAll(".tab-panel"), i;
-    for(i=0;i<panels.length;i++) panels[i].classList.toggle("active",panels[i].id==="panel-"+tab);
-    var btns=document.querySelectorAll(".nav-btn");
-    for(i=0;i<btns.length;i++) btns[i].classList.toggle("active",btns[i].getAttribute("data-tab")===tab);
-    var c=$("appContent"); if(c) c.scrollTop=0;
-    try{ localStorage.setItem(ACTIVE_TAB_KEY,tab); }catch(e){}
-    fbTap();
-    if(tab==="progress") setTimeout(function(){ if(weeklyChart) weeklyChart.resize(); else buildChart(); },80);
-  }
-  function loadActiveTab(){
-    var t="today";
-    try{ var v=localStorage.getItem(ACTIVE_TAB_KEY); if(v&&["today","progress","audio","settings"].indexOf(v)!==-1) t=v; }catch(e){}
-    switchTab(t);
-  }
-
-  function buildParahOptions(){
-    var sel=$("parahSelect"), html="", i;
-    for(i=0;i<30;i++) html+='<option value="'+(i+1)+'">پارہ '+(i+1)+' (صفحہ '+PARAH_STARTS[i]+')</option>';
-    sel.innerHTML=html;
-  }
-  function updateModeUI(){
-    var isDays=state.mode==="days";
-    $("daysField").className="field"+(isDays?"":" hidden");
-    $("dateField").className="field"+(isDays?" hidden":"");
-    var segs=$("modeSeg").children, i;
-    for(i=0;i<segs.length;i++){
-      var b=segs[i];
-      if(b.getAttribute("data-mode")===state.mode) b.classList.add("active"); else b.classList.remove("active");
-    }
-  }
-  function updateStartFields(){
-    var mode=$("startMode").value;
-    $("pageField").className="field"+(mode==="page"?"":" hidden");
-    $("parahField").className="field"+(mode==="parah"?"":" hidden");
-  }
-  function updateChips(){
-    var chips=document.querySelectorAll(".chip"), i;
-    for(i=0;i<chips.length;i++){
-      var c=chips[i], v=parseInt(c.getAttribute("data-days"),10);
-      if(state.mode==="days"&&v===state.totalDays) c.classList.add("active"); else c.classList.remove("active");
-    }
-  }
-  function fillSetupInputs(){
-    $("startDate").value=state.startDate;
-    $("totalDays").value=state.totalDays;
-    $("targetDate").value=state.targetDate;
-    $("startMode").value=state.startMode;
-    $("startPage").value=state.startPage;
-    $("parahSelect").value=String(state.parah);
-    updateModeUI(); updateStartFields(); updateChips();
-  }
-
-  var reminder={enabled:false,time:"08:00"}, reminderTimer=null;
-  function loadReminder(){
-    try{ var raw=localStorage.getItem(REMINDER_KEY); if(!raw) return; var p=JSON.parse(raw);
-      if(p&&typeof p==="object"){ reminder.enabled=!!p.enabled; if(typeof p.time==="string"&&/^\d{2}:\d{2}$/.test(p.time)) reminder.time=p.time; }
-    }catch(e){}
-  }
-  function saveReminder(){ try{ localStorage.setItem(REMINDER_KEY,JSON.stringify(reminder)); }catch(e){} }
-  function updateReminderUI(){
-    var sw=$("reminderSwitch");
-    if(reminder.enabled) sw.classList.add("on"); else sw.classList.remove("on");
-    sw.setAttribute("aria-checked",reminder.enabled?"true":"false");
-    $("reminderTime").value=reminder.time;
-    var pill=$("notifStatusPill");
-    if(!("Notification" in window)) pill.textContent="غیر دستیاب";
-    else if(Notification.permission==="granted") pill.textContent=reminder.enabled?"فعال":"بند";
-    else if(Notification.permission==="denied") pill.textContent="اجازت نہیں";
-    else pill.textContent="اجازت درکار";
-  }
-  function requestNotifPermission(){
-    return new Promise(function(resolve){
-      if(!("Notification" in window)){ resolve(false); return; }
-      if(Notification.permission==="granted"){ resolve(true); return; }
-      if(Notification.permission==="denied"){ resolve(false); return; }
-      try{ Notification.requestPermission().then(function(p){resolve(p==="granted");}).catch(function(){resolve(false);}); }
-      catch(e){ resolve(false); }
-    });
-  }
-  function sendNotification(title,body){
-    if(!("Notification" in window)) return;
-    if(Notification.permission!=="granted") return;
-    try{ new Notification(title,{body:body,dir:"rtl",lang:"ur"}); }catch(e){}
-  }
-  function scheduleReminder(){
-    if(reminderTimer){ clearTimeout(reminderTimer); reminderTimer=null; }
-    if(!reminder.enabled) return;
-    var now=new Date(), parts=reminder.time.split(":");
-    var target=new Date();
-    target.setHours(parseInt(parts[0],10),parseInt(parts[1],10),0,0);
-    if(target.getTime()<=now.getTime()) target.setDate(target.getDate()+1);
-    var delay=target.getTime()-now.getTime();
-    if(delay>24*3600*1000) delay=24*3600*1000;
-    reminderTimer=setTimeout(function(){
+  $("saveBtn").addEventListener("click",applySetup);
+  $("resetBtn").addEventListener("click",resetAll);
+  $("extraSaveBtn").addEventListener("click",saveExtra);
+  $("extraResetBtn").addEventListener("click",resetExtra);
+  $("testNotifBtn").addEventListener("click",function(){
+    requestNotifPermission().then(function(ok){
+      if(!ok){showToast("اجازت نہیں");return;}
       var plan=getPlan();
-      var body=plan.remainingPages>0?("آج کا ہدف: "+plan.dailyTarget+" صفحات (≈ "+formatParah(plan.dailyTargetParah)+" پارہ)"):"ماشاءاللہ! قرآن مکمل";
-      sendNotification("📖 قرآن روٹین یاد دہانی",body);
-      scheduleReminder();
-    },delay);
-  }
-  function toggleReminder(){
-    if(!reminder.enabled){
-      requestNotifPermission().then(function(ok){
-        if(!ok){ showToast("اطلاع کی اجازت نہیں"); updateReminderUI(); return; }
-        reminder.enabled=true; saveReminder(); scheduleReminder(); updateReminderUI();
-        showToast("یاد دہانی فعال ✔");
-        sendNotification("🔔 یاد دہانی فعال","ہر روز "+reminder.time+" پر اطلاع ملے گی۔");
-      });
-    } else {
-      reminder.enabled=false; saveReminder(); scheduleReminder(); updateReminderUI();
-      showToast("یاد دہانی بند");
+      sendNotification("📖 آزمائشی اطلاع","آج کا ہدف: "+plan.dailyTarget+" صفحات (≈ "+formatParah(plan.dailyTargetParah)+" پارہ)");
+      showToast("ٹیسٹ اطلاع بھیجی");
+    });
+  });
+  $("exportBtn").addEventListener("click",exportData);
+  $("importBtn").addEventListener("click",function(){$("importFile").click();});
+  $("importFile").addEventListener("change",function(e){var f=e.target.files&&e.target.files[0];importData(f);e.target.value="";});
+  $("openKhatmBtn").addEventListener("click",showKhatmModal);
+  $("certificateBtn").addEventListener("click",generateCertificate);
+  $("hifzSaveTargets").addEventListener("click",saveHifzTargets);
+
+  $("extraInput").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();saveExtra();}});
+
+  $("prayerList").addEventListener("click",function(e){
+    var t=e.target;
+    while(t&&t!==this){if(t.classList&&t.classList.contains("prayer")){togglePrayer(parseInt(t.getAttribute("data-idx"),10));return;}t=t.parentNode;}
+  });
+
+  document.querySelectorAll(".sabaq-card").forEach(function(card){
+    card.addEventListener("click",function(){toggleHifzSabaq(this.getAttribute("data-sabaq"));});
+  });
+
+  $("hifzPageGrid").addEventListener("click",function(e){
+    var t=e.target;
+    while(t&&t!==this){if(t.classList&&t.classList.contains("hz-page")){toggleHifzPage(parseInt(t.getAttribute("data-page"),10));return;}t=t.parentNode;}
+  });
+
+  $("reminderSwitch").addEventListener("click",toggleReminder);
+  $("reminderTime").addEventListener("change",function(){var v=this.value;if(/^\d{2}:\d{2}$/.test(v)){reminder.time=v;saveReminder();scheduleReminder();showToast("وقت محفوظ: "+v);}});
+
+  $("khatmClose").addEventListener("click",hideKhatmModal);
+  $("khatmCloseBtn").addEventListener("click",hideKhatmModal);
+  $("khatmCertBtn").addEventListener("click",function(){hideKhatmModal();setTimeout(generateCertificate,300);});
+  $("khatmShareBtn").addEventListener("click",shareProgress);
+  $("khatmModal").addEventListener("click",function(e){if(e.target===this) hideKhatmModal();});
+
+  ["saveBtn","extraSaveBtn","extraResetBtn","exportBtn","importBtn","testNotifBtn","resetBtn","openKhatmBtn","certificateBtn","hifzSaveTargets"].forEach(function(id){attachRipple($(id));});
+
+  document.addEventListener("visibilitychange",function(){if(!document.hidden){render();scheduleReminder();}});
+  window.addEventListener("focus",function(){render();});
+
+  /* Android back button (WebView will trigger popstate) */
+  window.addEventListener("popstate",function(e){
+    if(handleBackPress()){
+      history.pushState(null,null,"");
+      e.preventDefault();
     }
-  }
+  });
+  history.pushState(null,null,"");
 
-  function exportData(){
-    try{
-      var payload={app:"Smart Quran Routine Tracker",version:"5.5",exportedAt:new Date().toISOString(),state:state,reminder:reminder,skin:currentSkin,theme:currentTheme};
-      var blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
-      var url=URL.createObjectURL(blob), a=document.createElement("a");
-      a.href=url; a.download="quran-tracker-backup-"+todayISO()+".json";
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      setTimeout(function(){ URL.revokeObjectURL(url); },800);
-      fbSuccess(); showToast("بیک اپ ڈاؤن لوڈ ہو گیا");
-    }catch(e){ showToast("ایکسپورٹ ناکام"); }
-  }
-  function importData(file){
-    if(!file) return;
-    var reader=new FileReader();
-    reader.onload=function(e){
-      try{
-        var txt=String(e.target.result||"");
-        var parsed=JSON.parse(txt);
-        var incoming=parsed&&parsed.state?parsed.state:parsed;
-        if(!incoming||typeof incoming!=="object") throw new Error("bad");
-        var s=defaultState(), k;
-        for(k in s){ if(s.hasOwnProperty(k)&&incoming.hasOwnProperty(k)) s[k]=incoming[k]; }
-        if(!s.log||typeof s.log!=="object"||Array.isArray(s.log)) s.log={};
-        s.startPage=clamp(parseInt(s.startPage,10)||1,1,TOTAL_PAGES);
-        s.parah=clamp(parseInt(s.parah,10)||1,1,30);
-        s.totalDays=clamp(parseInt(s.totalDays,10)||30,1,3650);
-        if(s.mode!=="days"&&s.mode!=="date") s.mode="days";
-        if(["page1","page","parah"].indexOf(s.startMode)===-1) s.startMode="page1";
-        var d;
-        for(d in s.log){
-          if(!s.log.hasOwnProperty(d)) continue;
-          var day=s.log[d];
-          if(!day||typeof day!=="object"){ delete s.log[d]; continue; }
-          if(!Array.isArray(day.prayers)) day.prayers=[];
-          if(typeof day.extra!=="number"||day.extra<0) day.extra=0;
-        }
-        state=s;
-        if(parsed&&parsed.reminder&&typeof parsed.reminder==="object"){
-          reminder.enabled=!!parsed.reminder.enabled;
-          if(typeof parsed.reminder.time==="string"&&/^\d{2}:\d{2}$/.test(parsed.reminder.time)) reminder.time=parsed.reminder.time;
-          saveReminder(); scheduleReminder(); updateReminderUI();
-        }
-        if(parsed&&parsed.skin) applySkin(parsed.skin);
-        if(parsed&&parsed.theme) applyTheme(parsed.theme);
-        save(); fillSetupInputs(); render(); fbSuccess();
-        showToast("بیک اپ لوڈ ہو گیا ✔");
-      }catch(err){ showToast("فائل درست نہیں"); }
-    };
-    reader.onerror=function(){ showToast("فائل پڑھنے میں مسئلہ"); };
-    reader.readAsText(file);
-  }
+  /* Keyboard Escape as alternative back */
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"){handleBackPress();}
+  });
 
-  var audioEl=$("audioEl"), currentSurah=1, currentReciterIndex=0;
-  function loadAudioPrefs(){
-    try{
-      var raw=localStorage.getItem(AUDIO_KEY);
-      if(raw){
-        var p=JSON.parse(raw);
-        if(p&&typeof p==="object"){
-          if(p.surah>=1&&p.surah<=114) currentSurah=p.surah;
-          if(p.reciter>=0&&p.reciter<RECITERS.length) currentReciterIndex=p.reciter;
-        }
-      }
-    }catch(e){}
-  }
-  function saveAudioPrefs(){
-    try{ localStorage.setItem(AUDIO_KEY,JSON.stringify({surah:currentSurah,reciter:currentReciterIndex})); }catch(e){}
-  }
-  function buildReciterOptions(){
-    var sel=$("reciterSelect"), html="", i;
-    for(i=0;i<RECITERS.length;i++) html+='<option value="'+i+'">'+RECITERS[i].name+'</option>';
-    sel.innerHTML=html;
-    sel.value=String(currentReciterIndex);
-  }
-  function buildSurahList(filter){
-    var box=$("surahPicker"), html="", i;
-    var f=(filter||"").trim();
-    for(i=0;i<114;i++){
-      var name=SURAHS[i];
-      if(f&&name.indexOf(f)===-1&&String(i+1)!==f) continue;
-      var active=(i+1)===currentSurah?" active":"";
-      html+='<div class="surah-item'+active+'" data-surah="'+(i+1)+'">';
-      html+='<span class="si-num">'+(i+1)+'</span>';
-      html+='<span>سورۃ '+name+'</span>';
-      html+='</div>';
-    }
-    box.innerHTML=html;
-  }
-  function audioURL(surahIdx, reciterId){
-    return "https://cdn.islamic.network/quran/audio-surah/128/"+reciterId+"/"+surahIdx+".mp3";
-  }
-  function loadAndPlaySurah(idx, autoPlay){
-    currentSurah=idx; saveAudioPrefs();
-    var r=RECITERS[currentReciterIndex];
-    audioEl.src=audioURL(idx,r.id);
-    audioEl.playbackRate=parseFloat($("speedSelect").value)||1;
-    $("audioSurahName").textContent="سورۃ "+SURAHS[idx-1];
-    $("audioReciterName").textContent=r.name;
-    buildSurahList($("surahSearch").value);
-    if(autoPlay!==false){
-      var p=audioEl.play();
-      if(p&&p.catch) p.catch(function(){ showToast("چلانے میں مسئلہ — دوبارہ کوشش کریں"); });
-    }
-  }
-  function fmtTime(s){
-    if(!isFinite(s)||s<0) s=0;
-    var m=Math.floor(s/60), sec=Math.floor(s%60);
-    return m+":"+(sec<10?"0":"")+sec;
-  }
-  function setupAudio(){
-    buildReciterOptions();
-    buildSurahList("");
-    $("audioPlayBtn").textContent=audioEl.paused?"▶":"❚❚";
+  var lastDay=todayISO();
+  setInterval(function(){var now=todayISO();if(now!==lastDay){lastDay=now;render();scheduleReminder();}},60000);
+  window.addEventListener("orientationchange",function(){setTimeout(function(){if(weeklyChart) weeklyChart.resize();},220);});
+  window.addEventListener("resize",function(){if(weeklyChart) weeklyChart.resize();});
+}
 
-    $("audioPlayBtn").addEventListener("click",function(){
-      if(!audioEl.src){ loadAndPlaySurah(currentSurah,true); return; }
-      if(audioEl.paused){ audioEl.play(); } else { audioEl.pause(); }
-    });
-    $("audioPrev").addEventListener("click",function(){
-      var n=currentSurah-1; if(n<1) n=114;
-      loadAndPlaySurah(n,true);
-    });
-    $("audioNext").addEventListener("click",function(){
-      var n=currentSurah+1; if(n>114) n=1;
-      loadAndPlaySurah(n,true);
-    });
-    $("reciterSelect").addEventListener("change",function(){
-      currentReciterIndex=parseInt(this.value,10)||0;
-      saveAudioPrefs();
-      loadAndPlaySurah(currentSurah, !audioEl.paused);
-    });
-    $("speedSelect").addEventListener("change",function(){
-      audioEl.playbackRate=parseFloat(this.value)||1;
-    });
-    $("surahSearch").addEventListener("input",function(){
-      buildSurahList(this.value);
-    });
-    $("surahPicker").addEventListener("click",function(e){
-      var t=e.target;
-      while(t&&t!==this){
-        if(t.classList&&t.classList.contains("surah-item")){
-          loadAndPlaySurah(parseInt(t.getAttribute("data-surah"),10),true);
-          return;
-        }
-        t=t.parentNode;
-      }
-    });
-
-    audioEl.addEventListener("play",function(){ $("audioPlayBtn").textContent="❚❚"; });
-    audioEl.addEventListener("pause",function(){ $("audioPlayBtn").textContent="▶"; });
-    audioEl.addEventListener("ended",function(){
-      $("audioPlayBtn").textContent="▶";
-      var n=currentSurah+1;
-      if(n<=114){ loadAndPlaySurah(n,true); }
-    });
-    audioEl.addEventListener("timeupdate",function(){
-      var pct=audioEl.duration>0?(audioEl.currentTime/audioEl.duration)*100:0;
-      $("audioProgress").style.width=pct+"%";
-      $("audioCurrent").textContent=fmtTime(audioEl.currentTime);
-    });
-    audioEl.addEventListener("loadedmetadata",function(){
-      $("audioDuration").textContent=fmtTime(audioEl.duration);
-    });
-    audioEl.addEventListener("error",function(){
-      showToast("آڈیو لوڈ نہیں ہو سکی — انٹرنیٹ چیک کریں");
-      $("audioPlayBtn").textContent="▶";
-    });
-
-    var r=RECITERS[currentReciterIndex];
-    $("audioSurahName").textContent="سورۃ "+SURAHS[currentSurah-1];
-    $("audioReciterName").textContent=r.name;
-  }
-
-  function spawnConfetti(container){
-    var colors=["#0e7a5f","#c9a227","#e0be4e","#19a97e","#f0cf6a","#ffffff"];
-    for(var i=0;i<70;i++){
-      (function(){
-        var el=document.createElement("div");
-        el.className="confetti";
-        el.style.left=Math.random()*100+"%";
-        el.style.background=colors[Math.floor(Math.random()*colors.length)];
-        el.style.width=(6+Math.random()*8)+"px";
-        el.style.height=(10+Math.random()*10)+"px";
-        el.style.animationDuration=(2.4+Math.random()*2)+"s";
-        el.style.animationDelay=(Math.random()*0.8)+"s";
-        el.style.borderRadius=Math.random()>0.5?"2px":"50%";
-        container.appendChild(el);
-        setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); },5500);
-      })();
-    }
-  }
-  function showKhatmModal(){
-    var plan=getPlan();
-    $("khDays").textContent=plan.elapsed;
-    $("khPages").textContent=plan.totalDone;
-    $("khParas").textContent=formatParah(plan.totalDoneParah);
-    $("khatmModal").classList.add("show");
-    spawnConfetti($("khatmModal"));
-    fbSuccess();
-  }
-  function hideKhatmModal(){ $("khatmModal").classList.remove("show"); }
-
-  function getUserName(){
-    var n=null;
-    try{ n=localStorage.getItem(USERNAME_KEY); }catch(e){}
-    if(!n){
-      n=prompt("اپنا نام لکھیں (سرٹیفکیٹ کے لیے):","");
-      if(n&&n.trim()){ n=n.trim().slice(0,40); try{ localStorage.setItem(USERNAME_KEY,n); }catch(e){} }
-      else n="";
-    }
-    return n;
-  }
-
-  function generateCertificate(){
-    var plan=getPlan();
-    var name=getUserName();
-    if(!name){ showToast("سرٹیفکیٹ کے لیے نام ضروری ہے"); return; }
-
-    var W=900,H=1250;
-    var canvas=document.createElement("canvas");
-    canvas.width=W; canvas.height=H;
-    var ctx=canvas.getContext("2d");
-
-    var g=ctx.createLinearGradient(0,0,W,H);
-    g.addColorStop(0,"#0a5c47"); g.addColorStop(0.5,"#0e7a5f"); g.addColorStop(1,"#13906e");
-    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-
-    ctx.globalAlpha=0.08;
-    ctx.fillStyle="#ffffff";
-    for(var y=40;y<H;y+=60){
-      for(var x=40;x<W;x+=60){
-        ctx.beginPath(); ctx.arc(x,y,2,0,Math.PI*2); ctx.fill();
-      }
-    }
-    ctx.globalAlpha=1;
-
-    ctx.strokeStyle="#c9a227"; ctx.lineWidth=8;
-    ctx.strokeRect(30,30,W-60,H-60);
-    ctx.strokeStyle="#e0be4e"; ctx.lineWidth=2;
-    ctx.strokeRect(50,50,W-100,H-100);
-
-    ctx.fillStyle="#e0be4e";
-    var corners=[[50,50],[W-50,50],[50,H-50],[W-50,H-50]];
-    corners.forEach(function(c){
-      ctx.beginPath(); ctx.arc(c[0],c[1],10,0,Math.PI*2); ctx.fill();
-    });
-
-    ctx.fillStyle="#ffffff";
-    ctx.textAlign="center";
-    ctx.font="bold 42px 'Amiri', 'Noto Naskh Arabic', serif";
-    ctx.fillText("﷽",W/2,180);
-
-    ctx.fillStyle="#e0be4e";
-    ctx.font="bold 56px 'Amiri', 'Noto Naskh Arabic', serif";
-    ctx.fillText("شہادتِ ختمِ قرآن",W/2,280);
-
-    ctx.fillStyle="#ffffff";
-    ctx.font="22px 'Noto Naskh Arabic', sans-serif";
-    ctx.fillText("Certificate of Quran Completion",W/2,325);
-
-    ctx.fillStyle="rgba(255,255,255,0.85)";
-    ctx.font="24px 'Noto Naskh Arabic', sans-serif";
-    ctx.fillText("یہ سند دی جاتی ہے",W/2,420);
-
-    ctx.fillStyle="#ffffff";
-    ctx.font="bold 60px 'Amiri', 'Noto Naskh Arabic', serif";
-    ctx.fillText(name||"____",W/2,510);
-
-    ctx.strokeStyle="#e0be4e"; ctx.lineWidth=3;
-    ctx.beginPath(); ctx.moveTo(200,535); ctx.lineTo(W-200,535); ctx.stroke();
-
-    ctx.fillStyle="rgba(255,255,255,0.95)";
-    ctx.font="26px 'Noto Naskh Arabic', sans-serif";
-    ctx.fillText("نے پورا قرآنِ کریم مکمل کیا",W/2,600);
-
-    ctx.fillStyle="rgba(255,255,255,0.8)";
-    ctx.font="20px 'Noto Naskh Arabic', sans-serif";
-    ctx.fillText("اللہ تعالیٰ اس کلامِ پاک کی تلاوت کو قبول فرمائے",W/2,645);
-
-    var boxes=[
-      {x:130,lbl:"دن",val:plan.elapsed},
-      {x:W/2,lbl:"صفحات",val:plan.totalDone},
-      {x:W-130,lbl:"پارے",val:formatParah(plan.totalDoneParah)}
-    ];
-    boxes.forEach(function(b){
-      ctx.fillStyle="rgba(255,255,255,0.14)";
-      roundRect(ctx,b.x-90,720,180,120,16); ctx.fill();
-      ctx.strokeStyle="rgba(224,190,78,0.6)"; ctx.lineWidth=2;
-      roundRect(ctx,b.x-90,720,180,120,16); ctx.stroke();
-      ctx.fillStyle="#e0be4e";
-      ctx.font="bold 46px 'Amiri', serif";
-      ctx.textAlign="center";
-      ctx.fillText(String(b.val),b.x,790);
-      ctx.fillStyle="rgba(255,255,255,0.9)";
-      ctx.font="20px 'Noto Naskh Arabic', sans-serif";
-      ctx.fillText(b.lbl,b.x,815);
-    });
-
-    ctx.fillStyle="rgba(255,255,255,0.9)";
-    ctx.font="italic 22px 'Amiri', serif";
-    ctx.fillText("اللَّهُمَّ ارْحَمْنِي بِالْقُرْآنِ",W/2,910);
-    ctx.font="italic 20px 'Amiri', serif";
-    ctx.fillText("وَاجْعَلْهُ لِي إِمَامًا وَنُورًا وَهُدًى وَرَحْمَةً",W/2,945);
-
-    var d=new Date();
-    ctx.fillStyle="rgba(255,255,255,0.85)";
-    ctx.font="20px 'Noto Naskh Arabic', sans-serif";
-    ctx.fillText(formatDateUr(todayISO()),W/2,1020);
-    ctx.font="18px 'Noto Naskh Arabic', sans-serif";
-    ctx.fillStyle="rgba(255,255,255,0.65)";
-    ctx.fillText(hijriDate(d),W/2,1050);
-
-    ctx.fillStyle="rgba(224,190,78,0.9)";
-    ctx.font="18px 'Noto Naskh Arabic', sans-serif";
-    ctx.fillText("اسمارٹ قرآن روٹین ٹریکر • v5.5",W/2,1160);
-
-    try{
-      var dataURL=canvas.toDataURL("image/png");
-      var a=document.createElement("a");
-      a.href=dataURL;
-      a.download="quran-certificate-"+todayISO()+".png";
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      fbSuccess();
-      showToast("سرٹیفکیٹ ڈاؤن لوڈ ہو گیا 🎉");
-    }catch(e){ showToast("سرٹیفکیٹ بنانے میں مسئلہ"); }
-  }
-  function roundRect(ctx,x,y,w,h,r){
-    ctx.beginPath();
-    ctx.moveTo(x+r,y);
-    ctx.arcTo(x+w,y,x+w,y+h,r);
-    ctx.arcTo(x+w,y+h,x,y+h,r);
-    ctx.arcTo(x,y+h,x,y,r);
-    ctx.arcTo(x,y,x+w,y,r);
-    ctx.closePath();
-  }
-
-  function shareProgress(){
-    var plan=getPlan(), streak=calculateStreak();
-    var txt="🌟 میری قرآنِ کریم تلاوت کی پیش رفت\n\n"+
-            "🔥 مسلسل: "+streak+" دن\n"+
-            "📖 مکمل: "+plan.totalDone+"/"+plan.totalToRead+" صفحات\n"+
-            "📚 پارے: ≈ "+formatParah(plan.totalDoneParah)+"/"+formatParah(plan.totalToReadParah)+"\n"+
-            "📊 پیش رفت: "+Math.round((plan.totalDone/plan.totalToRead)*100)+"%\n\n"+
-            "اللہ ہم سب کو قرآن سے محبت عطا فرمائے 🤲";
-    if(navigator.share){
-      navigator.share({title:"قرآن روٹین ٹریکر",text:txt}).catch(function(){});
-    } else {
-      if(navigator.clipboard){
-        navigator.clipboard.writeText(txt).then(function(){ showToast("ٹیکسٹ کاپی ہو گیا"); }).catch(function(){ showToast("کاپی ناکام"); });
-      } else showToast("شیئر دستیاب نہیں");
-    }
-  }
-
-  function attachRipple(el){
-    if(!el) return;
-    el.addEventListener("click",function(e){
-      var rect=this.getBoundingClientRect();
-      var size=Math.max(rect.width,rect.height);
-      var x=e.clientX-rect.left-size/2;
-      var y=e.clientY-rect.top-size/2;
-      if(!rect.width||!rect.height){ x=rect.width/2-size/2; y=rect.height/2-size/2; }
-      var r=document.createElement("span");
-      r.className="ripple";
-      r.style.width=r.style.height=size+"px";
-      r.style.left=x+"px"; r.style.top=y+"px";
-      this.appendChild(r);
-      setTimeout(function(){ if(r.parentNode) r.parentNode.removeChild(r); },620);
-    });
-  }
-
-  function bindEvents(){
-    $("themeBtn").addEventListener("click",function(){
-      applyTheme(currentTheme==="dark"?"light":"dark");
-      fbTap();
-    });
-
-    var navBtns=document.querySelectorAll(".nav-btn"), i;
-    for(i=0;i<navBtns.length;i++){
-      navBtns[i].addEventListener("click",function(){
-        var t=this.getAttribute("data-tab"); if(t) switchTab(t);
-      });
-      attachRipple(navBtns[i]);
-    }
-
-    var swatches=document.querySelectorAll(".theme-swatch");
-    for(i=0;i<swatches.length;i++){
-      swatches[i].addEventListener("click",function(){
-        applySkin(this.getAttribute("data-skin"));
-        fbSuccess();
-        showToast("تھیم تبدیل ہو گیا");
-      });
-      attachRipple(swatches[i]);
-    }
-
-    $("modeSeg").addEventListener("click",function(e){
-      var t=e.target;
-      while(t&&t!==this){
-        if(t.classList&&t.classList.contains("seg")){
-          state.mode=t.getAttribute("data-mode");
-          updateModeUI(); updateChips(); return;
-        }
-        t=t.parentNode;
-      }
-    });
-
-    $("startMode").addEventListener("change",updateStartFields);
-
-    var chips=document.querySelectorAll(".chip");
-    for(i=0;i<chips.length;i++){
-      chips[i].addEventListener("click",function(){
-        var d=parseInt(this.getAttribute("data-days"),10);
-        state.mode="days"; $("totalDays").value=d;
-        updateModeUI(); updateChips();
-      });
-      attachRipple(chips[i]);
-    }
-
-    $("saveBtn").addEventListener("click",applySetup);
-    $("resetBtn").addEventListener("click",resetAll);
-    $("extraSaveBtn").addEventListener("click",saveExtra);
-    $("extraResetBtn").addEventListener("click",resetExtra);
-    $("testNotifBtn").addEventListener("click",function(){
-      requestNotifPermission().then(function(ok){
-        if(!ok){ showToast("اجازت نہیں"); return; }
-        var plan=getPlan();
-        sendNotification("📖 آزمائشی اطلاع","آج کا ہدف: "+plan.dailyTarget+" صفحات (≈ "+formatParah(plan.dailyTargetParah)+" پارہ)");
-        showToast("ٹیسٹ اطلاع بھیج دی");
-      });
-    });
-    $("exportBtn").addEventListener("click",exportData);
-    $("importBtn").addEventListener("click",function(){ $("importFile").click(); });
-    $("importFile").addEventListener("change",function(e){
-      var f=e.target.files&&e.target.files[0]; importData(f); e.target.value="";
-    });
-    $("openKhatmBtn").addEventListener("click",showKhatmModal);
-    $("certificateBtn").addEventListener("click",generateCertificate);
-
-    $("extraInput").addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); saveExtra(); } });
-
-    $("prayerList").addEventListener("click",function(e){
-      var t=e.target;
-      while(t&&t!==this){
-        if(t.classList&&t.classList.contains("prayer")){
-          togglePrayer(parseInt(t.getAttribute("data-idx"),10)); return;
-        }
-        t=t.parentNode;
-      }
-    });
-
-    $("reminderSwitch").addEventListener("click",toggleReminder);
-    $("reminderTime").addEventListener("change",function(){
-      var v=this.value;
-      if(/^\d{2}:\d{2}$/.test(v)){
-        reminder.time=v; saveReminder(); scheduleReminder();
-        showToast("وقت محفوظ: "+v);
-      }
-    });
-
-    $("khatmClose").addEventListener("click",hideKhatmModal);
-    $("khatmCloseBtn").addEventListener("click",hideKhatmModal);
-    $("khatmCertBtn").addEventListener("click",function(){ hideKhatmModal(); setTimeout(generateCertificate,300); });
-    $("khatmShareBtn").addEventListener("click",shareProgress);
-    $("khatmModal").addEventListener("click",function(e){ if(e.target===this) hideKhatmModal(); });
-
-    var rippleIds=["saveBtn","extraSaveBtn","extraResetBtn","exportBtn","importBtn","testNotifBtn","resetBtn","openKhatmBtn","certificateBtn"];
-    rippleIds.forEach(function(id){ attachRipple($(id)); });
-
-    document.addEventListener("visibilitychange",function(){
-      if(!document.hidden){ render(); scheduleReminder(); }
-    });
-    window.addEventListener("focus",function(){ render(); });
-
-    var lastDay=todayISO();
-    setInterval(function(){
-      var now=todayISO();
-      if(now!==lastDay){ lastDay=now; render(); scheduleReminder(); }
-    },60000);
-
-    window.addEventListener("orientationchange",function(){ setTimeout(function(){ if(weeklyChart) weeklyChart.resize(); },220); });
-    window.addEventListener("resize",function(){ if(weeklyChart) weeklyChart.resize(); });
-  }
-
-  function init(){
-    initThemeAndSkin();
-    state=loadState();
-    loadReminder();
-    loadAudioPrefs();
-    buildParahOptions();
-    fillSetupInputs();
-    updateReminderUI();
-    bindEvents();
-    render();
-    loadActiveTab();
-    setupAudio();
-    scheduleReminder();
-    save();
-    setTimeout(function(){ if($("panel-progress").classList.contains("active")) buildChart(); },400);
-  }
-
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
-  else init();
+/* INIT */
+function init(){
+  initThemeAndSkin();
+  state=loadState();
+  hifzState=loadHifz();
+  loadReminder();
+  loadAudioPrefs();
+  buildParahOptions();
+  fillSetupInputs();
+  updateReminderUI();
+  bindEvents();
+  render();
+  loadActiveTab();
+  setupAudio();
+  scheduleReminder();
+  save();saveHifz();
+  setTimeout(function(){if($("panel-progress").classList.contains("active")) buildChart();},400);
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+else init();
 })();
 </script>
 </body>
