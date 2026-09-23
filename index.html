@@ -2,65 +2,140 @@
 <html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0e7a5f">
-<title>قرآن روٹین ٹریکر</title>
+<title>اسمارٹ قرآن روٹین ٹریکر</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   RESET & GLOBAL
+   ============================================================ */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
 }
-
-html, body {
+html {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden !important;
-  background-color: #eef5f1;
-  font-family: 'Noto Naskh Arabic', sans-serif;
-  color: #0d2a20;
-  direction: rtl;
+  overflow-x: hidden;
+  background: #eef5f1;
+  -webkit-text-size-adjust: 100%;
 }
-
 body {
-  padding-bottom: 30px;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #eef5f1;
+  color: #0d2a20;
+  font-family: 'Noto Naskh Arabic', 'Segoe UI', Tahoma, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  direction: rtl;
+  text-align: right;
 }
 
-button, input, select {
+:root {
+  --bg: #eef5f1;
+  --card: #ffffff;
+  --card-2: #f5faf7;
+  --text: #0d2a20;
+  --muted: #5f7d70;
+  --emerald: #0e7a5f;
+  --emerald-dark: #0a5c47;
+  --emerald-soft: #d9f0e7;
+  --gold: #c9a227;
+  --gold-soft: #fbf1d4;
+  --border: #dcebe4;
+  --shadow: 0 4px 16px rgba(10, 60, 45, 0.08);
+  --radius: 16px;
+}
+
+button, input, select, textarea {
   font-family: inherit;
-  outline: none;
+  font-size: inherit;
+  color: inherit;
 }
+button { cursor: pointer; border: 0; background: none; }
+.hidden { display: none !important; }
 
-/* Header */
+/* ============================================================
+   HEADER
+   ============================================================ */
 .app-header {
   width: 100%;
-  background: linear-gradient(135deg, #0a5c47, #0e7a5f);
-  color: #fff;
-  padding: 16px 14px;
-  text-align: center;
-  border-radius: 0 0 20px 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 16px 14px 22px;
+  color: #ffffff;
+  border-radius: 0 0 22px 22px;
+  background: linear-gradient(135deg, #0a5c47 0%, #0e7a5f 55%, #13906e 100%);
+  box-shadow: 0 8px 22px rgba(10, 92, 71, 0.25);
+  position: relative;
+  overflow: hidden;
 }
-
-.app-header h1 {
-  font-size: 18px;
+.app-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.18) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 65%, rgba(255,255,255,0.12) 0 2px, transparent 3px);
+  background-size: 44px 44px, 66px 66px;
+}
+.header-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.logo {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+}
+.brand-text {
+  min-width: 0;
+}
+.brand-text h1 {
+  font-size: 16.5px;
   font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
 }
-
-.app-header p {
-  font-size: 12px;
+.brand-text p {
+  font-size: 11px;
   opacity: 0.85;
-  margin-top: 2px;
+  line-height: 1.5;
+  margin: 2px 0 0;
 }
 
-/* Container */
+/* ============================================================
+   LAYOUT
+   ============================================================ */
 .container {
   width: 100%;
-  max-width: 480px;
+  max-width: 640px;
   margin: 0 auto;
   padding: 12px;
   display: flex;
@@ -68,513 +143,1285 @@ button, input, select {
   gap: 12px;
 }
 
-/* Cards */
 .card {
   width: 100%;
-  background: #ffffff;
-  border-radius: 16px;
-  border: 1px solid #dcebe4;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   overflow: hidden;
+  animation: rise 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.card:nth-child(2) { animation-delay: 0.06s; }
+.card:nth-child(3) { animation-delay: 0.12s; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .card-head {
-  padding: 12px 14px;
-  background: #f6fbf8;
-  border-bottom: 1px solid #dcebe4;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--card-2), transparent);
 }
-
 .card-head h2 {
-  font-size: 15px;
-  color: #0e7a5f;
+  font-size: 14.5px;
+  font-weight: 700;
+  margin: 0;
+  min-width: 0;
 }
-
 .card-body {
   padding: 14px;
 }
 
-/* Form Elements */
-.field {
-  margin-bottom: 12px;
-  width: 100%;
+.pill {
+  flex: 0 0 auto;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--emerald);
+  background: var(--emerald-soft);
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
 }
+.ghost-btn {
+  flex: 0 0 auto;
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  background: transparent;
+  padding: 5px 12px;
+  border-radius: 999px;
+  transition: transform 0.15s ease;
+}
+.ghost-btn:active { transform: scale(0.94); }
 
+/* ============================================================
+   FORM FIELDS
+   ============================================================ */
+.field {
+  width: 100%;
+  margin-bottom: 13px;
+}
 .field label {
   display: block;
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 600;
-  color: #5f7d70;
-  margin-bottom: 5px;
+  color: var(--muted);
+  margin-bottom: 6px;
 }
-
-.field input, .field select {
+.field input,
+.field select {
+  display: block;
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1.5px solid #dcebe4;
-  background: #f9fdfb;
-  font-size: 14px;
-  color: #0d2a20;
-}
-
-/* Buttons */
-.btn {
-  width: 100%;
-  padding: 12px;
-  border: none;
+  max-width: 100%;
+  padding: 11px 13px;
   border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--card-2);
+  color: var(--text);
   font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field input:focus,
+.field select:focus {
+  border-color: var(--emerald);
+  box-shadow: 0 0 0 4px rgba(14, 122, 95, 0.12);
+}
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235f7d70' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 13px center;
+  padding-left: 36px;
+}
+.hint {
+  display: block;
+  margin-top: 5px;
+  font-size: 11.5px;
+  color: var(--muted);
 }
 
-.btn-primary {
-  background: #0e7a5f;
-  color: #ffffff;
-}
-
-.btn-ghost {
-  background: transparent;
-  border: 1px solid #dcebe4;
-  color: #5f7d70;
-  margin-top: 10px;
-}
-
-/* Quick Chips */
-.quick-box {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-
-.quick-box span {
-  font-size: 12px;
-  color: #5f7d70;
-}
-
-.chip {
-  flex: 1;
-  min-width: 60px;
-  padding: 6px 0;
-  text-align: center;
-  background: #f6fbf8;
-  border: 1px solid #dcebe4;
-  border-radius: 20px;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.chip.active {
-  background: #c9a227;
-  color: #fff;
-  border-color: #c9a227;
-  font-weight: bold;
-}
-
-/* Mode Buttons */
+/* ============================================================
+   SEGMENTED CONTROL
+   ============================================================ */
 .segmented {
   display: flex;
-  background: #f6fbf8;
-  border: 1px solid #dcebe4;
-  border-radius: 10px;
-  padding: 3px;
-}
-
-.seg-btn {
-  flex: 1;
-  padding: 8px;
-  border: none;
-  background: transparent;
-  font-size: 13px;
-  color: #5f7d70;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.seg-btn.active {
-  background: #0e7a5f;
-  color: #fff;
-  font-weight: bold;
-}
-
-/* Progress & Stats */
-.progress-bar {
   width: 100%;
-  height: 10px;
-  background: #d9f0e7;
-  border-radius: 10px;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--card-2);
+  border: 1.5px solid var(--border);
+}
+.seg {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 9px 6px;
+  border-radius: 9px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--muted);
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
   overflow: hidden;
-  margin: 6px 0;
+  text-overflow: ellipsis;
+}
+.seg.active {
+  color: #ffffff;
+  background: var(--emerald);
+  box-shadow: 0 3px 10px rgba(14, 122, 95, 0.3);
 }
 
-.progress-fill {
+/* ============================================================
+   QUICK CHIPS
+   ============================================================ */
+.quick-days {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin: 2px 0 14px;
+}
+.quick-days > span {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.chip {
+  font-size: 12.5px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--card-2);
+  color: var(--text);
+  transition: transform 0.15s, background 0.2s, border-color 0.2s;
+}
+.chip:active { transform: scale(0.94); }
+.chip.active {
+  font-weight: 700;
+  background: var(--gold-soft);
+  border-color: var(--gold);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 13px;
+  font-size: 15px;
+  font-weight: 700;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+.btn.primary {
+  color: #ffffff;
+  background: linear-gradient(135deg, #0e7a5f, #0a5c47);
+  box-shadow: 0 6px 18px rgba(14, 122, 95, 0.28);
+}
+.btn.primary:active {
+  transform: scale(0.98);
+  box-shadow: 0 3px 10px rgba(14, 122, 95, 0.3);
+}
+.btn.ghost {
+  margin-top: 13px;
+  color: var(--muted);
+  background: transparent;
+  border: 1.5px solid var(--border);
+  font-size: 13.5px;
+  padding: 10px;
+}
+.btn.ghost:active { transform: scale(0.98); }
+
+/* ============================================================
+   PROGRESS BARS
+   ============================================================ */
+.bar {
+  width: 100%;
+  height: 11px;
+  border-radius: 999px;
+  background: var(--emerald-soft);
+  overflow: hidden;
+}
+.bar > i {
+  display: block;
   height: 100%;
   width: 0%;
-  background: #0e7a5f;
-  transition: width 0.3s;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0e7a5f, #2ec79a);
+  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+.bar.gold { background: var(--gold-soft); }
+.bar.gold > i { background: linear-gradient(90deg, #c9a227, #f0cf6a); }
 
-.progress-fill.gold {
-  background: #c9a227;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.stat-card {
-  background: #f6fbf8;
-  border: 1px solid #dcebe4;
-  border-radius: 10px;
-  padding: 8px;
-  text-align: center;
-}
-
-.stat-card b {
-  display: block;
-  font-size: 18px;
-  color: #0e7a5f;
-}
-
-.stat-card span {
-  font-size: 11px;
-  color: #5f7d70;
-}
-
-/* Prayer List */
-.prayer-item {
+.progress-top,
+.progress-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 12px;
-  background: #f6fbf8;
-  border: 1.5px solid #dcebe4;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.progress-top { margin-bottom: 6px; }
+.progress-top strong {
+  color: var(--emerald);
+  font-size: 14.5px;
+  font-weight: 800;
+}
+.progress-bottom { margin-top: 6px; }
+.progress-bottom b { color: var(--text); }
+
+/* ============================================================
+   STATS
+   ============================================================ */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+.stat {
+  padding: 8px 4px;
   border-radius: 12px;
-  margin-bottom: 8px;
-  cursor: pointer;
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  text-align: center;
+  min-width: 0;
+}
+.stat b {
+  display: block;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--emerald);
+  line-height: 1.4;
+}
+.stat span {
+  display: block;
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.4;
 }
 
-.prayer-item.done {
-  background: #d9f0e7;
-  border-color: #0e7a5f;
+.note {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  line-height: 1.8;
+  background: var(--emerald-soft);
+  border: 1px dashed rgba(14, 122, 95, 0.4);
+  color: var(--text);
+}
+.target-info {
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.7;
 }
 
-.prayer-right {
+/* ============================================================
+   TODAY HERO
+   ============================================================ */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  min-width: 0;
+}
+.hero-num {
+  flex: 0 0 92px;
+  padding: 8px 6px;
+  border-radius: 14px;
+  color: #ffffff;
+  text-align: center;
+  background: linear-gradient(160deg, #0e7a5f, #0a5c47);
+  box-shadow: 0 6px 16px rgba(14, 122, 95, 0.28);
+}
+.hero-num span {
+  display: block;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.hero-num small {
+  display: block;
+  font-size: 10px;
+  opacity: 0.9;
+  margin-top: 2px;
+}
+.hero-right {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.mini-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.mini-top strong {
+  color: var(--text);
+  font-size: 13px;
+}
+.mini-bottom {
+  margin-top: 6px;
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   PRAYER LIST
+   ============================================================ */
+.prayer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.prayer {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 14px;
+  background: var(--card-2);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.25s, border-color 0.25s, transform 0.15s;
+  min-width: 0;
+}
+.prayer:active { transform: scale(0.985); }
+.prayer.done {
+  background: linear-gradient(90deg, rgba(14, 122, 95, 0.16), rgba(14, 122, 95, 0.02));
+  border-color: rgba(14, 122, 95, 0.55);
+}
+.prayer.locked { opacity: 0.68; }
+
+.check {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  border: 2px solid var(--border);
+  background: var(--card);
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+}
+.check svg {
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.25s, transform 0.25s;
+}
+.prayer.done .check {
+  background: var(--emerald);
+  border-color: var(--emerald);
+}
+.prayer.done .check svg {
+  opacity: 1;
+  transform: scale(1);
 }
 
-.check-box {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  border: 2px solid #dcebe4;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
+.prayer-info {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.prayer-name {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.prayer-range {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.prayer-count {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--emerald);
+  background: var(--emerald-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background 0.25s, color 0.25s;
+}
+.prayer.done .prayer-count {
+  background: var(--emerald);
+  color: #ffffff;
 }
 
-.prayer-item.done .check-box {
-  background: #0e7a5f;
-  border-color: #0e7a5f;
-  color: #fff;
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  z-index: 999;
+  max-width: 88vw;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #0d2a20;
+  color: #ffffff;
+  font-size: 13px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
-.hidden { display: none !important; }
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 360px) {
+  body { font-size: 14px; }
+  .hero-num { flex: 0 0 78px; }
+  .hero-num span { font-size: 24px; }
+  .stat b { font-size: 16px; }
+  .stat span { font-size: 10px; }
+  .prayer-name { font-size: 13px; }
+  .prayer-count { font-size: 10px; padding: 3px 8px; }
+}
+
+@media (min-width: 560px) {
+  .container { padding: 16px; }
+  .app-header { padding: 20px 20px 28px; }
+  .brand-text h1 { font-size: 18px; }
+}
 </style>
 </head>
 <body>
 
 <header class="app-header">
-  <h1>قرآن روٹین ٹریکر</h1>
-  <p>16 سطری (549 صفحات) نسخہ</p>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="logo">☪</div>
+      <div class="brand-text">
+        <h1>اسمارٹ قرآن روٹین ٹریکر</h1>
+        <p>روزانہ کا ہدف • پانچ نمازوں میں تقسیم • آسان ٹریکنگ</p>
+      </div>
+    </div>
+  </div>
 </header>
 
-<div class="container">
+<main class="container">
 
-  <!-- Setting Card -->
-  <div class="card">
+  <!-- ================= SETUP ================= -->
+  <section class="card">
     <div class="card-head">
       <h2>⚙️ روٹین کی ترتیب</h2>
+      <button class="ghost-btn" id="toggleSetup" type="button">چھپائیں</button>
     </div>
-    <div class="card-body">
-      
+    <div class="card-body" id="setupBody">
+
       <div class="field">
         <label for="startDate">شروع کی تاریخ</label>
         <input type="date" id="startDate">
       </div>
 
       <div class="field">
-        <label>ہدف کا تعین</label>
-        <div class="segmented">
-          <button type="button" class="seg-btn active" id="btnDays">دنوں میں</button>
-          <button type="button" class="seg-btn" id="btnDate">تاریخ سے</button>
+        <label>ہدف کا تعین کیسے کریں؟</label>
+        <div class="segmented" id="modeSeg">
+          <button type="button" class="seg active" data-mode="days">دنوں میں</button>
+          <button type="button" class="seg" data-mode="date">تاریخ سے</button>
         </div>
       </div>
 
-      <div class="field" id="boxDays">
+      <div class="field" id="daysField">
         <label for="totalDays">کل دن</label>
-        <input type="number" id="totalDays" value="30">
+        <input type="number" id="totalDays" min="1" max="3650" inputmode="numeric" value="30">
+        <small class="hint">مثلاً: 30 دن، 15 دن، 10 دن</small>
       </div>
 
-      <div class="field hidden" id="boxDate">
-        <label for="targetDate">آخری تاریخ</label>
+      <div class="field hidden" id="dateField">
+        <label for="targetDate">ہدف مکمل کرنے کی تاریخ</label>
         <input type="date" id="targetDate">
       </div>
 
-      <div class="quick-box" id="quickBox">
-        <span>فوری:</span>
-        <button type="button" class="chip" data-d="30">30 دن</button>
-        <button type="button" class="chip" data-d="15">15 دن</button>
-        <button type="button" class="chip" data-d="10">10 دن</button>
-        <button type="button" class="chip active" data-d="7">7 دن</button>
+      <div class="quick-days">
+        <span>فوری انتخاب:</span>
+        <button type="button" class="chip" data-days="30">30 دن</button>
+        <button type="button" class="chip" data-days="15">15 دن</button>
+        <button type="button" class="chip" data-days="10">10 دن</button>
+        <button type="button" class="chip" data-days="7">7 دن</button>
       </div>
 
       <div class="field">
         <label for="startMode">تلاوت کہاں سے شروع کریں؟</label>
         <select id="startMode">
-          <option value="page1">صفحہ 1 سے</option>
-          <option value="page">مخصوص صفحہ سے</option>
-          <option value="parah" selected>پارہ نمبر سے</option>
+          <option value="page1">پہلے صفحے سے (صفحہ 1)</option>
+          <option value="page">مخصوص صفحہ نمبر سے</option>
+          <option value="parah">پارہ نمبر سے</option>
         </select>
       </div>
 
-      <div class="field hidden" id="boxPage">
-        <label for="startPage">صفحہ نمبر (1-549)</label>
-        <input type="number" id="startPage" value="1">
+      <div class="field hidden" id="pageField">
+        <label for="startPage">صفحہ نمبر (1 تا 549)</label>
+        <input type="number" id="startPage" min="1" max="549" inputmode="numeric" value="1">
       </div>
 
-      <div class="field" id="boxParah">
+      <div class="field hidden" id="parahField">
         <label for="parahSelect">پارہ منتخب کریں</label>
         <select id="parahSelect"></select>
       </div>
 
-      <button type="button" class="btn btn-primary" id="saveBtn">✔ ترتیب محفوظ کریں</button>
+      <button class="btn primary" id="saveBtn" type="button">✔ ترتیب محفوظ کریں</button>
     </div>
-  </div>
+  </section>
 
-  <!-- Overall Progress Card -->
-  <div class="card">
+  <!-- ================= OVERVIEW ================= -->
+  <section class="card">
     <div class="card-head">
       <h2>📊 مجموعی پیش رفت</h2>
-      <span style="font-size: 12px; font-weight: bold; color: #0e7a5f;" id="pctTxt">0%</span>
+      <span class="pill" id="ovPctPill">0%</span>
     </div>
     <div class="card-body">
-      <div class="progress-bar">
-        <div class="progress-fill" id="mainFill"></div>
+      <div class="progress-top">
+        <span>پورا قرآن (<span id="ovTotalLabel">549</span> صفحات)</span>
+        <strong><span id="ovPct">0%</span></strong>
       </div>
-      <div class="stats-grid">
-        <div class="stat-card"><b id="stPage">183</b><span>شروع صفحہ</span></div>
-        <div class="stat-card"><b id="stCurrent">183</b><span>موجودہ صفحہ</span></div>
-        <div class="stat-card"><b id="stDays">7</b><span>کل دن</span></div>
-        <div class="stat-card"><b id="stDaily">53</b><span>روزانہ صفحات</span></div>
+      <div class="bar"><i id="ovBar"></i></div>
+      <div class="progress-bottom">
+        <span>پڑھے گئے: <b id="ovRead">0</b></span>
+        <span>باقی: <b id="ovLeft">549</b></span>
       </div>
-    </div>
-  </div>
 
-  <!-- Today's Target Card -->
-  <div class="card">
+      <div class="stats">
+        <div class="stat"><b id="stStart">1</b><span>آغاز صفحہ</span></div>
+        <div class="stat"><b id="stCurrent">1</b><span>اگلا صفحہ</span></div>
+        <div class="stat"><b id="stDaysLeft">30</b><span>باقی دن</span></div>
+        <div class="stat"><b id="stDaily">19</b><span>روزانہ ہدف</span></div>
+      </div>
+
+      <div class="note" id="statusNote">—</div>
+      <div class="target-info" id="targetInfo">—</div>
+    </div>
+  </section>
+
+  <!-- ================= TODAY ================= -->
+  <section class="card">
     <div class="card-head">
       <h2>📖 آج کا ہدف</h2>
-      <span style="font-size: 11px; color: #5f7d70;" id="todayTxt"></span>
+      <span class="pill" id="todayDate">—</span>
     </div>
     <div class="card-body">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-        <span style="font-size: 13px;">آج کی پیش رفت: <b id="todayDone">0</b> / <b id="todayTotal">0</b></span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill gold" id="todayFill"></div>
+
+      <div class="hero">
+        <div class="hero-num">
+          <span id="todayTarget">0</span>
+          <small>صفحات آج</small>
+        </div>
+        <div class="hero-right">
+          <div class="mini-top">
+            <span>آج کی پیش رفت</span>
+            <strong><span id="todayDone">0</span> / <span id="todayTotal">0</span></strong>
+          </div>
+          <div class="bar gold"><i id="todayBar"></i></div>
+          <div class="mini-bottom" id="todayMsg">—</div>
+        </div>
       </div>
 
-      <div id="prayerList" style="margin-top: 12px;"></div>
+      <div class="prayer-list" id="prayerList"></div>
 
-      <button type="button" class="btn btn-ghost" id="resetBtn">🔄 ڈیٹا ری سیٹ کریں</button>
+      <button class="btn ghost" id="resetBtn" type="button">🔄 سب کچھ ری سیٹ کریں</button>
     </div>
-  </div>
+  </section>
 
-</div>
+</main>
+
+<div class="toast" id="toast"></div>
 
 <script>
 (function () {
-  var KEY = 'quran_app_v4';
+  "use strict";
+
+  /* ============================================================
+     CONSTANTS
+     ============================================================ */
   var TOTAL_PAGES = 549;
+  var STORAGE_KEY = "smart_quran_routine_549_v1";
+
+  /* 16-line Madani Mushaf (549 pages) — Para start pages */
+  var PARAH_STARTS = [
+    1,   19,  37,  55,  73,  91,  109, 127, 145, 163,
+    181, 199, 217, 235, 253, 271, 289, 307, 325, 343,
+    361, 379, 397, 415, 433, 451, 469, 487, 505, 523
+  ];
 
   var PRAYERS = [
-    { name: 'فجر', icon: '🌅' },
-    { name: 'ظہر', icon: '☀️' },
-    { name: 'عصر', icon: '🌤️' },
-    { name: 'مغرب', icon: '🌇' },
-    { name: 'عشاء', icon: '🌙' }
+    { key: "fajr",    name: "فجر",   icon: "🌅" },
+    { key: "dhuhr",   name: "ظہر",   icon: "☀️" },
+    { key: "asr",     name: "عصر",   icon: "🌤️" },
+    { key: "maghrib", name: "مغرب",  icon: "🌇" },
+    { key: "isha",    name: "عشاء",  icon: "🌙" }
   ];
 
-  var PARAH_PAGES = [
-    1, 19, 37, 55, 73, 91, 109, 127, 145, 163,
-    183, 201, 219, 237, 255, 273, 291, 309, 327, 345,
-    363, 381, 399, 417, 435, 453, 471, 489, 507, 525
+  var URDU_MONTHS = [
+    "جنوری", "فروری", "مارچ", "اپریل", "مئی", "جون",
+    "جولائی", "اگست", "ستمبر", "اکتوبر", "نومبر", "دسمبر"
   ];
 
+  /* ============================================================
+     SMALL HELPERS
+     ============================================================ */
   function $(id) { return document.getElementById(id); }
-  function toISO(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
 
-  var state = {
-    startDate: toISO(new Date()),
-    mode: 'days',
-    totalDays: 7,
-    startMode: 'parah',
-    startPage: 183,
-    parah: 11,
-    log: {}
-  };
+  function clamp(v, a, b) {
+    if (v < a) return a;
+    if (v > b) return b;
+    return v;
+  }
 
-  function load() {
+  function pad2(n) { return n < 10 ? "0" + n : "" + n; }
+
+  function todayISO() {
+    var d = new Date();
+    return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+  }
+
+  function parseISO(s) {
+    var p = String(s).split("-");
+    return new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+  }
+
+  function addDaysISO(iso, n) {
+    var d = parseISO(iso);
+    d.setDate(d.getDate() + n);
+    return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+  }
+
+  function diffDays(aISO, bISO) {
+    var A = parseISO(aISO);
+    var B = parseISO(bISO);
+    A.setHours(0, 0, 0, 0);
+    B.setHours(0, 0, 0, 0);
+    return Math.round((B.getTime() - A.getTime()) / 86400000);
+  }
+
+  function formatDateUr(iso) {
+    var d = parseISO(iso);
+    return d.getDate() + " " + URDU_MONTHS[d.getMonth()] + " " + d.getFullYear();
+  }
+
+  /* ============================================================
+     STATE
+     ============================================================ */
+  var state = null;
+
+  function defaultState() {
+    var t = todayISO();
+    return {
+      startDate: t,
+      mode: "days",              /* "days" | "date" */
+      totalDays: 30,
+      targetDate: addDaysISO(t, 29),
+      startMode: "page1",        /* "page1" | "page" | "parah" */
+      startPage: 1,
+      parah: 1,
+      log: {}                    /* { "YYYY-MM-DD": { prayers: [{done, from, to, count}] } } */
+    };
+  }
+
+  function loadState() {
+    var def = defaultState();
     try {
-      var d = localStorage.getItem(KEY);
-      if (d) state = Object.assign(state, JSON.parse(d));
-    } catch(e) {}
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return def;
+      var parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== "object") return def;
+
+      var s = defaultState();
+      var k;
+      for (k in def) {
+        if (def.hasOwnProperty(k) && parsed.hasOwnProperty(k)) {
+          s[k] = parsed[k];
+        }
+      }
+      if (!s.log || typeof s.log !== "object" || Array.isArray(s.log)) {
+        s.log = {};
+      }
+      s.startPage = clamp(parseInt(s.startPage, 10) || 1, 1, TOTAL_PAGES);
+      s.parah = clamp(parseInt(s.parah, 10) || 1, 1, 30);
+      s.totalDays = clamp(parseInt(s.totalDays, 10) || 30, 1, 3650);
+      if (s.mode !== "days" && s.mode !== "date") s.mode = "days";
+      if (["page1", "page", "parah"].indexOf(s.startMode) === -1) s.startMode = "page1";
+      if (!s.startDate) s.startDate = todayISO();
+      if (!s.targetDate) s.targetDate = s.startDate;
+      return s;
+    } catch (e) {
+      return def;
+    }
   }
 
   function save() {
-    localStorage.setItem(KEY, JSON.stringify(state));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) { /* ignore quota errors */ }
   }
 
-  function initParah() {
-    var s = $('parahSelect');
-    var h = '';
-    for(var i=1; i<=30; i++){
-      h += '<option value="'+i+'">پارہ '+i+' (صفحہ '+PARAH_PAGES[i-1]+')</option>';
+  /* ============================================================
+     PROGRESS CALCULATIONS
+     ============================================================ */
+  function pagesDoneBeforeToday() {
+    var today = todayISO();
+    var sum = 0;
+    var d;
+    for (d in state.log) {
+      if (!state.log.hasOwnProperty(d)) continue;
+      if (d >= today) continue;
+      var day = state.log[d];
+      if (!day || !day.prayers || !day.prayers.length) continue;
+      var i;
+      for (i = 0; i < day.prayers.length; i++) {
+        var p = day.prayers[i];
+        if (p && p.done && typeof p.count === "number" && p.count > 0) {
+          sum += p.count;
+        }
+      }
     }
-    s.innerHTML = h;
+    return sum;
   }
 
-  function render() {
-    $('startDate').value = state.startDate;
-    $('totalDays').value = state.totalDays;
-    $('startMode').value = state.startMode;
-    $('parahSelect').value = state.parah;
+  function pagesDoneToday() {
+    var today = todayISO();
+    var day = state.log[today];
+    if (!day || !day.prayers || !day.prayers.length) return 0;
+    var sum = 0;
+    var i;
+    for (i = 0; i < day.prayers.length; i++) {
+      var p = day.prayers[i];
+      if (p && p.done && typeof p.count === "number" && p.count > 0) {
+        sum += p.count;
+      }
+    }
+    return sum;
+  }
 
-    // Calc
-    var startP = state.startPage;
-    var remPages = TOTAL_PAGES - startP + 1;
-    var daily = Math.ceil(remPages / state.totalDays);
+  function getPlan() {
+    var today = todayISO();
+    var startPage = clamp(state.startPage, 1, TOTAL_PAGES);
+    var totalToRead = TOTAL_PAGES - startPage + 1;
 
-    $('stPage').textContent = startP;
-    $('stDays').textContent = state.totalDays;
-    $('stDaily').textContent = daily;
+    var doneBefore = pagesDoneBeforeToday();
+    if (doneBefore > totalToRead) doneBefore = totalToRead;
 
-    var todayKey = toISO(new Date());
-    var todayLog = state.log[todayKey] || [false, false, false, false, false];
+    var dayStartPage = startPage + doneBefore;
+    var remainingAtDayStart = TOTAL_PAGES - dayStartPage + 1;
+    if (remainingAtDayStart < 0) remainingAtDayStart = 0;
 
-    // Build Prayer Targets
-    var base = Math.floor(daily / 5);
-    var rem = daily % 5;
-    var cur = startP;
+    var rawDaysLeft = diffDays(today, state.targetDate) + 1;
+    var daysLeftDisplay = rawDaysLeft < 0 ? 0 : rawDaysLeft;
+    var overdue = rawDaysLeft < 1;
+    var remainingDays = rawDaysLeft < 1 ? 1 : rawDaysLeft;
 
-    var doneCount = 0;
-    var listHtml = '';
+    var dailyTarget = remainingAtDayStart > 0
+      ? Math.ceil(remainingAtDayStart / remainingDays)
+      : 0;
 
-    PRAYERS.forEach(function(p, i) {
+    /* --- split evenly across the 5 prayers, sequentially --- */
+    var base = Math.floor(dailyTarget / 5);
+    var rem = dailyTarget % 5;
+    var cursor = dayStartPage;
+    var items = [];
+    var i;
+
+    for (i = 0; i < 5; i++) {
       var cnt = base + (i < rem ? 1 : 0);
-      var from = cur;
-      var to = cnt > 0 ? (cur + cnt - 1) : cur;
-      cur += cnt;
+      var from = cursor;
+      var to = cnt > 0 ? cursor + cnt - 1 : cursor - 1;
+      if (to > TOTAL_PAGES) to = TOTAL_PAGES;
+      cursor += cnt;
+      items.push({
+        key: PRAYERS[i].key,
+        name: PRAYERS[i].name,
+        icon: PRAYERS[i].icon,
+        from: from,
+        to: to,
+        count: cnt
+      });
+    }
 
-      var isDone = !!todayLog[i];
-      if (isDone) doneCount += cnt;
+    var doneToday = pagesDoneToday();
+    var totalDone = doneBefore + doneToday;
+    if (totalDone > totalToRead) totalDone = totalToRead;
 
-      listHtml += '<div class="prayer-item '+(isDone?'done':'')+'" onclick="togglePrayer('+i+')">' +
-        '<div class="prayer-right">' +
-          '<div class="check-box">'+(isDone?'✔':'')+'</div>' +
-          '<div><b>'+p.icon+' '+p.name+'</b> <span style="font-size:11px; color:#5f7d70;">(صفحہ '+from+' تا '+to+')</span></div>' +
-        '</div>' +
-        '<div style="font-size:12px; font-weight:bold; color:#0e7a5f;">'+cnt+' صفحات</div>' +
-      '</div>';
-    });
-
-    $('prayerList').innerHTML = listHtml;
-    $('todayDone').textContent = doneCount;
-    $('todayTotal').textContent = daily;
-    $('todayFill').style.width = Math.min(100, Math.round((doneCount / daily) * 100)) + '%';
+    return {
+      startPage: startPage,
+      totalToRead: totalToRead,
+      doneBefore: doneBefore,
+      doneToday: doneToday,
+      totalDone: totalDone,
+      remainingPages: totalToRead - totalDone,
+      daysLeft: daysLeftDisplay,
+      overdue: overdue,
+      dailyTarget: dailyTarget,
+      items: items,
+      currentPage: startPage + totalDone,
+      dayStartPage: dayStartPage
+    };
   }
 
-  window.togglePrayer = function(idx) {
-    var todayKey = toISO(new Date());
-    if(!state.log[todayKey]) state.log[todayKey] = [false, false, false, false, false];
-    state.log[todayKey][idx] = !state.log[todayKey][idx];
+  /* ============================================================
+     LOG SYNC (never overwrites a completed prayer)
+     ============================================================ */
+  function syncToday(plan) {
+    var today = todayISO();
+    var day = state.log[today];
+    if (!day || typeof day !== "object") {
+      day = state.log[today] = { prayers: [] };
+    }
+    if (!day.prayers || !day.prayers.length) day.prayers = [];
+
+    var i;
+    for (i = 0; i < 5; i++) {
+      var it = plan.items[i];
+      var prev = day.prayers[i];
+      if (prev && prev.done) continue;
+      day.prayers[i] = {
+        done: false,
+        from: it.from,
+        to: it.to,
+        count: it.count
+      };
+    }
+    if (day.prayers.length > 5) day.prayers.length = 5;
+  }
+
+  function pruneLog() {
+    var today = todayISO();
+    var d;
+    for (d in state.log) {
+      if (!state.log.hasOwnProperty(d)) continue;
+      if (d === today) continue;
+      var day = state.log[d];
+      var any = false;
+      if (day && day.prayers && day.prayers.length) {
+        var i;
+        for (i = 0; i < day.prayers.length; i++) {
+          if (day.prayers[i] && day.prayers[i].done) { any = true; break; }
+        }
+      }
+      if (!any) delete state.log[d];
+    }
+  }
+
+  /* ============================================================
+     RENDER
+     ============================================================ */
+  function render() {
+    var plan = getPlan();
+    syncToday(plan);
+    pruneLog();
+    save();
+    renderOverview(plan);
+    renderToday(plan);
+    renderPrayers(plan);
+  }
+
+  function renderOverview(plan) {
+    var pct = plan.totalToRead > 0
+      ? (plan.totalDone / plan.totalToRead) * 100
+      : 0;
+    if (pct > 100) pct = 100;
+    var pctR = Math.round(pct);
+
+    $("ovBar").style.width = pct + "%";
+    $("ovPct").textContent = pctR + "%";
+    $("ovPctPill").textContent = pctR + "%";
+    $("ovRead").textContent = plan.totalDone;
+    $("ovLeft").textContent = plan.remainingPages;
+    $("ovTotalLabel").textContent = plan.totalToRead;
+
+    $("stStart").textContent = plan.startPage;
+    $("stCurrent").textContent = plan.remainingPages > 0 ? plan.currentPage : "—";
+    $("stDaysLeft").textContent = plan.overdue ? "0" : plan.daysLeft;
+    $("stDaily").textContent = plan.dailyTarget;
+
+    var note = "";
+    if (plan.remainingPages === 0) {
+      note = "🎉 ماشاءاللہ! آپ نے پورا قرآنِ کریم مکمل کر لیا ہے۔ اللہ قبول فرمائے۔";
+    } else if (plan.overdue) {
+      note = "⚠️ ہدف کی تاریخ گزر چکی ہے۔ باقی " + plan.remainingPages +
+             " صفحات جلد مکمل کریں — روزانہ ہدف خودکار طور پر بڑھا دیا گیا ہے۔";
+    } else {
+      var elapsed = diffDays(state.startDate, todayISO()) + 1;
+      if (elapsed < 1) elapsed = 1;
+      var totalD = state.totalDays > 0 ? state.totalDays : 1;
+      var expected = Math.ceil((plan.totalToRead * Math.min(elapsed, totalD)) / totalD);
+      if (expected > plan.totalToRead) expected = plan.totalToRead;
+      var diff = plan.totalDone - expected;
+
+      if (diff < -1) {
+        note = "📌 آپ شیڈول سے " + Math.abs(diff) +
+               " صفحات پیچھے ہیں — روزانہ ہدف خودکار بڑھا دیا گیا ہے۔";
+      } else if (diff > 1) {
+        note = "🌟 ماشاءاللہ! آپ شیڈول سے " + diff + " صفحات آگے ہیں۔";
+      } else {
+        note = "✅ آپ شیڈول کے عین مطابق چل رہے ہیں۔ اللہ آسانی فرمائے۔";
+      }
+    }
+    $("statusNote").textContent = note;
+    $("targetInfo").textContent =
+      "ہدف کی تاریخ: " + formatDateUr(state.targetDate) +
+      "  •  کل " + state.totalDays + " دن";
+  }
+
+  function renderToday(plan) {
+    $("todayDate").textContent = formatDateUr(todayISO());
+    $("todayTarget").textContent = plan.dailyTarget;
+
+    var done = plan.doneToday;
+    var pct;
+    if (plan.dailyTarget > 0) {
+      pct = (done / plan.dailyTarget) * 100;
+    } else {
+      pct = done > 0 ? 100 : 0;
+    }
+    if (pct > 100) pct = 100;
+
+    $("todayBar").style.width = pct + "%";
+    $("todayDone").textContent = done;
+    $("todayTotal").textContent = plan.dailyTarget;
+
+    var msg;
+    if (plan.dailyTarget === 0) {
+      msg = "🎉 پورا قرآن مکمل — کوئی باقی صفحہ نہیں";
+    } else if (done >= plan.dailyTarget) {
+      msg = "✅ آج کا ہدف مکمل — اللہ قبول فرمائے";
+    } else {
+      msg = "ابھی " + (plan.dailyTarget - done) + " صفحات باقی ہیں";
+    }
+    $("todayMsg").textContent = msg;
+  }
+
+  function renderPrayers(plan) {
+    var today = todayISO();
+    var day = state.log[today] || { prayers: [] };
+    var html = "";
+    var i;
+
+    for (i = 0; i < 5; i++) {
+      var it = plan.items[i];
+      var entry = day.prayers[i] || {};
+      var done = !!entry.done;
+      var locked = it.count === 0;
+
+      var rangeTxt = it.count > 0
+        ? "صفحہ " + it.from + " تا " + it.to
+        : "ہدف مکمل — پڑھائی ختم";
+
+      var countTxt = it.count > 0 ? it.count + " صفحات" : "—";
+
+      html += '<div class="prayer' +
+              (done ? " done" : "") +
+              (locked ? " locked" : "") +
+              '" data-idx="' + i + '">';
+      html +=   '<div class="check">';
+      html +=     '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">';
+      html +=       '<path d="M20 6L9 17l-5-5" fill="none" stroke="#ffffff" ' +
+                    'stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+      html +=     "</svg>";
+      html +=   "</div>";
+      html +=   '<div class="prayer-info">';
+      html +=     '<div class="prayer-name">' + it.icon + " " + it.name + "</div>";
+      html +=     '<div class="prayer-range">' + rangeTxt + "</div>";
+      html +=   "</div>";
+      html +=   '<div class="prayer-count">' + countTxt + "</div>";
+      html += "</div>";
+    }
+
+    $("prayerList").innerHTML = html;
+  }
+
+  /* ============================================================
+     ACTIONS
+     ============================================================ */
+  function togglePrayer(idx) {
+    var today = todayISO();
+    var day = state.log[today];
+    if (!day || !day.prayers || !day.prayers[idx]) return;
+
+    var entry = day.prayers[idx];
+    if (!entry.done && (!entry.count || entry.count <= 0)) {
+      showToast("یہ ہدف پہلے ہی مکمل ہے");
+      return;
+    }
+
+    entry.done = !entry.done;
     save();
     render();
-  };
 
-  function bindEvents() {
-    $('btnDays').onclick = function() {
-      state.mode = 'days';
-      $('btnDays').classList.add('active');
-      $('btnDate').classList.remove('active');
-      $('boxDays').classList.remove('hidden');
-      $('boxDate').classList.add('hidden');
-    };
-
-    $('btnDate').onclick = function() {
-      state.mode = 'date';
-      $('btnDate').classList.add('active');
-      $('btnDays').classList.remove('active');
-      $('boxDate').classList.remove('hidden');
-      $('boxDays').classList.add('hidden');
-    };
-
-    var chips = $('quickBox').querySelectorAll('.chip');
-    chips.forEach(function(c) {
-      c.onclick = function() {
-        chips.forEach(function(x){x.classList.remove('active');});
-        this.classList.add('active');
-        $('totalDays').value = this.getAttribute('data-d');
-      };
-    });
-
-    $('startMode').onchange = function() {
-      $('boxPage').classList.toggle('hidden', this.value !== 'page');
-      $('boxParah').classList.toggle('hidden', this.value !== 'parah');
-    };
-
-    $('saveBtn').onclick = function() {
-      state.startDate = $('startDate').value || toISO(new Date());
-      state.totalDays = parseInt($('totalDays').value, 10) || 7;
-      state.startMode = $('startMode').value;
-
-      if(state.startMode === 'page1') state.startPage = 1;
-      else if(state.startMode === 'page') state.startPage = parseInt($('startPage').value, 10) || 1;
-      else {
-        state.parah = parseInt($('parahSelect').value, 10) || 1;
-        state.startPage = PARAH_PAGES[state.parah - 1];
+    if (entry.done) {
+      showToast("ماشاءاللہ! " + PRAYERS[idx].name + " مکمل 🌿");
+      if (navigator.vibrate) {
+        try { navigator.vibrate(15); } catch (e) {}
       }
-
-      save();
-      render();
-      alert('ترتیب درست طریقے سے محفوظ کر لی گئی ہے!');
-    };
-
-    $('resetBtn').onclick = function() {
-      if(confirm('ری سیٹ کریں؟')) {
-        localStorage.removeItem(KEY);
-        location.reload();
-      }
-    };
+    }
   }
 
-  load();
-  initParah();
-  bindEvents();
-  render();
+  function applySetup() {
+    var startDate = $("startDate").value || todayISO();
+    var mode = state.mode;
+    var totalDays = parseInt($("totalDays").value, 10);
+    var targetDate = $("targetDate").value;
+
+    if (mode === "days") {
+      if (!totalDays || totalDays < 1) totalDays = 1;
+      if (totalDays > 3650) totalDays = 3650;
+      targetDate = addDaysISO(startDate, totalDays - 1);
+    } else {
+      if (!targetDate) targetDate = startDate;
+      if (diffDays(startDate, targetDate) < 0) targetDate = startDate;
+      totalDays = diffDays(startDate, targetDate) + 1;
+    }
+
+    var sm = $("startMode").value;
+    var startPage = 1;
+    var parah = 1;
+
+    if (sm === "page1") {
+      startPage = 1;
+    } else if (sm === "page") {
+      startPage = clamp(parseInt($("startPage").value, 10) || 1, 1, TOTAL_PAGES);
+    } else {
+      parah = clamp(parseInt($("parahSelect").value, 10) || 1, 1, 30);
+      startPage = PARAH_STARTS[parah - 1];
+    }
+
+    var startChanged = (startPage !== state.startPage);
+
+    state.startDate = startDate;
+    state.mode = mode;
+    state.totalDays = totalDays;
+    state.targetDate = targetDate;
+    state.startMode = sm;
+    state.startPage = startPage;
+    state.parah = parah;
+
+    if (startChanged) state.log = {};
+
+    save();
+    fillSetupInputs();
+    render();
+
+    showToast(startChanged
+      ? "ترتیب محفوظ — پیش رفت ری سیٹ ہو گئی"
+      : "ترتیب محفوظ ہو گئی ✔");
+  }
+
+  function resetAll() {
+    if (!confirm("کیا آپ واقعی ساری پیش رفت اور ترتیب ری سیٹ کرنا چاہتے ہیں؟")) return;
+    var t = todayISO();
+    state = defaultState();
+    state.startDate = t;
+    state.targetDate = addDaysISO(t, 29);
+    save();
+    fillSetupInputs();
+    render();
+    showToast("سب کچھ ری سیٹ ہو گیا");
+  }
+
+  /* ============================================================
+     TOAST
+     ============================================================ */
+  var toastTimer = null;
+  function showToast(msg) {
+    var el = $("toast");
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add("show");
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      el.classList.remove("show");
+    }, 2000);
+  }
+
+  /* ============================================================
+     SETUP UI
+     ============================================================ */
+  function buildParahOptions() {
+    var sel = $("parahSelect");
+    var html = "";
+    var i;
+    for (i = 0; i < 30; i++) {
+      html += '<option value="' + (i + 1) + '">پارہ ' + (i + 1) +
+              " (صفحہ " + PARAH_STARTS[i] + ")</option>";
+    }
+    sel.innerHTML = html;
+  }
+
+  function updateModeUI() {
+    var isDays = state.mode === "days";
+    $("daysField").className = "field" + (isDays ? "" : " hidden");
+    $("dateField").className = "field" + (isDays ? " hidden" : "");
+
+    var segs = $("modeSeg").children;
+    var i;
+    for (i = 0; i < segs.length; i++) {
+      var b = segs[i];
+      if (b.getAttribute("data-mode") === state.mode) {
+        b.classList.add("active");
+      } else {
+        b.classList.remove("active");
+      }
+    }
+  }
+
+  function updateStartFields() {
+    var mode = $("startMode").value;
+    $("pageField").className = "field" + (mode === "page" ? "" : " hidden");
+    $("parahField").className = "field" + (mode === "parah" ? "" : " hidden");
+  }
+
+  function updateChips() {
+    var chips = document.querySelectorAll(".chip");
+    var i;
+    for (i = 0; i < chips.length; i++) {
+      var c = chips[i];
+      var v = parseInt(c.getAttribute("data-days"), 10);
+      if (state.mode === "days" && v === state.totalDays) {
+        c.classList.add("active");
+      } else {
+        c.classList.remove("active");
+      }
+    }
+  }
+
+  function fillSetupInputs() {
+    $("startDate").value = state.startDate;
+    $("totalDays").value = state.totalDays;
+    $("targetDate").value = state.targetDate;
+    $("startMode").value = state.startMode;
+    $("startPage").value = state.startPage;
+    $("parahSelect").value = String(state.parah);
+
+    updateModeUI();
+    updateStartFields();
+    updateChips();
+  }
+
+  /* ============================================================
+     EVENT BINDINGS
+     ============================================================ */
+  function bindEvents() {
+
+    $("toggleSetup").addEventListener("click", function () {
+      var body = $("setupBody");
+      if (body.classList.contains("hidden")) {
+        body.classList.remove("hidden");
+        this.textContent = "چھپائیں";
+      } else {
+        body.classList.add("hidden");
+        this.textContent = "دکھائیں";
+      }
+    });
+
+    $("modeSeg").addEventListener("click", function (e) {
+      var t = e.target;
+      while (t && t !== this) {
+        if (t.classList && t.classList.contains("seg")) {
+          state.mode = t.getAttribute("data-mode");
+          updateModeUI();
+          updateChips();
+          return;
+        }
+        t = t.parentNode;
+      }
+    });
+
+    $("startMode").addEventListener("change", updateStartFields);
+
+    var chips = document.querySelectorAll(".chip");
+    var i;
+    for (i = 0; i < chips.length; i++) {
+      chips[i].addEventListener("click", function () {
+        var d = parseInt(this.getAttribute("data-days"), 10);
+        state.mode = "days";
+        $("totalDays").value = d;
+        updateModeUI();
+        updateChips();
+      });
+    }
+
+    $("saveBtn").addEventListener("click", applySetup);
+    $("resetBtn").addEventListener("click", resetAll);
+
+    $("prayerList").addEventListener("click", function (e) {
+      var t = e.target;
+      while (t && t !== this) {
+        if (t.classList && t.classList.contains("prayer")) {
+          togglePrayer(parseInt(t.getAttribute("data-idx"), 10));
+          return;
+        }
+        t = t.parentNode;
+      }
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) render();
+    });
+    window.addEventListener("focus", function () { render(); });
+
+    var lastDay = todayISO();
+    setInterval(function () {
+      var now = todayISO();
+      if (now !== lastDay) {
+        lastDay = now;
+        render();
+      }
+    }, 60000);
+  }
+
+  /* ============================================================
+     INIT
+     ============================================================ */
+  function init() {
+    state = loadState();
+    buildParahOptions();
+    fillSetupInputs();
+    bindEvents();
+    render();
+    save();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
 })();
 </script>
 </body>
